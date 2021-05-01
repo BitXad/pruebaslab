@@ -35,7 +35,7 @@
                 <nav class="navbar navbar-static-top">
                     <!-- Sidebar toggle button-->
                     <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">Navegación</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -167,7 +167,7 @@
                             </a>
                             <ul class="treeview-menu">
 								<li class="active">
-                                    <a href="<?php echo site_url('prueba/add');?>"><i class="fa fa-plus"></i> Añadir</a>
+                                    <a href="<?php echo site_url('prueba/add');?>"><i class="fa fa-plus"></i> Registrar</a>
                                 </li>
 								<li>
                                     <a href="<?php echo site_url('prueba/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
@@ -208,7 +208,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Main content -->
-                <section class="content">
+                <section class="content" style="padding:0;">
                     <?php                    
                     if(isset($_view) && $_view)
                         $this->load->view($_view);
@@ -218,7 +218,7 @@
             </div>
             <!-- /.content-wrapper -->
             <footer class="main-footer">
-                <strong>Desarrollado por <a href="https://www.passwordbolivia.com/" target="_blank">R. Carlos Soto Sierra</a></strong>
+                <!--<strong>Desarrollado por <a href="https://www.passwordbolivia.com/" target="_blank">R. Carlos Soto Sierra</a></strong>-->
             </footer>
 
             <!-- Control Sidebar -->

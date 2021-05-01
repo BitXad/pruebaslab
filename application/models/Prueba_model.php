@@ -16,19 +16,49 @@ class Prueba_model extends CI_Model
      */
     function get_prueba($prueba_id)
     {
-        $prueba = $this->db->query("
-            SELECT
-                *
-
-            FROM
-                `prueba`
-
-            WHERE
-                `prueba_id` = ?
-        ",array($prueba_id))->row_array();
+        $sql = "select r.*, p.*, u.*, t.*,g.*
+                from prueba r
+                left join paciente p on p.paciente_id = r.paciente_id
+                left join genero g on p.genero_id = g.genero_id
+                left join usuario u on u.usuario_id = r.usuario_id
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id 
+                where r.prueba_id = ".$prueba_id;
+        
+        $prueba = $this->db->query($sql)->row_array();
 
         return $prueba;
     }
+    
+    
+    function get_prueba_md5($prueba_id)
+    {
+        $sql = "select r.*, p.*, u.*, t.*,g.*
+                from prueba r
+                left join paciente p on p.paciente_id = r.paciente_id
+                left join genero g on p.genero_id = g.genero_id
+                left join usuario u on u.usuario_id = r.usuario_id
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id 
+                where md5(r.prueba_id) = '".$prueba_id."'";
+        
+        $prueba = $this->db->query($sql)->row_array();
+
+        return $prueba;
+    }
+    
+    
+    function get_pruebas()
+    {
+        $sql = "select r.*, p.*, u.*, t.*
+                from prueba r
+                left join paciente p on p.paciente_id = r.paciente_id
+                left join usuario u on u.usuario_id = r.usuario_id
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id";
+        
+        $prueba = $this->db->query($sql)->result_array();
+        return $prueba;
+    }
+    
+    
     
     /*
      * Get all prueba count

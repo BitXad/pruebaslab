@@ -8,10 +8,10 @@
           	<div class="box-body">
           		<div class="row clearfix">
 					<div class="col-md-6">
-						<label for="usuario_id" class="control-label">Usuario</label>
+						<label for="usuario_id" class="control-label">Responsable</label>
 						<div class="form-group">
 							<select name="usuario_id" class="form-control">
-								<option value="">select usuario</option>
+								<option value="">- USUARIO -</option>
 								<?php 
 								foreach($all_usuario as $usuario)
 								{
@@ -27,13 +27,13 @@
 						<label for="tipoprueba_id" class="control-label">Tipo Prueba</label>
 						<div class="form-group">
 							<select name="tipoprueba_id" class="form-control">
-								<option value="">select tipo_prueba</option>
+								<option value="">- TIPO DE PRUEBA -</option>
 								<?php 
 								foreach($all_tipo_prueba as $tipo_prueba)
 								{
 									$selected = ($tipo_prueba['tipoprueba_id'] == $this->input->post('tipoprueba_id')) ? ' selected="selected"' : "";
 
-									echo '<option value="'.$tipo_prueba['tipoprueba_id'].'" '.$selected.'>'.$tipo_prueba['tipoprueba_id'].'</option>';
+									echo '<option value="'.$tipo_prueba['tipoprueba_id'].'" '.$selected.'>'.$tipo_prueba['tipoprueba_descripcion'].'</option>';
 								} 
 								?>
 							</select>
@@ -43,7 +43,7 @@
 						<label for="paciente_id" class="control-label">Paciente</label>
 						<div class="form-group">
 							<select name="paciente_id" class="form-control">
-								<option value="">select paciente</option>
+								<option value="">- PACIENTE -</option>
 								<?php 
 								foreach($all_paciente as $paciente)
 								{

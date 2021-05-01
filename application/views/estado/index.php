@@ -8,6 +8,7 @@
         <!--<a href="<?php //echo site_url('estado/add'); ?>" class="btn btn-success btn-sm"><fa class='fa fa-pencil-square-o'></fa> Registrar Estado</a>-->
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
         <div class="box">

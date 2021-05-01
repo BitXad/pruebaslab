@@ -25,7 +25,8 @@ class Prueba extends CI_Controller{
         $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
         $this->pagination->initialize($config);
 
-        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+        $data['prueba'] = $this->Prueba_model->get_pruebas();
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         
         $data['_view'] = 'prueba/index';
@@ -159,6 +160,93 @@ class Prueba extends CI_Controller{
         }
         else
             show_error('The prueba you are trying to delete does not exist.');
+    }
+    
+    function resultado($prueba_id){
+        
+//        $config = $this->config->item('pagination');
+//        $config['base_url'] = site_url('prueba/index?');
+//        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
+//        $this->pagination->initialize($config);
+
+//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+        $pruebita = $this->Prueba_model->get_prueba($prueba_id);
+        $data['prueba'] = $pruebita;
+        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        
+        $usuario_id = 1;
+        //$cadenaQR = $pruebita['paciente_nombre']."|".;
+        //$enlace = base_url("prueba/resultado_prueba/".md5($prueba_id));
+        $enlace =   "https://www.testcenterbolivia.com/sislab/prueba/resultado_prueba/".md5($prueba_id);
+        
+        $cadenaQR = $pruebita['paciente_nombre']."|".$pruebita['tipoprueba_descripcion'].
+                    "|".$pruebita['prueba_resultados']."|".
+                    "00".$pruebita['prueba_id']."|".$pruebita['prueba_fechainforme']."|".$enlace;
+               
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+        //Generador de Codigo QR
+                //cargamos la librería	
+         $this->load->library('ciqrcode');
+                 
+         //hacemos configuraciones
+         $params['data'] = $cadenaQR;//$this->random(30);
+         $params['level'] = 'H';
+         $params['size'] = 5;
+         //decimos el directorio a guardar el codigo qr, en este 
+         //caso una carpeta en la raíz llamada qr_code
+         $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //generamos el código qr
+         $this->ciqrcode->generate($params); 
+         //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
+        //fin generador de codigo QR        
+        
+        $data['codigoqr'] = base_url('resources/images/qrcode'.$usuario_id.'.png');        
+        
+        $data['_view'] = 'prueba/resultado';
+        $this->load->view('layouts/main',$data);        
+        
+    }
+    
+    function resultado_prueba($prueba_id){
+        
+//        $config = $this->config->item('pagination');
+//        $config['base_url'] = site_url('prueba/index?');
+//        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
+//        $this->pagination->initialize($config);
+
+//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+        $pruebita = $this->Prueba_model->get_prueba_md5($prueba_id);
+        $data['prueba'] = $pruebita;
+        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        
+        $usuario_id = 1;
+        //$cadenaQR = $pruebita['paciente_nombre']."|".;
+        $cadenaQR = $pruebita['paciente_nombre']."|".$pruebita['tipoprueba_descripcion'].
+                    "|".$pruebita['prueba_resultados']."|".
+                    "00".$pruebita['prueba_id']."|".$pruebita['prueba_fechainforme'];
+               
+        $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
+        //Generador de Codigo QR
+                //cargamos la librería	
+         $this->load->library('ciqrcode');
+                 
+         //hacemos configuraciones
+         $params['data'] = $cadenaQR;//$this->random(30);
+         $params['level'] = 'H';
+         $params['size'] = 5;
+         //decimos el directorio a guardar el codigo qr, en este 
+         //caso una carpeta en la raíz llamada qr_code
+         $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //generamos el código qr
+         $this->ciqrcode->generate($params); 
+         //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
+        //fin generador de codigo QR        
+        
+        $data['codigoqr'] = base_url('resources/images/qrcode'.$usuario_id.'.png');        
+        
+        $data['_view'] = 'prueba/resultado_online';
+        $this->load->view('layouts/main',$data);        
+        
     }
     
 }
