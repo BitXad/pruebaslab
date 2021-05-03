@@ -10,6 +10,7 @@ class Prueba extends CI_Controller{
         parent::__construct();
         $this->load->model('Prueba_model');
         $this->load->model('Usuario_model');
+        $this->load->model('Paciente_model');
     } 
 
     /*
@@ -44,6 +45,7 @@ class Prueba extends CI_Controller{
         $this->pagination->initialize($config);
 
 //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+        $data['paciente'] = $this->Paciente_model->get_paciente_inicial();
         $data['prueba'] = $this->Prueba_model->get_pruebas();
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         

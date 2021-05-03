@@ -31,6 +31,25 @@ class Paciente_model extends CI_Model
     }
     
     /*
+     * Get paciente by paciente_id
+     */
+    function get_paciente_inicial()
+    {
+        $sql = "select 
+                0 as paciente_id,
+                1 as estado_id,
+                1 as genero_id,
+                1 as extencion_id,
+                'SIN NOMBRE' as paciente_nombre,
+                0 as paciente_edad,
+                'N/A' as paciente_direccion,
+                0 as paciente_ci";
+        
+        $paciente = $this->db->query($sql)->row_array();
+        return $paciente;
+    }
+    
+    /*
      * Get all paciente count
      */
     function get_all_paciente_count()
