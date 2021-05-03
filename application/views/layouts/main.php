@@ -96,7 +96,124 @@
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
-						<li>
+                        
+
+<!-----------------------------     MENU PRINCIPAL ------------------------------------------->
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-connectdevelop"></i> <span>Operaciones</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+
+                                    <li class="active"> <a href="<?php echo site_url('prueba/registrar_prueba');?>"><i class="fa fa-flask"></i> Prueba</a> </li>
+                                    <li class="active"> <a href="<?php echo site_url('ingreso/index');?>"><i class="fa fa-money"></i> Ingresos</a> </li>
+                                    <li class="active"> <a href="<?php echo site_url('egreso/index');?>"><i class="fa fa-money"></i> Egresos</a> </li>
+                                    
+
+                                    
+                                </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-list"></i> <span>Parámetros</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+                                    
+                                    
+                                    <li class="active"> <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-bank"></i> Empresa</a> </li>
+                                    
+                                    <li> <a href="<?php echo site_url('tipo_prueba/index');?>"><i class="fa fa-cubes"></i> Tipos de pruebas</a> </li>                                    
+                                    
+                                    <li> <a href="<?php echo site_url('estado/index');?>"><i class="fa fa-toggle-on"></i> Estados</a> </li>                                    
+                                    
+                                    <li> <a href="<?php echo site_url('extencion/index');?>"><i class="fa fa-globe"></i> Extensión CI</a> </li>                                    
+                                    
+                                    
+                                </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-gears"></i> <span>Herramientas</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+                                    
+                                    <li class="active">
+                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-gear"></i> Configuracion</a>
+                                    </li>
+<!--                                    
+                                    <li>
+                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                    </li>-->
+                                    
+                                </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-paste"></i> <span>Reportes</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+                                    
+                                    <li class="active">
+                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-plus"></i> Añadir</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                    </li>
+                                    
+                                </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-lock"></i> <span>Seguridad</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+                                    
+                                    <li class="active">
+                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-plus"></i> Añadir</a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                    </li>
+                                    
+                                </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-thumb-tack"></i> <span>Sesion</span>
+                            </a>
+                                
+                                <ul class="treeview-menu">
+                                    
+                                    <li class="active">
+                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-close"></i> Finalizar</a>
+                                    </li>                                   
+                                    
+                                </ul>
+                        </li>
+                        
+<!-----------------------------   FIN MENU PRINCIPAL ------------------------------------------->
+                        
+                        
+                        
+                        
+                        
+                        
+<!-------------------                       
+                        
+                        
+                        <li>
                             <a href="#">
                                 <i class="fa fa-bank"></i> <span>Empresa</span>
                             </a>
@@ -104,12 +221,13 @@
 								<li class="active">
                                     <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-plus"></i> Añadir</a>
                                 </li>
-								<li>
+                                <li>
                                     <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
                                 </li>
 							</ul>
                         </li>
-						<li>
+                        
+                        <li>
                             <a href="#">
                                 <i class="fa fa-gg"></i> <span>Estado</span>
                             </a>
@@ -201,6 +319,7 @@
 							</ul>
                         </li>
                     </ul>
+------------------->
                 </section>
                 <!-- /.sidebar -->
             </aside>

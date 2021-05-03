@@ -33,6 +33,24 @@ class Prueba extends CI_Controller{
         $this->load->view('layouts/main',$data);
     }
 
+    function registrar_prueba()
+    {
+        $params['limit'] = RECORDS_PER_PAGE; 
+        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        
+        $config = $this->config->item('pagination');
+        $config['base_url'] = site_url('prueba/index?');
+        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
+        $this->pagination->initialize($config);
+
+//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+        $data['prueba'] = $this->Prueba_model->get_pruebas();
+        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        
+        $data['_view'] = 'prueba/registrar_prueba';
+        $this->load->view('layouts/main',$data);
+    }
+
     /*
      * Adding a new prueba
      */
