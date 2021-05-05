@@ -41,9 +41,15 @@ class Paciente_model extends CI_Model
                 1 as genero_id,
                 1 as extencion_id,
                 'SIN NOMBRE' as paciente_nombre,
+                '-' as paciente_codigo,
                 0 as paciente_edad,
                 'N/A' as paciente_direccion,
-                0 as paciente_ci";
+                0 as paciente_ci,
+                '-' as paciente_celular,
+                '-' as paciente_telefono,
+                '0' as paciente_nit,
+                'SIN NOMBRE' as paciente_razon
+                ";
         
         $paciente = $this->db->query($sql)->row_array();
         return $paciente;
