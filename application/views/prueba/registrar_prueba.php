@@ -1,68 +1,108 @@
+
+
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+<link href="<?php echo base_url('resources/css/select2/css/select2.min.css'); ?>" rel="stylesheet">
+<script src="<?php echo base_url('resources/css/select2/js/select2.full.min.js'); ?>"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+    $(document).ready(function() {
+        $('.mi-selector').select2();
+    });
+});
+</script>
+    
+
+
 <?php $atributos = " btn btn-warning btn-sm";  //atributos para los inputs del clientes?>
-<?php $estilos_facturacion = " style='color: black; background: #1221; text-align: left; font-size: 18px; font-family: Arial;'"; //estilo para los inputs de facturacion?>
+<?php $estilos_facturacion = " style='color: black; background: #1221; text-align: left; font-size: 12px; font-family: Arial;'"; //estilo para los inputs de facturacion?>
 <?php $estilos = " style='background: white; color: black; text-align: left;  font-family: Arial;'"; //estilo para los inputs del cliente?>
 <?php $estilo_div = " style='padding:2; padding-left:1px; margin:0; line-height:15px;' "; ?>
 
+<!--<select class='mi-selector' name='marcas'>
+    <option value=''>Seleccionar una marca</option>
+    <option value='audi'>Audi</option>
+    <option value='bmw'>BMW</option>
+    <option value='citroen'>Citroen</option>
+    <option value='fiat'>Fiat</option>
+    <option value='ford'>Ford</option>
+    <option value='honda'>Honda</option>
+    <option value='hyundai'>Hyundai</option>
+    <option value='kia'>Kia</option>
+    <option value='mazda'>Mazda</option>
+</select>-->
 
-
-
+<br>
 
     <div class="panel panel-primary">
-      <div class="panel-heading">Datos del paciente</div>
+      <!--<div class="panel-heading">Datos del paciente</div>-->
       <div class="panel-body">
           
-<div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="nit" class="control-label" style="margin-bottom: 0;">NIT</label>
-            <div class="form-group"  <?php echo $estilo_div; ?>>
-                <input type="number" name="nit" class="form-control  <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="nit" value="<?php echo $paciente['paciente_nit']; ?>"  onkeypress="validar(event,1)" onclick="seleccionar(1)" />
+          
+            <div class="col-md-2" <?php echo $estilo_div; ?>>
+                <label for="paciente_ci" class="control-label" style="margin-bottom: 0;">C.I.</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_ci" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_ci" value="<?php echo $paciente['paciente_ci']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>            
             </div>
-        </div>
-        
-        <div class="col-md-4"  <?php echo $estilo_div; ?>>
-            <label for="razon social" class="control-label" style="margin-bottom: 0;">RAZON SOCIAL</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                
-                <!--<input type="search" name="razon_social" list="listaclientes" class="form-control" id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,2)"  onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();"/>-->
-                <input type="search" name="razon_social" list="listaclientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()" onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
-                <datalist id="listaclientes">
 
-                </datalist>
-                
+            <div class="col-md-2" <?php echo $estilo_div; ?>>
+                <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">CÓDIGO</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>            
             </div>
-        </div>
-<?php
-    $es_movil = "0";
-    $es_movil = "<script>document.write(esmovil);</script>";         
 
-?>   
-
-<?php //if($es_movil == 0){ ?> 
-
-        <div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="paciente_celular" class="control-label" style="margin-bottom: 0;">CELULAR</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                <input type="text" name="paciente_celular" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_celular" onkeypress="validar(event,0)" onclick="seleccionar(3)" value="<?php echo $paciente['paciente_celular']; ?>" onKeyUp="this.value = this.value.toUpperCase();"/>
+            <div class="col-md-5" <?php echo $estilo_div; ?>>
+                <label for="nombre" class="control-label" style="margin-bottom: 0;">CLIENTE</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>            
             </div>
-        </div>
-
-
-<!---------------------- collapse ----------------------------->
- 
-
-        <div class="col-md-2" <?php echo $estilo_div; ?>>
+            <div class="col-md-2" <?php echo $estilo_div; ?>>
+                <label for="paciente_edad" class="control-label" style="margin-bottom: 0;">EDAD</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_edad" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_edad" value="<?php echo $paciente['paciente_edad']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>
+            </div>
+          
+        <div class="col-md-1" <?php echo $estilo_div; ?>>
             <label for="paciente_celular" class="control-label" style="margin-bottom: 0;"></label>
             <div class="form-group" <?php echo $estilo_div; ?>>
 
                 <h4 class="panel-title">
 
 
-                  <a data-toggle="collapse" href="#collapse1" style="padding: 0;" class="btn btn-default btn-sm"> 
-                    Más información</a>
+                  <a data-toggle="collapse" href="#collapse1"  class="btn btn-facebook btn-sm btn-flat"> 
+                      <fa class="fa fa-plus"></fa>  
+                   </a>
 
                 </h4>
 
             </div>
-        </div>          
+        </div>           
+        
+          
+        
+          
+          
+        <?php
+            $es_movil = "0";
+            $es_movil = "<script>document.write(esmovil);</script>";         
+
+        ?>   
+
+<?php //if($es_movil == 0){ ?> 
+
+          
+          
+          
+
+
+<!---------------------- collapse ----------------------------->
+ 
+
+         
           
         <div class="col-md-12" <?php echo $estilo_div; ?>>
             <label for="paciente_celular" class="control-label" style="margin-bottom: 0;"></label>
@@ -97,48 +137,92 @@
 <div class="row">
           
       
-            
-            
-
-            <div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="nombre" class="control-label" style="margin-bottom: 0;">CLIENTE</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
-            </div>
-            
-            </div>
-
-            <div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="paciente_ci" class="control-label" style="margin-bottom: 0;">C.I.</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                <input type="text" name="paciente_ci" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_ci" value="<?php echo $paciente['paciente_ci']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
-            </div>
-            
-            </div>
+<!--                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Order By:</label>
+                                    <select class="select2" style="width: 100%;">
+                                        <option selected>Title</option>
+                                        <option>Date</option>
+                                    </select>
+                                </div>
+                            </div>-->
 
         
 
-            <div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">CÓDIGO</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+
+
+
+            <div class="col-md-4" <?php echo $estilo_div; ?>>
+                <label for="genero_nombre" class="control-label" style="margin-bottom: 0;">GENERO</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <!--<input type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>-->
+                           
+                    <select type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  >
+                        
+                        
+                        
+                        <?php 
+                            $seleccionado = "";
+                            foreach($genero as $g){ 
+                            
+                                if ($g['genero_id']==$paciente['genero_id'] ){
+                                    $seleccionado = "selected";}
+                                else{
+                                    $seleccionado = "";}
+                            ?>
+                                <option value="<?php echo $g['genero_id']; ?>" <?php echo " ".$seleccionado; ?> ><?php echo $g['genero_nombre']; ?></option>
+                        
+                        <?php } ?>
+                        
+                        
+                    </select>
+                        
+                
+                </div>
             </div>
-            
-            </div>
-            
-            <div class="col-md-3" <?php echo $estilo_div; ?>>
-            <label for="paciente_direccion" class="control-label" style="margin-bottom: 0;">DIRECCIÓN</label>
-            <div class="form-group" <?php echo $estilo_div; ?>>
-                <input type="text" name="paciente_direccion" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_direccion" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
-            </div>
+
+            <div class="col-md-4" <?php echo $estilo_div; ?>>
+                <label for="paciente_direccion" class="control-label" style="margin-bottom: 0;">DIRECCIÓN</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_direccion" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_direccion" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>
             </div>
                     
-            <div class="col-md-3" <?php echo $estilo_div; ?>>
+            <div class="col-md-4" <?php echo $estilo_div; ?>>
                 <label for="telefono" class="control-label" style="margin-bottom: 0;">TELEFONO</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
                     <input type="telefono" name="telefono" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="telefono"  value="<?php echo $paciente['paciente_telefono']; ?>"/>
                 </div>
             </div>
+
+            <div class="col-md-4" <?php echo $estilo_div; ?>>
+                <label for="paciente_celular" class="control-label" style="margin-bottom: 0;">CELULAR</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <input type="text" name="paciente_celular" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_celular" onkeypress="validar(event,0)" onclick="seleccionar(3)" value="<?php echo $paciente['paciente_celular']; ?>" onKeyUp="this.value = this.value.toUpperCase();"/>
+                </div>
+            </div>
+
+            <div class="col-md-4" <?php echo $estilo_div; ?>>
+                <label for="nit" class="control-label" style="margin-bottom: 0;">NIT</label>
+                <div class="form-group"  <?php echo $estilo_div; ?>>
+                    <input type="number" name="nit" class="form-control  <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="nit" value="<?php echo $paciente['paciente_nit']; ?>"  onkeypress="validar(event,1)" onclick="seleccionar(1)" />
+                </div>
+            </div>
+
+            <div class="col-md-4"  <?php echo $estilo_div; ?>>
+                <label for="razon social" class="control-label" style="margin-bottom: 0;">RAZON SOCIAL</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+
+                    <!--<input type="search" name="razon_social" list="listaclientes" class="form-control" id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,2)"  onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();"/>-->
+                    <input type="search" name="razon_social" list="listaclientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()" onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
+                    <datalist id="listaclientes">
+
+                    </datalist>
+
+                </div>
+            </div>
+          
+
     </div>
 </div>
 
@@ -153,6 +237,8 @@
 </div>
         
       
+</div>
+</div>
 </div>
 
 
