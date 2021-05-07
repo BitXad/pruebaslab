@@ -128,4 +128,10 @@ class Prueba_model extends CI_Model
     {
         return $this->db->delete('prueba',array('prueba_id'=>$prueba_id));
     }
+    
+    function consultar($sql){
+        
+        return $this->db->query($sql)->result_array();
+        
+    }
 }

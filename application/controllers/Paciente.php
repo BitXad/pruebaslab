@@ -131,4 +131,6 @@ class Paciente extends CI_Controller{
             show_error('The paciente you are trying to delete does not exist.');
     }
     
+
+    
 }

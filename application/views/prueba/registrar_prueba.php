@@ -1,16 +1,15 @@
-
-
+<script src="<?php echo base_url('resources/js/registrar_prueba.js'); ?>"></script>
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('resources/css/select2/css/select2.min.css'); ?>" rel="stylesheet">
 <script src="<?php echo base_url('resources/css/select2/js/select2.full.min.js'); ?>"></script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 jQuery(document).ready(function($){
     $(document).ready(function() {
         $('.mi-selector').select2();
     });
 });
-</script>
+</script>-->
     
 
 
@@ -18,7 +17,7 @@ jQuery(document).ready(function($){
 <?php $estilos_facturacion = " style='color: black; background: #1221; text-align: left; font-size: 12px; font-family: Arial;'"; //estilo para los inputs de facturacion?>
 <?php $estilos = " style='background: white; color: black; text-align: left;  font-family: Arial;'"; //estilo para los inputs del cliente?>
 <?php $estilo_div = " style='padding:2; padding-left:1px; margin:0; line-height:15px;' "; ?>
-
+<input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <!--<select class='mi-selector' name='marcas'>
     <option value=''>Seleccionar una marca</option>
     <option value='audi'>Audi</option>
@@ -42,21 +41,21 @@ jQuery(document).ready(function($){
             <div class="col-md-2" <?php echo $estilo_div; ?>>
                 <label for="paciente_ci" class="control-label" style="margin-bottom: 0;">C.I.</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="text" name="paciente_ci" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_ci" value="<?php echo $paciente['paciente_ci']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                    <input type="text" name="paciente_ci" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_ci" value="<?php echo $paciente['paciente_ci']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,1)" onclick="seleccionar(1)"/>
                 </div>            
             </div>
 
             <div class="col-md-2" <?php echo $estilo_div; ?>>
                 <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">CÓDIGO</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                    <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,2)" onclick="seleccionar(2)"/>
                 </div>            
             </div>
 
             <div class="col-md-5" <?php echo $estilo_div; ?>>
                 <label for="nombre" class="control-label" style="margin-bottom: 0;">CLIENTE</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                    <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,3)" onclick="seleccionar(3)"/>
                 </div>            
             </div>
             <div class="col-md-2" <?php echo $estilo_div; ?>>

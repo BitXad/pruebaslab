@@ -271,4 +271,14 @@ class Prueba extends CI_Controller{
         
     }
     
+    
+    function buscar(){
+        
+        $parametro = $this->input->post("parametro");
+        $sql = "select * from paciente where ".$parametro;
+        $resultado = $this->Prueba_model->consultar($sql);
+        
+        echo json_encode($resultado);
+        
+    }    
 }
