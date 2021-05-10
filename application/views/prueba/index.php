@@ -78,7 +78,8 @@
                         
                         <td><?php echo $p['prueba_procedencia']; ?><br><?php echo $p['prueba_medicolab']; ?></td>
                         
-                        <td><b  style="<?php echo $fuente; ?>"><?php echo number_format($p['prueba_precio'],2,".",","); ?></b>
+                        <td>
+                            <b style="<?php echo $fuente; ?>"><?php echo number_format($p['prueba_precio'],2,".",","); ?></b>
                         
                         </td>
                         
@@ -106,6 +107,7 @@
                             <a href="<?php echo site_url('prueba/edit/'.$p['prueba_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil" title="Modificar"></span> </a> 
                             <a href="<?php echo site_url('prueba/remove/'.$p['prueba_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash" title="Eliminar"></span> </a>
                         </td>
+                        
                     </tr>
                     <?php } ?>
                 </table>
