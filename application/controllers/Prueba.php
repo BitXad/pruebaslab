@@ -44,6 +44,9 @@ class Prueba extends CI_Controller{
         $config['base_url'] = site_url('prueba/index?');
         $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
         $this->pagination->initialize($config);
+        
+        $this->load->model('Tipo_prueba_model');
+        $data['all_tipo_prueba'] = $this->Tipo_prueba_model->get_all_tipo_prueba();
 
 //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
         $data['paciente'] = $this->Paciente_model->get_paciente_inicial();
@@ -276,7 +279,56 @@ class Prueba extends CI_Controller{
         
         $parametro = $this->input->post("parametro");
         $sql = "select * from paciente where ".$parametro;
+        //echo $sql;
         $resultado = $this->Prueba_model->consultar($sql);
+        
+        echo json_encode($resultado);
+        
+    }    
+
+    function buscar_tipoprueba(){
+        
+        $tipoprueba_id = $this->input->post("tipoprueba_id");
+        $sql = "select * from tipo_prueba where tipoprueba_id = ".$tipoprueba_id;
+        //echo $sql;
+        $resultado = $this->Prueba_model->consultar($sql);
+        
+        echo json_encode($resultado);
+        
+    }    
+
+    function registrar(){
+
+    	$usuario_id = 1;
+    	$tipoprueba_id = $this->input->post("tipoprueba_id");
+        $paciente_id = $this->input->post("paciente_id");
+        $prueba_fechasolicitud = "'".$this->input->post("prueba_fechasolicitud")."'";  
+        $prueba_medicolab = "'".$this->input->post("prueba_medicolab")."'";
+        $prueba_procedencia = "'".$this->input->post("prueba_procedencia")."'";
+        $prueba_fechainforme = "'".$this->input->post("prueba_fechainforme")."'";
+        $prueba_nombreanalisis = "'".$this->input->post("prueba_nombreanalisis")."'";
+        $prueba_descricpion = "'".$this->input->post("prueba_descricpion")."'";
+        $prueba_resultados = "'".$this->input->post("prueba_resultados")."'";
+        $prueba_observacion = "'".$this->input->post("prueba_observacion")."'";
+        $prueba_precio = $this->input->post("prueba_precio");
+        $prueba_acuenta = $this->input->post("prueba_acuenta");
+        $prueba_fechacuenta = "'".$this->input->post("prueba_fechacuenta")."'";
+        $prueba_saldo = $this->input->post("prueba_saldo");
+        $prueba_codigo = "'-'";
+        $estado_id = $this->input->post("estado_id");
+
+        $sql = "insert into prueba(tipoprueba_id, paciente_id, prueba_fechasolicitud, prueba_medicolab,
+                prueba_procedencia, prueba_fechainforme, prueba_nombreanalisis, prueba_descricpion, 
+                prueba_resultados, prueba_observacion, prueba_precio, prueba_acuenta, prueba_fechacuenta,
+                prueba_saldo, prueba_codigo, estado_id, usuario_id) value(".
+                
+                $tipoprueba_id.", ".$paciente_id.", ".$prueba_fechasolicitud.", ".$prueba_medicolab.", ".
+                $prueba_procedencia.", ".$prueba_fechainforme.", ".$prueba_nombreanalisis.", ".
+                $prueba_descricpion.", ".$prueba_resultados.", ".$prueba_observacion.", ".$prueba_precio.
+                ", ".$prueba_acuenta.", ".$prueba_fechacuenta.", ".$prueba_saldo.", ".$prueba_codigo.", ".
+                $estado_id.", ".$usuario_id.")";    
+        echo $sql;        
+        $this->Prueba_model->ejecutar($sql);
         
         echo json_encode($resultado);
         

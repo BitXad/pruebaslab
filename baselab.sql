@@ -97,12 +97,13 @@ CREATE TABLE `paciente` (
   `paciente_telefono` varchar(50) DEFAULT NULL,
   `paciente_nit` varchar(30) DEFAULT NULL,
   `paciente_razon` varchar(250) DEFAULT NULL,
+  `paciente_foto` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`paciente_id`),
   UNIQUE KEY `paciente_id` (`paciente_id`),
   KEY `fk_estado_paciente` (`estado_id`),
   KEY `fk_extencion_ci` (`extencion_id`),
   KEY `fk_genero_paciente` (`genero_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `parametros` table : 
@@ -179,12 +180,13 @@ CREATE TABLE `prueba` (
   `prueba_fechacuenta` datetime DEFAULT NULL,
   `prueba_saldo` float DEFAULT NULL,
   `prueba_fechasaldo` datetime DEFAULT NULL,
+  `estado_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`prueba_id`),
   UNIQUE KEY `prueba_id` (`prueba_id`),
   KEY `fk_prueba_paciente` (`paciente_id`),
   KEY `fk_prueba_usuario` (`usuario_id`),
   KEY `fk_tipo_prueba` (`tipoprueba_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `tipo_prueba` table : 
@@ -255,11 +257,48 @@ INSERT INTO `genero` (`genero_id`, `genero_nombre`) VALUES
 COMMIT;
 
 #
+# Data for the `paciente` table  (LIMIT 0,500)
+#
+
+INSERT INTO `paciente` (`paciente_id`, `estado_id`, `genero_id`, `extencion_id`, `paciente_nombre`, `paciente_edad`, `paciente_direccion`, `paciente_codigo`, `paciente_ci`, `paciente_celular`, `paciente_telefono`, `paciente_nit`, `paciente_razon`, `paciente_foto`) VALUES 
+  (1,1,1,1,'CORNELIO RIOS RELOZ',38,'N/A',NULL,'5920892',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (2,1,1,1,'MARIO CHOQUE GALARZA',38,'N/A',NULL,'695983923',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (3,1,1,1,'ALAN FRANCO QUISPE VASQUEZ',30,'N/A',NULL,'13193077',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (4,1,1,1,'JUAN JOSE PEÑA GONZALES',37,'N/A',NULL,'6474081',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (5,1,1,1,'SUHAYB AHMED ELSAYED',1,NULL,NULL,'CE50733',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (6,1,2,1,'ABDELRAHMAN AHMED MOHAMED FATHI AHMED',30,'URUGUAY N 454','OFDDS01','A15805786','70789506','4522563','5152388021','LOZANO MENDEZ','foto.jpg'),
+  (7,1,2,1,'HAGAR EMADELDEN LOTFY ELSAYED',26,NULL,NULL,'A21191357',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (8,1,1,1,'MAX KONRAD VOGGEL',76,NULL,NULL,'0',NULL,NULL,NULL,NULL,'foto.jpg'),
+  (9,1,2,1,'LIZETH DANIELA QUIRUCHI GONZALES',27,NULL,NULL,'8791288',NULL,NULL,NULL,NULL,'foto.jpg');
+COMMIT;
+
+#
 # Data for the `parametros` table  (LIMIT 0,500)
 #
 
 INSERT INTO `parametros` (`parametro_id`, `parametro_numrecegr`, `parametro_numrecing`, `parametro_copiasfact`, `parametro_tipoimpresora`, `parametro_numcuotas`, `parametro_montomax`, `parametro_diasgracia`, `parametro_diapago`, `parametro_periododias`, `parametro_interes`, `parametro_tituldoc`, `parametro_mostrarcategoria`, `parametro_diagnostico`, `parametro_solucion`, `parametro_modoventas`, `parametro_imprimircomanda`, `parametro_anchoboton`, `parametro_altoboton`, `parametro_colorboton`, `parametro_anchoimagen`, `parametro_altoimagen`, `parametro_formaimagen`, `parametro_modulorestaurante`, `parametro_permisocredito`, `parametro_agruparitems`, `parametro_diasvenc`, `parametro_anchofactura`, `parametro_altofactura`, `parametro_margenfactura`, `parametro_imagenreal`, `parametro_diasentrega`, `parametro_notaentrega`, `parametro_segservicio`, `parametro_apikey`, `parametro_serviciofact`, `parametro_sucursales`, `parametro_logomonitor`, `parametro_fondomonitor`, `parametro_cantidadproductos`, `parametro_datosboton`, `moneda_id`) VALUES 
   (1,760,452,3,'NORMAL',1,150000.000,14,2,7,0,'',2,'REVISION','REVISION',1,0,125,180,'warning',123,140,'',0,1,1,15,19,0.000,1.000,0,0,1,0,'AIzaSyClNsJugfWI4xOf1Or9Wdg5lD_qUqaik58',1,NULL,'','',1,1,2);
+COMMIT;
+
+#
+# Data for the `prueba` table  (LIMIT 0,500)
+#
+
+INSERT INTO `prueba` (`prueba_id`, `usuario_id`, `tipoprueba_id`, `paciente_id`, `prueba_codigo`, `prueba_fechasolicitud`, `prueba_medicolab`, `prueba_fecharecepcion`, `prueba_procedencia`, `prueba_fechainforme`, `prueba_nombreanalisis`, `prueba_descricpion`, `prueba_resultados`, `prueba_observacion`, `prueba_precio`, `prueba_acuenta`, `prueba_fechacuenta`, `prueba_saldo`, `prueba_fechasaldo`, `estado_id`) VALUES 
+  (1,1,2,1,'CRR001','2021-04-30 15:30:11','N/A','2021-05-10 09:06:29','PERU','2021-05-01 12:15:18','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (2,1,2,2,'MCG002','2021-04-30 15:35:25','N/A','0000-00-00 00:00:00','PERU','2021-05-01 12:20:22','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 35.8 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (3,1,2,3,'AFQV03','2021-05-05 07:30:15','N/A','0000-00-00 00:00:00','PERU','2021-05-05 18:03:23','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 35.8 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (4,1,2,4,'JJPG04','2021-05-07 08:03:18','N/A','0000-00-00 00:00:00','PERU','2021-05-07 18:14:03','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 35.8 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',2),
+  (5,1,2,5,'A.Q.C.','2021-05-07 08:30:15','N/A','0000-00-00 00:00:00','PERU','2021-05-08 09:45:15','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (6,1,2,6,'A.Q.C.','2021-05-07 08:30:15','N/A','0000-00-00 00:00:00','PERU','2021-05-08 09:45:35','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',2),
+  (7,1,2,7,'A.Q.C.','2021-05-07 08:30:15','N/A','0000-00-00 00:00:00','PERU','2021-05-08 09:45:35','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (8,1,2,8,'A.Q.C.','2021-05-06 16:15:23','N/A','0000-00-00 00:00:00','PERU','2021-05-07 16:30:45','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (9,1,2,9,'A.Q.C.','2021-05-06 15:45:13','N/A','0000-00-00 00:00:00','PERU','2021-05-07 18:10:36','PRUEBA COVID-19','PRUEBA EN TIEMPO REAL\r\n=====================\r\nTEMPERATURA CORPORAL: 36.5 ºC','PCR-TR COVID-19  NO DETECTADO','Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2\r\nfue detectado y el paciente es considerado con el virus y se presume que es contagioso.\r\n\r\nResultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2\r\nno esta presente en la muestra por el momento.',500,500,'0000-00-00 00:00:00',0,'0000-00-00 00:00:00',1),
+  (10,NULL,2,0,NULL,'0000-00-00 00:00:00','BBBBB BBBBBBB BBBBBBBBBB',NULL,'CCCCC CCCCCCCC CCCCCCCCCC  CCCCC','2021-05-10 09:23:42','AAAAAAAAAA','-','-','-',250,50,'0000-00-00 00:00:00',200,NULL,NULL),
+  (11,NULL,2,0,NULL,'0000-00-00 00:00:00','BBBBB BBBBBBB BBBBBBBBBB',NULL,'CCCCC CCCCCCCC CCCCCCCCCC CCCCC','2021-05-10 09:23:42','AAAAAAAAAA','-','-','-',250,50,'0000-00-00 00:00:00',200,NULL,NULL),
+  (12,NULL,2,0,'-','0000-00-00 00:00:00','MAURICIO MENDEZ',NULL,'DE LA CALLE','2021-05-10 09:39:45','PRUEBAS COVID 19','-','-','-',250,50,'2021-05-10 09:39:45',200,NULL,1),
+  (13,1,3,0,'-','0000-00-00 00:00:00','MILTON MILTARRON',NULL,'DE GERENCIA','2021-05-10 09:42:12','PRUEBAS COVID 19','-','-','-',200,40,'2021-05-10 09:42:12',160,NULL,1),
+  (14,1,1,0,'-','0000-00-00 00:00:00','JUAN GODINEZ',NULL,'DE LA CALLE','2021-05-10 09:46:15','PRUEBA RAPIDA','-','-','-',150,30,'2021-05-10 09:46:15',120,NULL,1);
 COMMIT;
 
 #

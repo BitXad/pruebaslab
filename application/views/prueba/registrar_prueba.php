@@ -188,9 +188,9 @@ jQuery(document).ready(function($){
             </div>
                     
             <div class="col-md-4" <?php echo $estilo_div; ?>>
-                <label for="telefono" class="control-label" style="margin-bottom: 0;">TELEFONO</label>
+                <label for="paciente_telefono" class="control-label" style="margin-bottom: 0;">TELEFONO</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="telefono" name="telefono" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="telefono"  value="<?php echo $paciente['paciente_telefono']; ?>"/>
+                    <input type="paciente_telefono" name="paciente_telefono" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_telefono"  value="<?php echo $paciente['paciente_telefono']; ?>"/>
                 </div>
             </div>
 
@@ -202,18 +202,18 @@ jQuery(document).ready(function($){
             </div>
 
             <div class="col-md-4" <?php echo $estilo_div; ?>>
-                <label for="nit" class="control-label" style="margin-bottom: 0;">NIT</label>
+                <label for="paciente_nit" class="control-label" style="margin-bottom: 0;">NIT</label>
                 <div class="form-group"  <?php echo $estilo_div; ?>>
-                    <input type="number" name="nit" class="form-control  <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="nit" value="<?php echo $paciente['paciente_nit']; ?>"  onkeypress="validar(event,1)" onclick="seleccionar(1)" />
+                    <input type="number" name="paciente_nit" class="form-control  <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_nit" value="<?php echo $paciente['paciente_nit']; ?>"  onkeypress="validar(event,1)" onclick="seleccionar(1)" />
                 </div>
             </div>
 
             <div class="col-md-4"  <?php echo $estilo_div; ?>>
-                <label for="razon social" class="control-label" style="margin-bottom: 0;">RAZON SOCIAL</label>
+                <label for="paciente_razon" class="control-label" style="margin-bottom: 0;">RAZON SOCIAL</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
 
                     <!--<input type="search" name="razon_social" list="listaclientes" class="form-control" id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,2)"  onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();"/>-->
-                    <input type="search" name="razon_social" list="listaclientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()" onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
+                    <input type="search" name="paciente_razon" list="listaclientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_razon" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()" onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
                     <datalist id="listaclientes">
 
                     </datalist>
@@ -244,13 +244,13 @@ jQuery(document).ready(function($){
 <div class="row">
     <div class="col-md-12">
       	<div class="box box-info">
-            <div class="box-header with-border">
-              	<h3 class="box-title">Prueba Add</h3>
-            </div>
-            <?php echo form_open('prueba/add'); ?>
+<!--            <div class="box-header with-border">
+              	<h3 class="box-title">PRUEBA</h3>
+            </div>-->
+            <?php // echo form_open('prueba/add'); ?>
           	<div class="box-body">
           		<div class="row clearfix">
-					<div class="col-md-6">
+<!--					<div class="col-md-6">
 						<label for="usuario_id" class="control-label">Responsable</label>
 						<div class="form-group">
 							<select name="usuario_id" class="form-control">
@@ -265,24 +265,32 @@ jQuery(document).ready(function($){
 								?>
 							</select>
 						</div>
-					</div>
+					</div>-->
 					<div class="col-md-6">
 						<label for="tipoprueba_id" class="control-label">Tipo Prueba</label>
 						<div class="form-group">
-							<select name="tipoprueba_id" class="form-control">
+                                                    <select name="tipoprueba_id" class="form-control" onchange="cargar_precio()" id="tipoprueba_id">
 								<option value="">- TIPO DE PRUEBA -</option>
 								<?php 
 								foreach($all_tipo_prueba as $tipo_prueba)
 								{
 									$selected = ($tipo_prueba['tipoprueba_id'] == $this->input->post('tipoprueba_id')) ? ' selected="selected"' : "";
 
-									echo '<option value="'.$tipo_prueba['tipoprueba_id'].'" '.$selected.'>'.$tipo_prueba['tipoprueba_descripcion'].'</option>';
+									echo '<option value="'.$tipo_prueba['tipoprueba_id'].'" '.$selected.'>'.$tipo_prueba['tipoprueba_descripcion'].' (Bs '.$tipo_prueba['tipoprueba_precio'].')</option>';
 								} 
 								?>
 							</select>
 						</div>
 					</div>
+
 					<div class="col-md-6">
+						<label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Descripción Analisis</label>
+						<div class="form-group">
+							<textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis" onKeyUp="this.value = this.value.toUpperCase();" ><?php echo $this->input->post('prueba_nombreanalisis'); ?></textarea>
+							<span class="text-danger"><?php echo form_error('prueba_nombreanalisis');?></span>
+						</div>
+					</div>
+<!--					<div class="col-md-6">
 						<label for="paciente_id" class="control-label">Paciente</label>
 						<div class="form-group">
 							<select name="paciente_id" class="form-control">
@@ -297,107 +305,110 @@ jQuery(document).ready(function($){
 								?>
 							</select>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="prueba_codigo" class="control-label">Prueba Codigo</label>
+					</div>-->
+<!--					<div class="col-md-6">
+						<label for="prueba_codigo" class="control-label">Codigo</label>
 						<div class="form-group">
 							<input type="text" name="prueba_codigo" value="<?php echo $this->input->post('prueba_codigo'); ?>" class="form-control" id="prueba_codigo" />
 						</div>
-					</div>
+					</div>-->
+
 					<div class="col-md-6">
-						<label for="prueba_fechasolicitud" class="control-label">Prueba Fechasolicitud</label>
+						<label for="prueba_fechasolicitud" class="control-label">Fecha Solicitud / Toma  de muestra</label>
 						<div class="form-group">
-							<input type="text" name="prueba_fechasolicitud" value="<?php echo $this->input->post('prueba_fechasolicitud'); ?>" class="has-datetimepicker form-control" id="prueba_fechasolicitud" />
+                                                    <input type="datetime-local" name="prueba_fechasolicitud" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class=" form-control" id="prueba_fechasolicitud" />
+							<!--<input type="text" name="prueba_fechasolicitud" value="<?php echo $this->input->post('prueba_fechasolicitud'); ?>" class="has-datetimepicker form-control" id="prueba_fechasolicitud" />-->
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_medicolab" class="control-label">Prueba Medicolab</label>
+						<label for="prueba_medicolab" class="control-label">Medico/Laboratorio</label>
 						<div class="form-group">
-							<input type="text" name="prueba_medicolab" value="<?php echo $this->input->post('prueba_medicolab'); ?>" class="form-control" id="prueba_medicolab" />
+							<input type="text" name="prueba_medicolab" value="<?php echo $this->input->post('prueba_medicolab'); ?>" class="form-control" id="prueba_medicolab" onKeyUp="this.value = this.value.toUpperCase();"  />
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="prueba_fecharecepcion" class="control-label">Prueba Fecharecepcion</label>
+<?php// echo date("Y-m-d")."T".date("H:i:s"); ?>
+<!--					<div class="col-md-6">
+						<label for="prueba_fecharecepcion" class="control-label">Fecha Recepción</label>
 						<div class="form-group">
 							<input type="text" name="prueba_fecharecepcion" value="<?php echo $this->input->post('prueba_fecharecepcion'); ?>" class="has-datetimepicker form-control" id="prueba_fecharecepcion" />
+                                                    <input type="datetime-local" name="prueba_fecharecepcion" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class="form-control" id="prueba_fecharecepcion" />
+						</div>
+					</div>-->
+					<div class="col-md-6">
+						<label for="prueba_procedencia" class="control-label">Procedencia</label>
+						<div class="form-group">
+							<input type="text" name="prueba_procedencia" value="<?php echo $this->input->post('prueba_procedencia'); ?>" class="form-control" id="prueba_procedencia" onKeyUp="this.value = this.value.toUpperCase();"  />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_procedencia" class="control-label">Prueba Procedencia</label>
+						<label for="prueba_fechainforme" class="control-label">Fecha Informe</label>
 						<div class="form-group">
-							<input type="text" name="prueba_procedencia" value="<?php echo $this->input->post('prueba_procedencia'); ?>" class="form-control" id="prueba_procedencia" />
+                                                    <input type="datetime-local" name="prueba_fechainforme" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class=" form-control" id="prueba_fechainforme" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_fechainforme" class="control-label">Prueba Fechainforme</label>
+						<label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Precio Bs</label>
 						<div class="form-group">
-							<input type="text" name="prueba_fechainforme" value="<?php echo $this->input->post('prueba_fechainforme'); ?>" class="has-datetimepicker form-control" id="prueba_fechainforme" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Prueba Precio</label>
-						<div class="form-group">
-							<input type="text" name="prueba_precio" value="<?php echo $this->input->post('prueba_precio'); ?>" class="form-control" id="prueba_precio" />
+                                                    <input type="text" name="prueba_precio" value="<?php echo $this->input->post('prueba_precio'); ?>" class="form-control" id="prueba_precio" onkeyup="calcular()" style="background: #7adddd"/>
 							<span class="text-danger"><?php echo form_error('prueba_precio');?></span>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_acuenta" class="control-label">Prueba Acuenta</label>
+						<label for="prueba_acuenta" class="control-label">A Cuenta Bs</label>
 						<div class="form-group">
-							<input type="text" name="prueba_acuenta" value="<?php echo $this->input->post('prueba_acuenta'); ?>" class="form-control" id="prueba_acuenta" />
+                                                    <input type="text" name="prueba_acuenta" value="<?php echo $this->input->post('prueba_acuenta'); ?>" class="form-control" id="prueba_acuenta"  onkeyup="calcular()" style="background: #000\9"/>
+						</div>
+					</div>
+                                        <div class="col-md-6" hidden>
+						<label for="prueba_fechacuenta" class="control-label">Fecha A Cuenta</label>
+						<div class="form-group">
+                                                    <input type="datetime-local" name="prueba_fechacuenta" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class="form-control" id="prueba_fechacuenta" />
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_fechacuenta" class="control-label">Prueba Fechacuenta</label>
+						<label for="prueba_saldo" class="control-label">Saldo</label>
 						<div class="form-group">
-							<input type="text" name="prueba_fechacuenta" value="<?php echo $this->input->post('prueba_fechacuenta'); ?>" class="has-datetimepicker form-control" id="prueba_fechacuenta" />
+							<input type="text" name="prueba_saldo" value="<?php echo $this->input->post('prueba_saldo'); ?>" class="form-control" id="prueba_saldo"  onkeyup="calcular()" style="background: #7adddd"/>
 						</div>
 					</div>
+<!--
 					<div class="col-md-6">
-						<label for="prueba_saldo" class="control-label">Prueba Saldo</label>
-						<div class="form-group">
-							<input type="text" name="prueba_saldo" value="<?php echo $this->input->post('prueba_saldo'); ?>" class="form-control" id="prueba_saldo" />
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="prueba_fechasaldo" class="control-label">Prueba Fechasaldo</label>
+						<label for="prueba_fechasaldo" class="control-label">Fechasaldo</label>
 						<div class="form-group">
 							<input type="text" name="prueba_fechasaldo" value="<?php echo $this->input->post('prueba_fechasaldo'); ?>" class="has-datetimepicker form-control" id="prueba_fechasaldo" />
 						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Prueba Nombreanalisis</label>
-						<div class="form-group">
-							<textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis"><?php echo $this->input->post('prueba_nombreanalisis'); ?></textarea>
-							<span class="text-danger"><?php echo form_error('prueba_nombreanalisis');?></span>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<label for="prueba_descricpion" class="control-label">Prueba Descricpion</label>
+					</div>-->
+<!--					<div class="col-md-6">
+						<label for="prueba_descricpion" class="control-label">Descricpion</label>
 						<div class="form-group">
 							<textarea name="prueba_descricpion" class="form-control" id="prueba_descricpion"><?php echo $this->input->post('prueba_descricpion'); ?></textarea>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_resultados" class="control-label">Prueba Resultados</label>
+						<label for="prueba_resultados" class="control-label">Resultados</label>
 						<div class="form-group">
 							<textarea name="prueba_resultados" class="form-control" id="prueba_resultados"><?php echo $this->input->post('prueba_resultados'); ?></textarea>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<label for="prueba_observacion" class="control-label">Prueba Observacion</label>
+						<label for="prueba_observacion" class="control-label">Observacion</label>
 						<div class="form-group">
 							<textarea name="prueba_observacion" class="form-control" id="prueba_observacion"><?php echo $this->input->post('prueba_observacion'); ?></textarea>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
           	<div class="box-footer">
-            	<button type="submit" class="btn btn-success">
-            		<i class="fa fa-check"></i> Save
+                    <button type="submit" class="btn btn-success" onclick="guardar_prueba()">
+            		<i class="fa fa-floppy-o"></i> Guardar
             	</button>
+                    
+                    <a href="<?php echo base_url("prueba"); ?>" class="btn btn-danger">
+            		<i class="fa fa-times"></i> Cancelar
+            	</a>
+                    
           	</div>
-            <?php echo form_close(); ?>
+            <?php //echo form_close(); ?>
       	</div>
     </div>
 </div>

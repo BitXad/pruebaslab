@@ -48,11 +48,14 @@ class Prueba_model extends CI_Model
     
     function get_pruebas()
     {
-        $sql = "select r.*, p.*, u.*, t.*
+        $sql = "select r.*, p.*, u.*, t.*, e.*
                 from prueba r
                 left join paciente p on p.paciente_id = r.paciente_id
                 left join usuario u on u.usuario_id = r.usuario_id
-                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id";
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id
+                left join estado e on e.estado_id = r.estado_id
+                
+";
         
         $prueba = $this->db->query($sql)->result_array();
         return $prueba;
@@ -132,6 +135,12 @@ class Prueba_model extends CI_Model
     function consultar($sql){
         
         return $this->db->query($sql)->result_array();
+        
+    }
+    
+    function ejecutar($sql){
+        
+        return $this->db->query($sql);
         
     }
 }
