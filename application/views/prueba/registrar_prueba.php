@@ -45,25 +45,44 @@ jQuery(document).ready(function($){
                 </div>            
             </div>
 
-            <div class="col-md-2" <?php echo $estilo_div; ?>>
+        <div class="col-md-2" <?php echo $estilo_div; ?>>
                 <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">CÓDIGO</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
                     <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,2)" onclick="seleccionar(2)"/>
                 </div>            
-            </div>
+        </div>
+          
+        <div class="col-md-4"  <?php echo $estilo_div; ?>>
+                <label for="paciente_nombre" class="control-label" style="margin-bottom: 0;">PACIENTE</label>
+                
+                <div class="form-group" <?php echo $estilo_div; ?>>
 
-            <div class="col-md-5" <?php echo $estilo_div; ?>>
-                <label for="nombre" class="control-label" style="margin-bottom: 0;">CLIENTE</label>
-                <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,3)" onclick="seleccionar(3)"/>
-                </div>            
-            </div>
-            <div class="col-md-2" <?php echo $estilo_div; ?>>
-                <label for="paciente_edad" class="control-label" style="margin-bottom: 0;">EDAD</label>
-                <div class="form-group" <?php echo $estilo_div; ?>>
-                    <input type="text" name="paciente_edad" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_edad" value="<?php echo $paciente['paciente_edad']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+                    <input type="search" name="paciente_nombre" list="listapacientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,3)"  onchange="seleccionar_paciente()" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
+                    <datalist id="listapacientes">
+<!--                        
+                        <option value="1">1</option>
+                        <option valur="2">2</option>
+                        <option value="3">3</option>-->
+                            
+                    </datalist>
+
                 </div>
+        </div>
+
+          
+<!--        <div class="col-md-5" <?php echo $estilo_div; ?>>
+            <label for="nombre" class="control-label" style="margin-bottom: 0;">CLIENTE</label>
+            <div class="form-group" <?php echo $estilo_div; ?>>
+                <input type="text" name="paciente_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_nombre']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,3)" onclick="seleccionar(3)"/>
             </div>
+        </div>-->
+          
+        <div class="col-md-2" <?php echo $estilo_div; ?>>
+            <label for="paciente_edad" class="control-label" style="margin-bottom: 0;">EDAD</label>
+            <div class="form-group" <?php echo $estilo_div; ?>>
+                <input type="text" name="paciente_edad" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_edad" value="<?php echo $paciente['paciente_edad']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
+            </div>
+        </div>
           
         <div class="col-md-1" <?php echo $estilo_div; ?>>
             <label for="paciente_celular" class="control-label" style="margin-bottom: 0;"></label>
@@ -213,10 +232,10 @@ jQuery(document).ready(function($){
                 <div class="form-group" <?php echo $estilo_div; ?>>
 
                     <!--<input type="search" name="razon_social" list="listaclientes" class="form-control" id="razon_social" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,2)"  onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();"/>-->
-                    <input type="search" name="paciente_razon" list="listaclientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_razon" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onchange="seleccionar_cliente()" onclick="seleccionar(2)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
-                    <datalist id="listaclientes">
+                    <input type="text" name="paciente_razon" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_razon" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,9)"  onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
+<!--                    <datalist id="listaclientes">
 
-                    </datalist>
+                    </datalist>-->
 
                 </div>
             </div>

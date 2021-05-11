@@ -11,7 +11,12 @@ function validar(e,opcion){
         }
         
         if (opcion==3){
-            buscarpaciente_nombre();
+             var paciente_ci = document.getElementById("paciente_ci").value;
+            if (paciente_ci == "0")                
+                buscarpaciente_nombre();
+            else 
+                $("#paciente_edad").focus();
+            
         }
     }
 }
@@ -20,21 +25,22 @@ function buscarpaciente_ci(){
     var paciente_ci = document.getElementById('paciente_ci').value;
     var parametro = " paciente_ci = '"+paciente_ci+"'";
     
-    buscar_paciente(parametro);
+    buscar_paciente(parametro,1);
 }
 
 function buscarpaciente_codigo(){
     var paciente_codigo = document.getElementById('paciente_codigo').value;
     var parametro = " paciente_codigo = '"+paciente_codigo+"'";
     
-    buscar_paciente(parametro);
+    buscar_paciente(parametro,1);
 }
 
 function buscarpaciente_nombre(){
-    var paciente_nombre = document.getElementById('paciente_nombre').value;
-    var parametro = " paciente_nombre = '"+paciente_nombre+"'";
     
-    buscar_paciente(parametro);
+    var paciente_nombre = document.getElementById('paciente_nombre').value;
+    var parametro = " paciente_nombre like '%"+paciente_nombre+"%'";
+    
+    buscar_paciente(parametro,2);
 }
 
 function cargar_datos(p){
@@ -72,7 +78,7 @@ function cargar_datos(p){
         
 }
 
-function buscar_paciente(parametro){
+function buscar_paciente(parametro,opcion){
 //    alert(parametro);
     var base_url = document.getElementById('base_url').value;
     var controlador = base_url+"prueba/buscar"
@@ -85,11 +91,22 @@ function buscar_paciente(parametro){
            success:function(respuesta){     
                
                var paciente = JSON.parse(respuesta);
+                var html = "";
                 
                if (paciente != null){
                    cargar_datos(null);
                    for(var i = 0; i<paciente.length; i++){
-                       cargar_datos(JSON.stringify(paciente[i]));
+                       if (opcion==1){
+                            cargar_datos(JSON.stringify(paciente[i]));                           
+                       }
+                       
+                       if (opcion==2){ //buscar por nombre y cargar el datalist
+                           html += "<option value='"+paciente[i]["paciente_id"]+"'>"+paciente[i]["paciente_nombre"]+"</option>";                     
+                       }
+                           
+                   }
+                   if(opcion==2){
+                       $("#listapacientes").html(html);
                    }
                    
                }
@@ -188,7 +205,7 @@ function guardar_prueba(){
     //var prueba_fechasaldo = document.getElementById("prueba_fechasaldo").value;
     var estado_id = 1; // document.getElementById("estado_id").value;    
     
-    alert(tipoprueba_id+", "+paciente_id+", "+", "+prueba_fechasolicitud+", "+prueba_medicolab+", "+", "+prueba_procedencia+", "+prueba_fechainforme+", "+prueba_nombreanalisis+", "+prueba_descricpion+", "+prueba_resultados+", "+prueba_observacion+", "+prueba_precio+", "+prueba_acuenta+", "+prueba_fechacuenta+", "+prueba_saldo+", "+estado_id);
+    //alert(tipoprueba_id+", "+paciente_id+", "+", "+prueba_fechasolicitud+", "+prueba_medicolab+", "+", "+prueba_procedencia+", "+prueba_fechainforme+", "+prueba_nombreanalisis+", "+prueba_descricpion+", "+prueba_resultados+", "+prueba_observacion+", "+prueba_precio+", "+prueba_acuenta+", "+prueba_fechacuenta+", "+prueba_saldo+", "+estado_id);
     
     $.ajax({url: controlador,
            type:"POST",
@@ -223,4 +240,33 @@ function guardar_prueba(){
     });    
     
     window.open(base_url+"prueba/", "_self");
+}
+
+function seleccionar_paciente(){
+    
+    var paciente_id = document.getElementById('paciente_nombre').value;
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+"prueba/seleccionar_paciente";
+
+//        alert(paciente_id)
+        $.ajax({url: controlador,
+            type:"POST",
+            data:{paciente_id: paciente_id},
+            success:function(respuesta){
+                
+                paciente = JSON.parse(respuesta);
+                tam = paciente.length;
+                                
+                if (tam>=1){
+                    
+                    cargar_datos(JSON.stringify(paciente[0]));
+                
+                }
+       
+
+            },
+            error: function(respuesta){
+            }
+        });    
+    
 }

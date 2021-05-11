@@ -297,6 +297,17 @@ class Prueba extends CI_Controller{
         
     }    
 
+    function seleccionar_paciente(){
+        
+        $paciente_id = $this->input->post("paciente_id");
+        $sql = "select * from paciente where paciente_id = ".$paciente_id;
+        //echo $sql;
+        $resultado = $this->Prueba_model->consultar($sql);
+        
+        echo json_encode($resultado);
+        
+    }    
+
     function registrar(){
 
     	$usuario_id = 1;
