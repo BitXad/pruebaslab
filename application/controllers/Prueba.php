@@ -310,9 +310,65 @@ class Prueba extends CI_Controller{
 
     function registrar(){
 
+        
     	$usuario_id = 1;
-    	$tipoprueba_id = $this->input->post("tipoprueba_id");
+        //registrar paciente
         $paciente_id = $this->input->post("paciente_id");
+        $estado_id = 1;
+        $genero_id = $this->input->post("genero_id");
+        $extencion_id = $this->input->post("extencion_id");
+        $paciente_nombre = "'".$this->input->post("paciente_nombre")."'";
+        $paciente_edad = $this->input->post("paciente_edad");
+        $paciente_direccion = "'".$this->input->post("paciente_direccion")."'";
+        $paciente_codigo = "'".$this->input->post("paciente_codigo")."'";
+        $paciente_ci = "'".$this->input->post("paciente_ci")."'";
+        $paciente_celular = "'".$this->input->post("paciente_celular")."'";
+        $paciente_telefono = "'".$this->input->post("paciente_telefono")."'";
+        $paciente_nit = "'".$this->input->post("paciente_nit")."'";
+        $paciente_razon = "'".$this->input->post("paciente_razon")."'";
+        $paciente_foto = "'".$this->input->post("paciente_foto")."'";
+
+        
+        if($paciente_id==0){ // paciente nuevo
+            $sql = "insert into paciente(estado_id,genero_id,extencion_id,paciente_nombre,
+                    paciente_edad,paciente_direccion,paciente_codigo,paciente_ci,
+                    paciente_celular,paciente_telefono,paciente_nit,paciente_razon,paciente_foto) value(".
+                    $estado_id.",".$genero_id.",".$extencion_id.",".$paciente_nombre.",".
+                    $paciente_edad.",".$paciente_direccion.",".$paciente_codigo.",".$paciente_ci.",".
+                    $paciente_celular.",".$paciente_telefono.",".$paciente_nit.",".$paciente_razon.",".$paciente_foto.")";
+            
+            $this->Prueba_model->ejecutar($sql);
+            
+            $resultado = $this->Prueba_model->consultar("select max(paciente_id) as pacienteid from paciente");
+            $paciente_id = $resultado[0]["pacienteid"]; 
+        }
+        else{ // modificar paciente
+            $sql = "update paciente set ".
+                    "estado_id = ".$estado_id.
+                    ",genero_id = ".$genero_id.
+                    ",extencion_id = ".$extencion_id.
+                    ",paciente_nombre = ".$paciente_nombre.
+                    ",paciente_edad = ".$paciente_edad.
+                    ",paciente_direccion = ".$paciente_direccion.
+                    ",paciente_codigo = ".$paciente_codigo.
+                    ",paciente_ci = ".$paciente_ci.
+                    ",paciente_celular = ".$paciente_celular.
+                    ",paciente_telefono = ".$paciente_telefono.
+                    ",paciente_nit = ".$paciente_nit.
+                    ",paciente_razon = ".$paciente_razon.
+                    ",paciente_foto = ".$paciente_foto.
+                    " where paciente_id = ".$paciente_id;
+            $this->Prueba_model->ejecutar($sql);
+        }
+        
+        echo $sql;
+        
+        
+        
+        
+        //Registra prueba        
+    	$tipoprueba_id = $this->input->post("tipoprueba_id");
+        //$paciente_id = $this->input->post("paciente_id");
         $prueba_fechasolicitud = "'".$this->input->post("prueba_fechasolicitud")."'";  
         $prueba_medicolab = "'".$this->input->post("prueba_medicolab")."'";
         $prueba_procedencia = "'".$this->input->post("prueba_procedencia")."'";
@@ -327,6 +383,8 @@ class Prueba extends CI_Controller{
         $prueba_saldo = $this->input->post("prueba_saldo");
         $prueba_codigo = "'-'";
         $estado_id = $this->input->post("estado_id");
+        
+        
 
         $sql = "insert into prueba(tipoprueba_id, paciente_id, prueba_fechasolicitud, prueba_medicolab,
                 prueba_procedencia, prueba_fechainforme, prueba_nombreanalisis, prueba_descricpion, 
@@ -341,7 +399,7 @@ class Prueba extends CI_Controller{
         echo $sql;        
         $this->Prueba_model->ejecutar($sql);
         
-        echo json_encode($resultado);
+        echo json_encode(true);
         
     }    
 }

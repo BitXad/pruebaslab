@@ -3,13 +3,77 @@
 <link href="<?php echo base_url('resources/css/select2/css/select2.min.css'); ?>" rel="stylesheet">
 <script src="<?php echo base_url('resources/css/select2/js/select2.full.min.js'); ?>"></script>
 
-<!--<script type="text/javascript">
-jQuery(document).ready(function($){
-    $(document).ready(function() {
-        $('.mi-selector').select2();
-    });
-});
-</script>-->
+<script type="text/javascript">
+//jQuery(document).ready(function($){
+//    $(document).ready(function() {
+//        $('.mi-selector').select2();
+//    });
+//});
+function compruebaTecla (e) {
+var keyCode = document.all ? e.which : e.keyCode;
+ 
+ 
+//  if (keyCode == 39)
+//alert("flecha derecha")
+//  else if (keyCode == 40)
+//
+//MarcaCheck ();
+//  else if (keyCode == 38)
+//alert("flecha arriba")
+//  else if (keyCode == 37)
+//alert("flecha izquierda")
+//  return true;
+
+//  if (keyCode == 112) //f1
+//  { alert("Tecla F1"); }    
+
+  if (keyCode == 113) //f2
+  { //alert("Tecla F2"); 
+    $('#paciente_ci').focus();
+    $('#paciente_ci').select();
+      
+  }    
+
+  if (keyCode == 115) //f4
+  {       
+    $('#paciente_nombre').focus();
+    $('#paciente_nombre').select();
+  }
+
+  if (keyCode == 118) //f7
+  {       
+    $('#nit').focus();
+    $('#nit').select();
+  }
+
+  if (keyCode == 119) //f8
+  {       
+    $('#boton_finalizar').click();
+  }
+
+  if (keyCode == 120) //f9
+  {   
+      alert("holaaaa");
+      
+    //$('#imprimir').click();
+  }
+
+  //if (keyCode == 121) //f10
+  //{       
+    //$('#nit').focus();
+    //$('#nit').select();
+    
+  //}
+  
+    e = e || event;
+  if(e.altKey && String.fromCharCode(e.keyCode) == 'C')
+  {
+      $("#imprimir").click();
+  } 
+  
+}
+window.onkeydown = compruebaTecla;
+</script>
     
 
 
@@ -18,6 +82,7 @@ jQuery(document).ready(function($){
 <?php $estilos = " style='background: white; color: black; text-align: left;  font-family: Arial;'"; //estilo para los inputs del cliente?>
 <?php $estilo_div = " style='padding:2; padding-left:1px; margin:0; line-height:15px;' "; ?>
 <input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
+<input type="text" value="<?php echo $paciente['paciente_id']; ?>" id="paciente_id" hidden>
 <!--<select class='mi-selector' name='marcas'>
     <option value=''>Seleccionar una marca</option>
     <option value='audi'>Audi</option>
@@ -57,7 +122,7 @@ jQuery(document).ready(function($){
                 
                 <div class="form-group" <?php echo $estilo_div; ?>>
 
-                    <input type="search" name="paciente_nombre" list="listapacientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,3)"  onchange="seleccionar_paciente()" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
+                    <input type="search" name="paciente_nombre" list="listapacientes" class="form-control <?php echo $atributos; ?>" <?php echo $estilos_facturacion; ?> id="paciente_nombre" value="<?php echo $paciente['paciente_razon']; ?>" onkeypress="validar(event,3)"  onchange="seleccionar_paciente()" onclick="seleccionar(3)" onKeyUp="this.value = this.value.toUpperCase();" autocomplete="off" />
                     <datalist id="listapacientes">
 <!--                        
                         <option value="1">1</option>
@@ -171,11 +236,11 @@ jQuery(document).ready(function($){
 
 
             <div class="col-md-4" <?php echo $estilo_div; ?>>
-                <label for="genero_nombre" class="control-label" style="margin-bottom: 0;">GENERO</label>
+                <label for="genero_id" class="control-label" style="margin-bottom: 0;">GENERO</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
                     <!--<input type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>-->
                            
-                    <select type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  >
+                    <select type="text" name="genero_id" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_id" value="<?php echo $paciente['paciente_direccion']; ?>"  >
                         
                         
                         

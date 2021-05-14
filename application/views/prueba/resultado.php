@@ -84,11 +84,11 @@ border-bottom : 1px solid #aaa;
     
     <td style="line-height: 15px;">
         <?php echo $prueba['paciente_nombre']; ?><br>
-        <?php echo $prueba['paciente_edad']; ?><br>
+        <?php echo $prueba['paciente_edad']." AÑOS"; ?><br>
         <?php echo $prueba['genero_nombre']; ?><br>
         <?php echo $prueba['prueba_codigo']; ?><br>
-        <?php echo $prueba['prueba_fechainforme']; ?><br>        
-        <?php echo $prueba['prueba_fechasolicitud']; ?><br>        
+        <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i:s"); ?><br>        
+        <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i:s"); ?><br>        
 
     </td>
     
