@@ -12,6 +12,7 @@ class Prueba extends CI_Controller{
         $this->load->model('Usuario_model');
         $this->load->model('Paciente_model');
         $this->load->model('Genero_model');
+        $this->load->model('Estado_model');
     } 
 
     /*
@@ -19,17 +20,19 @@ class Prueba extends CI_Controller{
      */
     function index()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        //$params['limit'] = RECORDS_PER_PAGE; 
+        //$params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('prueba/index?');
-        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
-        $this->pagination->initialize($config);
+        //$config = $this->config->item('pagination');
+        //$config['base_url'] = site_url('prueba/index?');
+//        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
+//        $this->pagination->initialize($config);
 
 //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
         $data['prueba'] = $this->Prueba_model->get_pruebas();
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        $data['usuario'] = 1;
+        $data['usuarios'] = $this->Usuario_model->get_all_usuario();
+        $data['estado'] = $this->Estado_model->get_all_estado();
         
         $data['_view'] = 'prueba/index';
         $this->load->view('layouts/main',$data);
@@ -202,7 +205,8 @@ class Prueba extends CI_Controller{
         $usuario_id = 1;
         //$cadenaQR = $pruebita['paciente_nombre']."|".;
         //$enlace = base_url("prueba/resultado_prueba/".md5($prueba_id));
-        $enlace =   "https://www.testcenterbolivia.com/sislab/prueba/resultado_prueba/".md5($prueba_id);
+        //$enlace =   "https://www.testcenterbolivia.com/sislab/prueba/resultado_prueba/".md5($prueba_id);
+        $enlace =   base_url("prueba/resultado_prueba/".md5($prueba_id));
         
         $cadenaQR = $pruebita['paciente_nombre']."|".$pruebita['tipoprueba_descripcion'].
                     "|".$pruebita['prueba_resultados']."|".
@@ -291,6 +295,25 @@ class Prueba extends CI_Controller{
         $tipoprueba_id = $this->input->post("tipoprueba_id");
         $sql = "select * from tipo_prueba where tipoprueba_id = ".$tipoprueba_id;
         //echo $sql;
+        $resultado = $this->Prueba_model->consultar($sql);
+        
+        echo json_encode($resultado);
+        
+    }    
+
+    function buscar_prueba(){
+        
+        $parametros = $this->input->post("parametros");
+        
+        $sql = "select r.*, p.*, u.*, t.*, e.*
+                from prueba r
+                left join paciente p on p.paciente_id = r.paciente_id
+                left join usuario u on u.usuario_id = r.usuario_id
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id
+                left join estado e on e.estado_id = r.estado_id
+                where ".$parametros.
+                " order by r.prueba_id desc";
+        ///echo $sql;
         $resultado = $this->Prueba_model->consultar($sql);
         
         echo json_encode($resultado);

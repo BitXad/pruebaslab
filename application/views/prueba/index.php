@@ -1,3 +1,24 @@
+<script src="<?php echo base_url('resources/js/index_prueba.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        buscar_pruebas();
+  //funciones a ejecutar
+    };
+    
+        $(document).ready(function () {
+            (function ($) {
+                $('#filtrar').keyup(function () {
+                    var rex = new RegExp($(this).val(), 'i');
+                    $('.buscar tr').hide();
+                    $('.buscar tr').filter(function () {
+                        return rex.test($(this).text());
+                    }).show();
+                })
+            }(jQuery));
+        });
+</script>
+<input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
 <!------------------ ESTILO DE LAS TABLAS ----------------->
 <link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
 <!-------------------------------------------------------->
@@ -13,108 +34,249 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header">
-                <!--<h3 class="box-title">Prueba Listing</h3>-->
-            	<div class="box-tools">
-                    <a href="<?php echo site_url('prueba/registrar_prueba'); ?>" class="btn btn-success btn-xs">+ Añadir</a> 
-                </div>
+                
+                    <div class="col-md-7">
+                        <!---- ----------------- parametro de buscador ------------------- -->
+                          <div class="input-group"> <span class="input-group-addon">Buscar</span>                              
+                              <input id="filtrar" type="text" class="form-control" placeholder="Ingrese el nombre, codigo, ci" onkeydown="validar(event,1)" autocomplete="off">
+                          </div>
+                        <!--------------------- fin parametro de buscador ------------------- -->
+                    </div>
+                
+                    <div class="col-md-3">
+                        <!---- ----------------- parametro de buscador ------------------- -->
+                        <select  class="btn btn-warning btn-block" id="select_pruebas" onchange="buscar_pruebas()">
+                        <option value="1">Pruebas de Hoy</option>
+                        <option value="2">Pruebas de Ayer</option>
+                        <option value="3">Pruebas de la semana</option>
+                        <option value="4">Todas la pruebas</option>
+                        <option value="5">Pruebas por fecha</option>
+                    </select>
+                    </div>
+                
+<!--                    <div class="col-md-2">
+                        -- ----------------- parametro de buscador ------------------- 
+                        <select  class="btn btn-info btn-block" id="select_estados" onchange="buscar_pruebas()">
+
+                        <option value="0">- TODAS -</option>
+                        <?php 
+                            foreach($estado as $e){ ?>
+                                <option value="<?php echo $e["estado_id"];?>"><?php echo $e["estado_descripcion"];?></option>
+                        <?php } ?>
+
+                        </select>
+                        
+                        ------------------- fin parametro de buscador ------------------- 
+                    </div>-->
+                    
+                    <div class="col-md-2">
+
+                        <div class="box-tools">                            
+                            <a href="<?php echo site_url('prueba/registrar_prueba'); ?>" class="btn btn-facebook btn-block"><fa class="fa fa-flask"></fa> Registrar Prueba</a> 
+                        </div>
+                        
+                    </div>
             </div>
+            
+            <!---------------------------------- panel oculto para busqueda--------------------------------------------------------->
+<!--<form method="post">-->
+<div class="panel panel-primary col-md-12 no-print" id='buscador_oculto' style='display:none;'>
+    <br>
+    <center>            
+        <div class="col-md-3">
+            Desde: <input type="date" class="btn btn-warning btn-sm form-control" id="fecha_desde" value="<?php echo date("Y-m-d");?>" name="fecha_desde" required="true">
+        </div>
+        <div class="col-md-3">
+            Hasta: <input type="date" class="btn btn-warning btn-sm form-control" id="fecha_hasta" value="<?php echo date("Y-m-d");?>"  name="fecha_hasta" required="true">
+        </div>
+        
+        <div class="col-md-2">
+            Tipo:             
+            <select  class="btn btn-info btn-sm form-control" id="select_estados" onchange="buscar_pruebas()">
+
+            <option value="0">- TODOS -</option>
+            <?php 
+                foreach($estado as $e){ ?>
+                    <option value="<?php echo $e["estado_id"];?>"><?php echo $e["estado_descripcion"];?></option>
+            <?php } ?>
+
+            </select>
+        </div>
+        
+        <div class="col-md-2">
+            Usuario:     
+            <select  class="btn btn-info btn-sm form-control" id="usuario_id">
+                    <option value="0">- TODOS -</option>
+                <?php foreach($usuarios as $us){?>
+                    <option value="<?php echo $us['usuario_id']; ?>"><?php echo $us['usuario_nombre']; ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        
+        <br>
+        <div class="col-md-2">
+
+            <button class="btn btn-sm btn-facebook btn-xs btn-block"   onclick="ventas_por_fecha()">
+                <h4>
+                <span class="fa fa-search"></span>   Buscar
+                </h4>
+            </button>
+            
+            <br>
+        </div>
+        
+    </center>    
+    <br>    
+</div>
+<!--</form>-->
+<!------------------------------------------------------------------------------------------->
             <div class="box-body table-responsive" >
                 <table class="table table-striped table-condensed table-hover" id="mitabla" >
+                    
                     <tr>
                         <th>#</th>
                         <th></th>
                         <th>Paciente</th>
                         <th>Tipo Prueba</th>
                         <th>Fecha</th>
-                        <!--<th>Fechasolicitud</th>-->
-                        <!--<th>Medico/Lab</th>-->
-                        <!--<th>Fecha<br>Recepcion</th>-->
                         <th>Procedencia</th>
-                        <!--<th>Fecha<br>Informe</th>-->
                         <th>Precio<br>Bs</th>
                         <th>A cuenta <br>Bs</th>
                         <th>Saldo <br>Bs</th>
-                        <!--<th>Nombre<br>Analisis</th>-->
-<!--                        <th>Descricpion</th>
-                        <th>Resultados</th>
-                        <th>Observacion</th>-->
                         <th>Responsable</th>
                         <th></th>
                     </tr>
-                    <?php 
-                        $fuente = "font-family: Arial; font-size: 14px; ";
-                        $fuente2 = "font-family: Arial; font-size: 12px; ";
-                        foreach($prueba as $p){ ?>
-                    
-                    <tr style="background-color: <?php echo "#".$p["estado_color"]; ?>">
-                        <td><?php echo $p['prueba_id']; ?></td>
-                        <td> <img  src="<?php echo base_url("resources/img/".$p['paciente_foto']); ?>" width="60" height="60" class="img img-circle"/></td>
-                        <td style="white-space: nowrap">
-                            <font style="<?php echo $fuente; ?>"><b> <?php echo $p['paciente_nombre']; ?> </b></font>
-                            <br>
-                            <b>C.I.: </b> <?php echo $p['paciente_ci']; ?>
-                            <b>CODIGO: </b> <?php echo $p['prueba_codigo']; ?>
+                    <tbody class="buscar" id="tabla_pacientes">
                         
-                        </td>
-                        
-                        <td><?php echo $p['tipoprueba_descripcion']; ?></td>
-                        <td style="white-space: nowrap">
-                            <b>SOLIC.:</b>
-                            <?php 
-                                if($p['prueba_fechasolicitud']!=null){
-                                    echo date_format(date_create($p['prueba_fechasolicitud']),"Y/m/d H:i:s");
-                                }
-                            ?><br>
-                            <b>RECEPC.:</b>
-                            <?php 
-                            if($p['prueba_fecharecepcion']!=null){
-                                echo date_format(date_create($p['prueba_fecharecepcion']),"Y/m/d H:i:s"); 
-                            }
-                            ?><br>
-                            <b>INFORME:</b>                            
-                            <?php echo date_format(date_create($p['prueba_fechainforme']),"Y/m/d H:i:s"); ?>
-                            
-                        </td>
-                        
-                        <td><?php echo $p['prueba_procedencia']; ?><br><?php echo $p['prueba_medicolab']; ?></td>
-                        
-                        <td>
-                            <b style="<?php echo $fuente; ?>"><?php echo number_format($p['prueba_precio'],2,".",","); ?></b>
-                        
-                        </td>
-                        
-                        <td style="white-space: nowrap; text-align: center;"><b  style="<?php echo $fuente; ?>"><?php echo number_format($p['prueba_acuenta'],2,".",","); ?></b><br>
-                            <?php echo $p['prueba_fechacuenta']; ?></td>
-                        
-                        <td style="white-space: nowrap; text-align: center;"><b  style="<?php echo $fuente; ?>"><?php echo number_format($p['prueba_saldo'],2,".",","); ?></b><br>
-                            <?php echo $p['prueba_fechasaldo']; ?></td>
-                        
-                        <!--<td><?php echo $p['prueba_nombreanalisis']; ?></td>-->
-                        
-<!--                        <td><?php echo substr($p['prueba_descricpion'],0,8).".."; ?></td>
-                        <td><?php echo substr($p['prueba_resultados'],0,8).".."; ?></td>
-                        <td><?php echo substr($p['prueba_observacion'],0,8).".."; ?></td>-->
-                        
-                        <td>
-                            <b  style="<?php echo $fuente; ?>">
-                                <?php echo $p['estado_descripcion']; ?>
-                            </b>
-                            <?php echo $p['usuario_nombre']; ?>
-                        </td>
-                        
-                        <td style="white-space: nowrap; text-align: center;">
-                            <a href="<?php echo site_url('prueba/resultado/'.$p['prueba_id']); ?>" class="btn btn-facebook btn-xs" target="_blank" title="Imprimir Resultado"><span class="fa fa-vcard-o"></span> </a>
-                            <a href="<?php echo site_url('prueba/edit/'.$p['prueba_id']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil" title="Modificar"></span> </a> 
-                            <a href="<?php echo site_url('prueba/remove/'.$p['prueba_id']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash" title="Eliminar"></span> </a>
-                        </td>
-                        
-                    </tr>
-                    <?php } ?>
+    
+                    </tbody>
                 </table>
-                <div class="pull-right">
+<!--                <div class="pull-right">
                     <?php echo $this->pagination->create_links(); ?>                    
-                </div>                
+                </div>                -->
             </div>
         </div>
     </div>
+</div>
+
+
+<!------------------------------------------------------------>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="font-family: Arial"><b>PRUEBA: REGISTRAR ENTREGA</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <div class="row clearfix">
+                
+              
+                <div class="col-md-4">
+                        <label for="prueba_fechasolicitud" class="control-label">Fechasolicitud</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_fechasolicitud" value="" class="has-datetimepicker form-control" id="prueba_fechasolicitud" />
+                        </div>
+                </div>
+              
+                <div class="col-md-4">
+                        <label for="prueba_fechainforme" class="control-label">Fecha Informe</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_fechainforme" value="" class="has-datetimepicker form-control" id="prueba_fechainforme" />
+                        </div>
+                </div>
+              
+              <div class="col-md-4">
+                        <label for="prueba_medicolab" class="control-label">Medico/Laboratorio</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_medicolab" value="" class="form-control" id="prueba_medicolab" />
+                        </div>
+                </div>
+<!--              
+                <div class="col-md-4">
+                        <label for="prueba_fecharecepcion" class="control-label">Prueba Fecharecepcion</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_fecharecepcion" value="" class="has-datetimepicker form-control" id="prueba_fecharecepcion" />
+                        </div>
+                </div>-->
+                <div class="col-md-4">
+                        <label for="prueba_procedencia" class="control-label">Procedencia</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_procedencia" value="" class="form-control" id="prueba_procedencia" />
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Prueba Precio</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_precio" value="" class="form-control" id="prueba_precio" />
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <label for="prueba_descricpion" class="control-label">Prueba Descricpion</label>
+                        <div class="form-group">
+                                <textarea name="prueba_descricpion" class="form-control" id="prueba_descricpion"> </textarea>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Nombre Analisis</label>
+                        <div class="form-group">
+                                <textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis"> </textarea>
+                                <span class="text-danger"> </span>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <label for="prueba_resultados" class="control-label">Resultado(s)</label>
+                        <div class="form-group">
+                                <textarea name="prueba_resultados" class="form-control" id="prueba_resultados"> </textarea>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                        <label for="prueba_observacion" class="control-label">Prueba Observacion</label>
+                        <div class="form-group">
+                                <textarea name="prueba_observacion" class="form-control" id="prueba_observacion"></textarea>
+                        </div>
+                </div>
+
+                <div class="col-md-4">
+                        <label for="prueba_acuenta" class="control-label">A cuenta Bs</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_acuenta" value="0.00" class="form-control" id="prueba_acuenta" />
+                        </div>
+                </div>
+<!--                <div class="col-md-6">
+                        <label for="prueba_fechacuenta" class="control-label">Prueba Fechacuenta</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_fechacuenta" value="<?php echo ($this->input->post('prueba_fechacuenta') ? $this->input->post('prueba_fechacuenta') : $prueba['prueba_fechacuenta']); ?>" class="has-datetimepicker form-control" id="prueba_fechacuenta" />
+                        </div>
+                </div>-->
+                <div class="col-md-4">
+                        <label for="prueba_saldo" class="control-label">Saldo Bs</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_saldo" value="0.00" class="form-control" id="prueba_saldo" />
+                        </div>
+                </div>
+<!--                <div class="col-md-6">
+                        <label for="prueba_fechasaldo" class="control-label">Prueba Fechasaldo</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_fechasaldo" value="<?php echo ($this->input->post('prueba_fechasaldo') ? $this->input->post('prueba_fechasaldo') : $prueba['prueba_fechasaldo']); ?>" class="has-datetimepicker form-control" id="prueba_fechasaldo" />
+                        </div>
+                </div>-->
+        </div>
+          
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal"><fa class="fa fa-times"></fa> Cancelar</button>
+        <button type="button" class="btn btn-primary"><fa class="fa fa-floppy-o"></fa> Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>

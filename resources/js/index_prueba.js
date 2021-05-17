@@ -1,40 +1,32 @@
+
 function validar(e,opcion){    
     var tecla = (document.all) ? e.keyCode : e.which;
  
     if (tecla==13){
         
         if (opcion==1){
-            var ci = document.getElementById("paciente_ci").value;
-            
-            if (ci == ''){
-                //alert("por aquii");
-                var cod = generar_codigo();
-                $("#paciente_ci").val(cod);
-                $("#paciente_nombre").focus();
-                $("#paciente_nombre").select();                
-            }
-            else{
-                buscarpaciente_ci();                
-            }
+  
+            buscar_pruebas();
             
         }
+
         
-        if (opcion==2){
-            buscarpaciente_codigo();
-        }
-        
-        if (opcion==3){
-            
-            var paciente_ci = document.getElementById("paciente_ci").value;
-            
-            if (paciente_ci == "0"){
-                buscarpaciente_nombre();                
-            }                
-            else{
-                $("#paciente_edad").focus();                
-            }
-            
-        }
+//        if (opcion==2){
+//            buscarpaciente_codigo();
+//        }
+//        
+//        if (opcion==3){
+//            
+//            var paciente_ci = document.getElementById("paciente_ci").value;
+//            
+//            if (paciente_ci == "0"){
+//                buscarpaciente_nombre();                
+//            }                
+//            else{
+//                $("#paciente_edad").focus();                
+//            }
+//            
+//        }
         
     }
 }
@@ -121,81 +113,244 @@ function buscarpaciente_nombre(){
     
 }
 
-function cargar_datos(p){
-    var paciente = JSON.parse(p)
+function formato_fecha(string){
+    fecha = string.substr(0,10);
+    hora = string.substr(11,string.length-1);
+//    alert(fecha+" "+hora);
     
-    if(paciente!=null){
-        $("#paciente_id").val(paciente["paciente_id"]);
-        $("#paciente_ci").val(paciente["paciente_ci"]);
-        $("#paciente_codigo").val(paciente["paciente_codigo"]);
-        $("#paciente_nombre").val(paciente["paciente_nombre"]);
-        $("#paciente_edad").val(paciente["paciente_edad"]);
-        $("#genero_nombre").val(paciente["genero_id"]);
-        $("#paciente_direccion").val(paciente["paciente_direccion"]);
-        $("#paciente_telefono").val(paciente["paciente_telefono"]);
-        $("#paciente_celular").val(paciente["paciente_celular"]);
-        $("#paciente_nit").val(paciente["paciente_nit"]);
-        $("#paciente_razon").val(paciente["paciente_razon"]);
-        $("#tipoprueba_id").focus();
-        
+    var info = "";
+    
+    if(fecha != null){
+       info = fecha.split('-').reverse().join('/')+" "+hora;
     }
-    else{
-       // $("#paciente_ci").val(0);
-        $("#paciente_id").val(0);
-        $("#paciente_codigo").val("-");
-        $("#paciente_nombre").val("SIN NOMBRE");
-        $("#paciente_edad").val(0);
-        $("#genero_nombre").val(1);
-        $("#paciente_direccion").val("S/N");
-        $("#paciente_telefono").val(0);
-        $("#paciente_celular").val(0);
-        $("#paciente_nit").val(0);
-        $("#paciente_razon").val("SIN NOMBRE");
+   // alert(info);
+    return info;
+}
+
+function formato_numerico(numero){
+        nStr = Number(numero).toFixed(2);
+        nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	
+	return x1 + x2;
+}
+
+function cargar_datos(respuesta){
+   
+    var p = JSON.parse(respuesta);
+    var base_url = document.getElementById('base_url').value;
+//    alert(p.length);
+//    alert(p);
+//    
+    if(p!=null){
+             
+        var fuente = 'font-family: Arial; font-size: 14px; ';
+        var fuente2 = 'font-family: Arial; font-size: 12px; ';
+        var html = "";
+        var total_precio = 0;
+        var total_acuenta = 0;
+        var total_saldo = 0;
         
-        $("#paciente_nombre").focus();
-        $("#paciente_nombre").select();
+        //alert(p.length);
+        for (var i=0; i< p.length; i++){
+            
+           // alert(p[i]['estado_color']);
+                               
+            html +="    <tr style='background-color: #"+p[i]['estado_color']+"'>";
+            
+            html +="            <td>"+(i+1)+"</td>";
+//            html +="            <td>"+p[i]['prueba_id']+"</td>";
+            html +="            <td> <img  src='"+base_url+"resources/img/"+p[i]['paciente_foto']+"' width='60' height='60' class='img img-circle'/></td>";
+            html +="            <td style='white-space: nowrap'>";
+            html +="            <font style='"+fuente+"'><b>"+p[i]['paciente_nombre']+"</b></font>";
+            html +="            <br>";
+            html +="            <b>C.I.: </b>"+p[i]['paciente_ci'];
+            html +="            <b>CODIGO: </b>"+p[i]['prueba_codigo'];
+            html +="            </td>";
+                        
+            html +="            <td>"+p[i]['tipoprueba_descripcion']+"</td>";
+            html +="            <td style='white-space: nowrap'>";
+            html +="            <b>SOLIC.:</b>";
+                            
+                                if(p[i]['prueba_fechasolicitud']!=null){
+                                    html += formato_fecha(p[i]['prueba_fechasolicitud']);
+                                }
+                                
+//            html +="            <br>";
+//            html +="            <b>RECEPC.:</b>";
+                            
+                            if(p[i]['prueba_fecharecepcion']!=null){
+                                html += formato_fecha(p[i]['prueba_fecharecepcion']); 
+                            }
+            html +="            <br>";
+            html +="            <b>INFORME:</b>";
+            
+                            if(p[i]['prueba_fechainforme']!=null){
+                                html+= formato_fecha(p[i]['prueba_fechainforme']); 
+                            }
+            html +="            </td>";
+                        
+            html +="            <td>"+p[i]['prueba_procedencia']+"<br>"+p[i]['prueba_medicolab']+"</td>";
+                        
+            html +="            <td>";
+            html +="            <b style='"+fuente+"'>"+formato_numerico(p[i]['prueba_precio'])+"</b>";
+                        
+            html +="            </td>";
+                        
+            html +="            <td style='white-space: nowrap; text-align: center;'><b  style='"+fuente+"'>"+formato_numerico(p[i]['prueba_acuenta'])+"</b><br>";
+                                if(p[i]['prueba_fechacuenta']!=null)
+                                    html +=  formato_fecha(p[i]['prueba_fechacuenta']);
+            html +=             "</td>";
+                        
+            html +="            <td style='white-space: nowrap; text-align: center;'><b  style='"+fuente+"'>"+formato_numerico(p[i]['prueba_precio'] - p[i]['prueba_acuenta'])+"</b><br>";
+
+                            if(p[i]['prueba_fechasaldo']!=null)
+                                html += formato_fecha(p[i]['prueba_fechasaldo'])
+            html +="            </td>";
+                        
+            html +="            <td>";
+            html +="            <b  style='"+fuente+"'>";
+            html +="            "+p[i]['estado_descripcion'];
+            html +="            </b><br>";
+            html +="            "+p[i]['usuario_nombre'];
+            html +="            </td>";
+                        
+            html +="            <td style='white-space: nowrap; text-align: center;'>";
+            html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> </a>";
+            html +="            <a href='"+base_url+"prueba/edit/"+p[i]['prueba_id']+"' class='btn btn-info btn-xs' target='_blank' ><span class='fa fa-pencil' title='Modificar'></span> </a>" 
+//            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
+            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
+            html +="            </td>";
+                        
+            html +="            </tr>";
+
+            total_precio += Number(p[i]['prueba_precio']);
+            total_acuenta += Number(p[i]['prueba_acuenta']);
+            total_saldo += Number(p[i]['prueba_precio']) - Number(p[i]['prueba_acuenta']);
+
+
+        }
+        html += "<tr>";
+        html += "<th colspan='3'>TOTALES Bs</th>";
+        html += "<th> </th>";
+        html += "<th> </th>";
+        html += "<th> </th>";
+        html += "<th>"+formato_numerico(total_precio)+"</th>";
+        html += "<th><b>"+formato_numerico(total_acuenta)+"</b></th>";
+        html += "<th>"+formato_numerico(total_saldo)+"</th>";
+        html += "<th> </th>";
+        html += "<th> </th>";
+        html += "</tr>";
+        
+        $("#tabla_pacientes").html(html);
+        
+        $("#filtro").focus();
+        $("#filtro").select();
     }
+    
         
 }
 
-function buscar_paciente(parametro,opcion){
+function mostrar_ocultar_buscador(parametro){
+    
+    if (parametro == "mostrar"){
+        document.getElementById('buscador_oculto').style.display = 'block';}
+    else{
+        document.getElementById('buscador_oculto').style.display = 'none';}
+    
+}
+
+function buscar_pruebas(){
 //    alert(parametro);
     var base_url = document.getElementById('base_url').value;
-    var controlador = base_url+"prueba/buscar"
+    var controlador = base_url+"prueba/buscar_prueba";
     
-    //alert(controlador);
+    var estado_id = document.getElementById('select_estados').value; 
+    var prueba_dia = document.getElementById('select_pruebas').value; 
+    var filtro = document.getElementById('filtrar').value; 
+    var parametros = " 1 = 1 "; 
+    
+    if(filtro.length>0){
+        
+        parametros += " and p.paciente_nombre like '%"+filtro+"%'"; 
+    }
+    else{
+    
+        if (estado_id>0){
+            parametros = " r.estado_id = "+estado_id; 
+        }
+    
+        if (prueba_dia>0){
+
+            if (prueba_dia == 1)//pedidos de hoy
+            {
+                parametros += " and date(r.prueba_fecharegistro) = date(now())";           
+                mostrar_ocultar_buscador("ocultar");
+            }
+
+            if (prueba_dia == 2)//pedidos de ayer
+            {
+                parametros += " and date(r.prueba_fecharegistro) = date_add(date(now()), INTERVAL -1 DAY)";
+                mostrar_ocultar_buscador("ocultar");
+            }
+
+            if (prueba_dia == 3) //pedidos de la semana
+            {
+                parametros += " and date(r.prueba_fecharegistro) >= date_add(date(now()), INTERVAL -1 WEEK)";
+                mostrar_ocultar_buscador("ocultar");
+            }
+
+            if (prueba_dia == 4) //todos los pedidos
+            {   parametros += " ";
+                mostrar_ocultar_buscador("ocultar");
+            }
+
+            if (prueba_dia == 5)// Por fecha 
+            {
+                mostrar_ocultar_buscador("mostrar");
+            }
+
+        }
+    }
     
     $.ajax({url: controlador,
            type:"POST",
-           data:{parametro:parametro},
+           data:{parametros:parametros},
            success:function(respuesta){     
+                    
+                    var res = JSON.parse(respuesta);
+                    
+                    if (res.length>0){
+                        
+                        cargar_datos(respuesta);                                            
+                    }
+                    else{                        
+                        html = "";
+                        $("#tabla_pacientes").html(html);
+                    }
+                    
                
-               var paciente = JSON.parse(respuesta);
-                var html = "";
-                
-               if (paciente.length>0){
-                   
-                   for(var i = 0; i<paciente.length; i++){
-                       
-                       if (opcion==1){
-                            cargar_datos(null);
-                            cargar_datos(JSON.stringify(paciente[i]));                           
-                       }
-                       
-                       if (opcion==2){ //buscar por nombre y cargar el datalist                           
-                           html += "<option value='"+paciente[i]["paciente_id"]+"'>"+paciente[i]["paciente_nombre"]+"</option>";                     
-                       }
-                           
-                   }
-                   if(opcion==2){
-                            $("#listapacientes").html(html);
-                   }
-                   
-               }
-               else{                
-                    //alert("hola para por aqui...");
-                    cargar_datos(null); 
-               }
+               
+               
+//               var paciente = JSON.parse(respuesta);
+//                
+//               if (paciente.length>0){
+//                   //alert(paciente.length);
+//                   
+//                    cargar_datos(respuesta);                           
+//                    //cargar_datos(JSON.stringify(paciente));                           
+//                 
+//               }
+//               else{                
+//                    //alert("hola para por aqui...");
+//                    cargar_datos(null); 
+//               }
            
         },
         error:function(respuesta){
@@ -339,7 +494,7 @@ function guardar_prueba(){
         
     });    
     
-    window.open(base_url+"prueba/", "_self");
+    /////window.open(base_url+"prueba/", "_self");
 }
 
 function seleccionar_paciente(){

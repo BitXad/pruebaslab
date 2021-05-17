@@ -72,15 +72,15 @@
 
                 <?php echo $interlineado; ?>
                 
-              <h3><b><?php echo "256"; ?></b></h3>
-              <p><?php echo "Pruebas Realizadas"; ?></p>
+              <h3><b><?php echo $pruebas_registradas[0]["cantidad"]; ?></b></h3>
+              <p><?php echo "Pruebas Registradas"; ?></p>
               
             </div>
               
             <div class="icon">
               <i class="fa fa-flask"></i>              
             </div>
-            <a href="<?php echo base_url('prueba/add'); ?>" class="small-box-footer">Ver Pruebas <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url('prueba/registrar_prueba'); ?>" class="small-box-footer">Ver Pruebas <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
           
@@ -97,7 +97,7 @@
                 </script>
                 
                 
-                <h3><b><?php echo "325"; ?><sup style="font-size: 20px"></sup></b></h3>
+                <h3><b><?php echo $pacientes[0]["cantidad"]; ?><sup style="font-size: 20px"></sup></b></h3>
 
               <p><?php echo "Pacientes"; ?></p>
             </div>
@@ -119,7 +119,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?php echo base_url('cliente'); ?>" class="small-box-footer">Ver pruebas <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo $pruebas_pendientes[0]["cantidad"]; ?>" class="small-box-footer">Ver pruebas <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -127,9 +127,9 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-                <h3><b><?php echo "6"; ?></b></h3>
+                <h3><b><?php echo $ingresos[0]["ingresos"]; ?> Bs </b></h3>
 
-              <p><?php echo "Reportes Disp."; ?></p>
+              <p><?php echo "Ingresos dia"; ?></p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>

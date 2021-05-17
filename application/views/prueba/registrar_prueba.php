@@ -430,17 +430,17 @@ window.onkeydown = compruebaTecla;
                                                     <input type="datetime-local" name="prueba_fechainforme" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class=" form-control" id="prueba_fechainforme" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Precio Bs</label>
 						<div class="form-group">
-                                                    <input type="text" name="prueba_precio" value="<?php echo $this->input->post('prueba_precio'); ?>" class="form-control" id="prueba_precio" onkeyup="calcular()" style="background: #7adddd"/>
+                                                    <input type="text" name="prueba_precio" value="<?php echo $this->input->post('prueba_precio'); ?>" class="form-control" id="prueba_precio" onkeyup="calcular()" style="background: #7adddd" onclick="seleccionar(7)"/>
 							<span class="text-danger"><?php echo form_error('prueba_precio');?></span>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="prueba_acuenta" class="control-label">A Cuenta Bs</label>
 						<div class="form-group">
-                                                    <input type="text" name="prueba_acuenta" value="<?php echo $this->input->post('prueba_acuenta'); ?>" class="form-control" id="prueba_acuenta"  onkeyup="calcular()" style="background: #000\9"/>
+                                                    <input type="text" name="prueba_acuenta" value="<?php echo $this->input->post('prueba_acuenta'); ?>" class="form-control" id="prueba_acuenta"  onkeyup="calcular()" style="background: #000\9" onclick="seleccionar(8)"/>
 						</div>
 					</div>
                                         <div class="col-md-6" hidden>
@@ -449,10 +449,10 @@ window.onkeydown = compruebaTecla;
                                                     <input type="datetime-local" name="prueba_fechacuenta" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class="form-control" id="prueba_fechacuenta" />
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<label for="prueba_saldo" class="control-label">Saldo</label>
 						<div class="form-group">
-							<input type="text" name="prueba_saldo" value="<?php echo $this->input->post('prueba_saldo'); ?>" class="form-control" id="prueba_saldo"  onkeyup="calcular()" style="background: #7adddd"/>
+                                                    <input type="text" name="prueba_saldo" value="<?php echo $this->input->post('prueba_saldo'); ?>" class="form-control" id="prueba_saldo"  onkeyup="calcular()" style="background: #7adddd" onclick="seleccionar(9)"/>
 						</div>
 					</div>
 <!--

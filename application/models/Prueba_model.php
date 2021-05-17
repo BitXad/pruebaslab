@@ -54,8 +54,7 @@ class Prueba_model extends CI_Model
                 left join usuario u on u.usuario_id = r.usuario_id
                 left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id
                 left join estado e on e.estado_id = r.estado_id
-                
-";
+                order by r.prueba_id desc";
         
         $prueba = $this->db->query($sql)->result_array();
         return $prueba;

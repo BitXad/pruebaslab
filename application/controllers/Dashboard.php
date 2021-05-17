@@ -12,12 +12,48 @@ class Dashboard extends CI_Controller{
         parent::__construct();
         $this->load->model('Empresa_model');
         $this->load->model('Usuario_model');
+        $this->load->model('Prueba_model');
     }
 
     function index()
     {
         $data['empresa'] = $this->Empresa_model->get_empresa(1);
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        
+        // Cantidad pruebas registradas
+        $sql = "select count(*) as cantidad from prueba 
+                where date(prueba_fecharegistro) = date(now())";
+        $data['pruebas_registradas'] = $this->Prueba_model->consultar($sql);
+        
+        // Cantidad pruebas registradas
+        $sql = "select count(*) as cantidad from paciente";
+        $data['pacientes'] = $this->Prueba_model->consultar($sql);
+        
+        // Cantidad pruebas registradas
+        $sql = "select count(*) as cantidad from prueba 
+                where estado_id <> 3"; //pruebas sin entregar
+        $data['pruebas_pendientes'] = $this->Prueba_model->consultar($sql);
+
+        // Suma de ingresos ver 1.0
+        $sql = "select if(sum(acuenta+saldo)>0,sum(acuenta+saldo),0) as ingresos
+                from
+                (
+                (SELECT 
+                  if(sum(prueba_acuenta)>0,sum(prueba_acuenta),0) AS acuenta, 0 as saldo
+                FROM prueba
+                WHERE date(prueba_fechacuenta) = date(now())
+                )
+
+                union  
+
+                ( SELECT 0 as acuenta,
+                  if(sum(prueba_saldo)>0,sum(prueba_saldo),0) AS saldo
+                        FROM
+                  prueba WHERE
+                  date(prueba_fechasaldo) = date(now())) 
+                ) as t1"; //pruebas sin entregar
+        $data['ingresos'] = $this->Prueba_model->consultar($sql);
+        
         $data['_view'] = 'dashboard';
         $this->load->view('layouts/main',$data);
     }
