@@ -370,7 +370,9 @@ window.onkeydown = compruebaTecla;
 					<div class="col-md-6">
 						<label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Descripción Analisis</label>
 						<div class="form-group">
-							<textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis" onKeyUp="this.value = this.value.toUpperCase();" ><?php echo $this->input->post('prueba_nombreanalisis'); ?></textarea>
+							<textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis" onKeyUp="this.value = this.value.toUpperCase();" ><?php echo $this->input->post('prueba_nombreanalisis'); ?>
+PRUEBA COVID-19
+                                                        </textarea>
 							<span class="text-danger"><?php echo form_error('prueba_nombreanalisis');?></span>
 						</div>
 					</div>
@@ -407,7 +409,7 @@ window.onkeydown = compruebaTecla;
 					<div class="col-md-6">
 						<label for="prueba_medicolab" class="control-label">Medico/Laboratorio</label>
 						<div class="form-group">
-							<input type="text" name="prueba_medicolab" value="<?php echo $this->input->post('prueba_medicolab'); ?>" class="form-control" id="prueba_medicolab" onKeyUp="this.value = this.value.toUpperCase();"  />
+							<input type="text" name="prueba_medicolab" value="N/A" class="form-control" id="prueba_medicolab" onKeyUp="this.value = this.value.toUpperCase();"  />
 						</div>
 					</div>
 <?php// echo date("Y-m-d")."T".date("H:i:s"); ?>
@@ -421,7 +423,7 @@ window.onkeydown = compruebaTecla;
 					<div class="col-md-6">
 						<label for="prueba_procedencia" class="control-label">Procedencia</label>
 						<div class="form-group">
-							<input type="text" name="prueba_procedencia" value="<?php echo $this->input->post('prueba_procedencia'); ?>" class="form-control" id="prueba_procedencia" onKeyUp="this.value = this.value.toUpperCase();"  />
+							<input type="text" name="prueba_procedencia" value="N/A" class="form-control" id="prueba_procedencia" onKeyUp="this.value = this.value.toUpperCase();"  />
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -462,24 +464,32 @@ window.onkeydown = compruebaTecla;
 							<input type="text" name="prueba_fechasaldo" value="<?php echo $this->input->post('prueba_fechasaldo'); ?>" class="has-datetimepicker form-control" id="prueba_fechasaldo" />
 						</div>
 					</div>-->
-<!--					<div class="col-md-6">
+					<div class="col-md-6">
 						<label for="prueba_descricpion" class="control-label">Descricpion</label>
 						<div class="form-group">
-							<textarea name="prueba_descricpion" class="form-control" id="prueba_descricpion"><?php echo $this->input->post('prueba_descricpion'); ?></textarea>
+                                                    <textarea name="prueba_descricpion" class="form-control" id="prueba_descricpion">
+PRUEBA EN TIEMPO REAL / REAL TIME TEST
+======================================
+TEMPERATURA CORPORAL / BODY TEMPERATURE: 36.5 ºC
+                                                    </textarea>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="prueba_resultados" class="control-label">Resultados</label>
 						<div class="form-group">
-							<textarea name="prueba_resultados" class="form-control" id="prueba_resultados"><?php echo $this->input->post('prueba_resultados'); ?></textarea>
+							<textarea name="prueba_resultados" class="form-control" id="prueba_resultados">
+PCR-TR COVID-19  NO DETECTADO / NOT DETECTED</textarea>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<label for="prueba_observacion" class="control-label">Observacion</label>
 						<div class="form-group">
-							<textarea name="prueba_observacion" class="form-control" id="prueba_observacion"><?php echo $this->input->post('prueba_observacion'); ?></textarea>
+							<textarea name="prueba_observacion" class="form-control" id="prueba_observacion">
+Resultado DETECTADO, es considerado como positivo para COVID-19, indica que RNA del SARS-CoV-2 fue detectado y el paciente es considerado con el virus y se presume que es contagioso. (<small> RESULT DETECTED, it is considered positive for COVID-19, indicates that RNA of SARS-CoV-2 was detected and the patient is considered with the virus and is presumed to be contagious.</small>)
+
+Resultados NO DETECTADOS, es considerado como negativo para COVID-19, indica que RNA del SARS-CoV-2 no esta presente en la muestra por el momento. (<small> Results NOT DETECTED, it is considered negative for COVID-19, indicates that RNA of SARS-CoV-2 It is not present in the sample at the moment.</small>).</textarea>
 						</div>
-					</div>-->
+					</div>
 				</div>
 			</div>
           	<div class="box-footer">

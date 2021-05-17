@@ -606,22 +606,7 @@ function actualizar_prueba(tipo){
                  prueba_observacion:prueba_observacion, prueba_precio:prueba_precio, prueba_acuenta:prueba_acuenta, prueba_saldo:prueba_saldo,estado_id:estado_id
                 },
            success:function(respuesta){     
-               
-               var tipoprueba = JSON.parse(respuesta);
-                alert("Actualziado correctamente...");
-//               if (tipoprueba != null){
-//                   $("#prueba_precio").val(0);
-//                   
-//                   for(var i = 0; i < tipoprueba.length; i++){
-//                       
-//                        $("#prueba_precio").val(tipoprueba[i]["tipoprueba_precio"]);
-//                        $("#prueba_acuenta").val(0);
-//                        $("#prueba_saldo").val(tipoprueba[i]["tipoprueba_precio"]);
-//                       
-//                   }
-//                   
-//               }
-//               else{ cargar_datos(null); }
+              
            
         },
         error:function(respuesta){
@@ -630,7 +615,8 @@ function actualizar_prueba(tipo){
         
     });    
     
-  //  window.open(base_url+"prueba/", "_self");
+    $("#cerrar_modalprueba").click();
+    //  window.open(base_url+"prueba/", "_self");
     
     
 }

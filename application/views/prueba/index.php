@@ -284,7 +284,7 @@
           
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal"><fa class="fa fa-times"></fa> Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="cerrar_modalprueba"><fa class="fa fa-times"></fa> Cerrar</button>
         <button type="button" class="btn btn-primary" onclick="actualizar_prueba(1)"><fa class="fa fa-floppy-o"></fa> Guardar</button>
         <button type="button" class="btn btn-facebook" onclick="actualizar_prueba(2)"><fa class="fa fa-hand-o-right"></fa> Entregar</button>
       </div>

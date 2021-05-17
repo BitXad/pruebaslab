@@ -273,9 +273,9 @@ function guardar_prueba(){
         prueba_fechainforme = prueba_fechainforme.replace("T"," ");
 
     var prueba_nombreanalisis = document.getElementById("prueba_nombreanalisis").value;
-    var prueba_descricpion = "-"; //document.getElementById("prueba_descricpion").value;
-    var prueba_resultados = "-"; //document.getElementById("prueba_resultados").value;
-    var prueba_observacion = "-"; //document.getElementById("prueba_observacion").value;
+    var prueba_descricpion = document.getElementById("prueba_descricpion").value;
+    var prueba_resultados = document.getElementById("prueba_resultados").value;
+    var prueba_observacion = document.getElementById("prueba_observacion").value;
     var prueba_precio = document.getElementById("prueba_precio").value;
     var prueba_acuenta = document.getElementById("prueba_acuenta").value;
     var prueba_fechacuenta = "";
