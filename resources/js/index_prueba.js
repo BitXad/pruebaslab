@@ -225,7 +225,7 @@ function cargar_datos(respuesta){
             html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> </a>";
             html +="            <a href='"+base_url+"prueba/edit/"+p[i]['prueba_id']+"' class='btn btn-info btn-xs' target='_blank' ><span class='fa fa-pencil' title='Modificar'></span> </a>" 
 //            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
-            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
+            html +="             <button class='btn btn-primary btn-xs' onclick='cargar_modal("+p[i]['prueba_id']+")'><fa class='fa fa-heartbeat'></fa> </button>";
             html +="            </td>";
                         
             html +="            </tr>";
@@ -526,4 +526,112 @@ function seleccionar_paciente(){
     
 }
 
+function cargar_modal(prueba_id){
+    
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+"prueba/buscar_prueba"
+    var parametros = " r.prueba_id = "+prueba_id;
+    //alert(controlador);
+    
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{parametros:parametros},
+           success:function(respuesta){     
+               
+               var paciente = JSON.parse(respuesta);
+                
+               if (paciente != null){
+                   //alert(paciente.length);
+                   
+                   for(var i = 0; i < paciente.length; i++){
+                        $("#prueba_id").val(paciente[i]["prueba_id"]);
+                        $("#prueba_fechasolicitud").val(paciente[i]["prueba_fechasolicitud"]);
+                        $("#prueba_fechainforme").val(paciente[i]["prueba_fechainforme"]);
+                        $("#prueba_medicolab").val(paciente[i]["prueba_medicolab"]);
+                        $("#prueba_procedencia").val(paciente[i]["prueba_procedencia"]);
+                        $("#prueba_procedencia").val(paciente[i]["prueba_procedencia"]);
+                        $("#prueba_nombreanalisis").val(paciente[i]["prueba_nombreanalisis"]);
+                        $("#prueba_descricpion").val(paciente[i]["prueba_descricpion"]);
+                        $("#prueba_resultados").val(paciente[i]["prueba_resultados"]);
+                        $("#prueba_observacion").val(paciente[i]["prueba_observacion"]);
+                        $("#prueba_precio").val(paciente[i]["prueba_precio"]);
+                        $("#prueba_acuenta").val(paciente[i]["prueba_acuenta"]);
+                        $("#prueba_saldo").val(paciente[i]["prueba_precio"] - paciente[i]["prueba_acuenta"]);
+
+                       
+                   }
+                   $("#boton_modalprueba").click();
+               }
+               else{ cargar_datos(null); }
+           
+        },
+        error:function(respuesta){
+               cargar_datos(null);
+        }
+        
+    });   
+        
+}
+
+function actualizar_prueba(tipo){
+    var base_url = document.getElementById('base_url').value;
+    var controlador = base_url+"prueba/actualizar_prueba"           
+
+    var prueba_id = document.getElementById("prueba_id").value;
+    var prueba_fechasolicitud = "";
+        prueba_fechasolicitud = document.getElementById("prueba_fechasolicitud").value;
+        prueba_fechasolicitud = prueba_fechasolicitud.replace("T"," ");
+        
+    var prueba_medicolab = document.getElementById("prueba_medicolab").value;
+    var prueba_procedencia = document.getElementById("prueba_procedencia").value;
+    var prueba_fechainforme = "";
+        prueba_fechainforme = document.getElementById("prueba_fechainforme").value;
+        prueba_fechainforme = prueba_fechainforme.replace("T"," ");
+
+    var prueba_nombreanalisis = document.getElementById("prueba_nombreanalisis").value;
+    var prueba_descricpion = document.getElementById("prueba_descricpion").value;
+    var prueba_resultados = document.getElementById("prueba_resultados").value;
+    var prueba_observacion = document.getElementById("prueba_observacion").value;
+    var prueba_precio = document.getElementById("prueba_precio").value;
+    var prueba_acuenta = document.getElementById("prueba_acuenta").value;    
+    var prueba_saldo = document.getElementById("prueba_saldo").value;
+    var estado_id = 3; // document.getElementById("estado_id").value;    
+    
+    
+    $.ajax({url: controlador,
+           type:"POST",
+           data:{prueba_fechasolicitud:prueba_fechasolicitud, prueba_id:prueba_id,
+                 prueba_medicolab:prueba_medicolab, prueba_procedencia:prueba_procedencia, prueba_procedencia:prueba_procedencia,
+                 prueba_fechainforme: prueba_fechainforme, prueba_nombreanalisis:prueba_nombreanalisis, prueba_descricpion:prueba_descricpion,prueba_resultados:prueba_resultados,
+                 prueba_observacion:prueba_observacion, prueba_precio:prueba_precio, prueba_acuenta:prueba_acuenta, prueba_saldo:prueba_saldo,estado_id:estado_id
+                },
+           success:function(respuesta){     
+               
+               var tipoprueba = JSON.parse(respuesta);
+                alert("Actualziado correctamente...");
+//               if (tipoprueba != null){
+//                   $("#prueba_precio").val(0);
+//                   
+//                   for(var i = 0; i < tipoprueba.length; i++){
+//                       
+//                        $("#prueba_precio").val(tipoprueba[i]["tipoprueba_precio"]);
+//                        $("#prueba_acuenta").val(0);
+//                        $("#prueba_saldo").val(tipoprueba[i]["tipoprueba_precio"]);
+//                       
+//                   }
+//                   
+//               }
+//               else{ cargar_datos(null); }
+           
+        },
+        error:function(respuesta){
+               cargar_datos(null);
+        }
+        
+    });    
+    
+  //  window.open(base_url+"prueba/", "_self");
+    
+    
+}
 

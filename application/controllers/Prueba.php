@@ -318,8 +318,9 @@ class Prueba extends CI_Controller{
         
         echo json_encode($resultado);
         
-    }    
-
+    }
+    
+   
     function seleccionar_paciente(){
         
         $paciente_id = $this->input->post("paciente_id");
@@ -403,7 +404,7 @@ class Prueba extends CI_Controller{
         $prueba_precio = $this->input->post("prueba_precio");
         $prueba_acuenta = $this->input->post("prueba_acuenta");
         $prueba_fechacuenta = "'".$this->input->post("prueba_fechacuenta")."'";
-        $prueba_saldo = $this->input->post("prueba_saldo");
+        $prueba_saldo = 0;// $this->input->post("prueba_saldo");
         $prueba_codigo = "'-'";
         $estado_id = $this->input->post("estado_id");
         
@@ -419,6 +420,54 @@ class Prueba extends CI_Controller{
                 $prueba_descricpion.", ".$prueba_resultados.", ".$prueba_observacion.", ".$prueba_precio.
                 ", ".$prueba_acuenta.", ".$prueba_fechacuenta.", ".$prueba_saldo.", ".$prueba_codigo.", ".
                 $estado_id.", ".$usuario_id.")";    
+        echo $sql;        
+        $this->Prueba_model->ejecutar($sql);
+        
+        echo json_encode(true);
+        
+    }    
+    
+    function actualizar_prueba(){
+
+        
+    	$usuario_id = 1;
+        //registrar paciente
+
+        $prueba_fechasolicitud = "'".$this->input->post("prueba_fechasolicitud")."'";
+        $prueba_medicolab = "'".$this->input->post("prueba_medicolab")."'";
+        $prueba_procedencia = "'".$this->input->post("prueba_procedencia")."'";
+        $prueba_fechainforme = "'".$this->input->post("prueba_fechainforme")."'";
+        $prueba_nombreanalisis = "'".$this->input->post("prueba_nombreanalisis")."'";
+        $prueba_descricpion = "'".$this->input->post("prueba_descricpion")."'";
+        $prueba_resultados = "'".$this->input->post("prueba_resultados")."'";
+        $prueba_observacion = "'".$this->input->post("prueba_observacion")."'";
+        $prueba_precio = $this->input->post("prueba_precio");
+        $prueba_acuenta = $this->input->post("prueba_acuenta");    
+        $prueba_saldo = $this->input->post("prueba_saldo");
+        $estado_id = $this->input->post("estado_id");   
+        $prueba_id = $this->input->post("prueba_id");   
+        
+        
+
+        
+        
+        
+        $sql = "update prueba set
+                prueba_fechasolicitud = ".$prueba_fechasolicitud.
+                ",prueba_medicolab = ".$prueba_medicolab.
+                ",prueba_procedencia = ".$prueba_procedencia.
+                ",prueba_fechainforme = ".$prueba_fechainforme.
+                ",prueba_nombreanalisis = ".$prueba_nombreanalisis.
+                ",prueba_descricpion = ".$prueba_descricpion.
+                ",prueba_resultados = ".$prueba_resultados.
+                ",prueba_observacion = ".$prueba_observacion.
+                ",prueba_precio = ".$prueba_precio.
+                ",prueba_acuenta = ".$prueba_acuenta.
+                ",prueba_fechacuenta = now()".
+                ",prueba_saldo = ".$prueba_saldo.
+                ",estado_id = ".$estado_id.
+                " where prueba_id = ".$prueba_id;
+
         echo $sql;        
         $this->Prueba_model->ejecutar($sql);
         

@@ -162,12 +162,12 @@
 
 <!------------------------------------------------------------>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_rentregar" id="boton_modalprueba">
   Modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_rentregar" tabindex="-1" role="dialog" aria-labelledby="modal_rentregar" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -181,8 +181,15 @@
           <div class="row clearfix">
                 
               
+              <div class="col-md-4" hidden="true">
+                        <label for="prueba_id" class="control-label">Prueba_id</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_id" value="" class="form-control" id="prueba_id" />
+                        </div>
+                </div>
+              
                 <div class="col-md-4">
-                        <label for="prueba_fechasolicitud" class="control-label">Fechasolicitud</label>
+                        <label for="prueba_fechasolicitud" class="control-label">Fecha solicitud</label>
                         <div class="form-group">
                                 <input type="text" name="prueba_fechasolicitud" value="" class="has-datetimepicker form-control" id="prueba_fechasolicitud" />
                         </div>
@@ -214,20 +221,15 @@
                                 <input type="text" name="prueba_procedencia" value="" class="form-control" id="prueba_procedencia" />
                         </div>
                 </div>
+
                 <div class="col-md-4">
-                        <label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Prueba Precio</label>
-                        <div class="form-group">
-                                <input type="text" name="prueba_precio" value="" class="form-control" id="prueba_precio" />
-                        </div>
-                </div>
-                <div class="col-md-4">
-                        <label for="prueba_descricpion" class="control-label">Prueba Descricpion</label>
+                        <label for="prueba_descricpion" class="control-label">Descricpión</label>
                         <div class="form-group">
                                 <textarea name="prueba_descricpion" class="form-control" id="prueba_descricpion"> </textarea>
                         </div>
                 </div>
                 <div class="col-md-4">
-                        <label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Nombre Analisis</label>
+                        <label for="prueba_nombreanalisis" class="control-label"><span class="text-danger">*</span>Analisis</label>
                         <div class="form-group">
                                 <textarea name="prueba_nombreanalisis" class="form-control" id="prueba_nombreanalisis"> </textarea>
                                 <span class="text-danger"> </span>
@@ -240,9 +242,17 @@
                         </div>
                 </div>
                 <div class="col-md-4">
-                        <label for="prueba_observacion" class="control-label">Prueba Observacion</label>
+                        <label for="prueba_observacion" class="control-label">Observacion</label>
                         <div class="form-group">
                                 <textarea name="prueba_observacion" class="form-control" id="prueba_observacion"></textarea>
+                        </div>
+                </div>
+
+                <div class="col-md-4">
+                        <label for="prueba_precio" class="control-label"><span class="text-danger">*</span>Precio Bs</label>
+                        <div class="form-group">
+                                <input type="text" name="prueba_precio" value="0.00" class="form-control" id="prueba_precio" />
+                                <!--<span class="text-danger"><?php echo form_error('prueba_precio');?></span>-->
                         </div>
                 </div>
 
@@ -274,8 +284,9 @@
           
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal"><fa class="fa fa-times"></fa> Cancelar</button>
-        <button type="button" class="btn btn-primary"><fa class="fa fa-floppy-o"></fa> Guardar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><fa class="fa fa-times"></fa> Cancelar</button>
+        <button type="button" class="btn btn-primary" onclick="actualizar_prueba(1)"><fa class="fa fa-floppy-o"></fa> Guardar</button>
+        <button type="button" class="btn btn-facebook" onclick="actualizar_prueba(2)"><fa class="fa fa-hand-o-right"></fa> Entregar</button>
       </div>
     </div>
   </div>
