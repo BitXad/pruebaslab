@@ -225,7 +225,9 @@ function cargar_datos(respuesta){
             html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> </a>";
             html +="            <a href='"+base_url+"prueba/edit/"+p[i]['prueba_id']+"' class='btn btn-info btn-xs' target='_blank' ><span class='fa fa-pencil' title='Modificar'></span> </a>" 
 //            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
-            html +="             <button class='btn btn-primary btn-xs' onclick='cargar_modal("+p[i]['prueba_id']+")'><fa class='fa fa-heartbeat'></fa> </button>";
+            if (p[i]['estado_id'] == 1)
+                html +="             <button class='btn btn-danger btn-xs' onclick='cargar_modal("+p[i]['prueba_id']+")'><fa class='fa fa-heartbeat'></fa> </button>";
+            
             html +="            </td>";
                         
             html +="            </tr>";
@@ -616,7 +618,7 @@ function actualizar_prueba(tipo){
     });    
     
     $("#cerrar_modalprueba").click();
-    //  window.open(base_url+"prueba/", "_self");
+    window.open(base_url+"prueba/", "_self");
     
     
 }

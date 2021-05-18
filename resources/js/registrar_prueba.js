@@ -339,7 +339,7 @@ function guardar_prueba(){
         
     });    
     
-    window.open(base_url+"prueba/", "_self");
+  //  window.open(base_url+"prueba/", "_self");
 }
 
 function seleccionar_paciente(){

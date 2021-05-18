@@ -28,10 +28,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
-<script src="<?php echo base_url('resources/js/verventas_enprocesodashb.js'); ?>"></script>
-<script src="<?php echo base_url('resources/js/pedido_diario.js'); ?>"></script>
+<!--<script src="<?php echo base_url('resources/js/verventas_enprocesodashb.js'); ?>"></script>-->
+<!--<script src="<?php echo base_url('resources/js/pedido_dCiario.js'); ?>"></script>-->
 <script src="<?php echo base_url('resources/js/highcharts.js'); ?>"></script>
 <script src="<?php echo base_url('resources/js/graficas.js'); ?>"></script>
+
+<input type="text" value="<?php echo $empresa["empresa_nombre"]; ?>" id="empresa_nombre"  hidden>
+<input type="text" value="<?php echo base_url(); ?>" id="base_url" hidden>
+<input type="text" value="<?php echo date("Y"); ?>" id="anio_sel" hidden>
+<input type="text" value="<?php echo date("m"); ?>" id="mes_sel" hidden>
+
+<!------------------ ESTILO DE LAS TABLAS ----------------->
+<link href="<?php echo base_url('resources/css/mitabla.css'); ?>" rel="stylesheet">
+ <!--<link rel="stylesheet" type="text/css" href="estilos.css" />-->
+<!-------------------------------------------------------->
 
 <center style="line-height:10px;">
     <h3>
@@ -80,7 +90,7 @@
             <div class="icon">
               <i class="fa fa-flask"></i>              
             </div>
-                <a href="<?php echo base_url('prueba/registrar_prueba'); ?>" class="small-box-footer">Ver Pruebas <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url('prueba/registrar_prueba'); ?>" class="small-box-footer">Registrar<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
           
@@ -104,7 +114,7 @@
             <div class="icon">
               <i class="fa fa-users"></i>
             </div>
-            <a href="<?php echo base_url('pedido'); ?>" class="small-box-footer">Ver pacientes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('paciente'); ?>" class="small-box-footer">Ver pacientes <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -119,7 +129,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="<?php echo $pruebas_pendientes[0]["cantidad"]; ?>" class="small-box-footer">Ver pruebas <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="<?php echo base_url('prueba'); ?>" class="small-box-footer">Ver pruebas <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -205,7 +215,28 @@
       <!-- /.row -->
       
       
- </section>      
+ </section>     
+<section class="col-lg-12 connectedSortable">
+          <div class="box box-info">
+            <div class="box-header">
+              <i class="fa fa-money"></i>
+
+              <h3 class="box-title">Pruebas pendientes</h3>
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
+                        title="Remove">
+                  <i class="fa fa-times"></i></button>
+              </div>
+              <!-- /. tools -->
+            </div>
+              <div class="box-body">
+                  
+                  <div class="box-body" id="div_grafica_barras"></div>
+                    
+              </div>
+            </div>
+ </section>
     
 <?php }else{ ?>
 
@@ -386,7 +417,7 @@
     
     
     
- 
+   
  <section class="col-lg-12 connectedSortable">
           <div class="box box-info">
             <div class="box-header">
@@ -403,11 +434,30 @@
             </div>
               <div class="box-body">
                   
-                  <div class="box-body" id="div_grafica_barras"></div>
-                  <?php
-//                    $user_id = $usuario;
-//                    $tipouser_id = $tipousuario_id;
-//                  ?>
+                  <div class="box-body" id="tabla" style="font-family: Arial;"></div>
+                  <table id="mitabla" class="table table-responsive table-condensed">
+                        <tr>
+                            <th>#</th>
+                            <th>PACIENTE</th>
+                            <th>PRUEBA</th>
+                            <th>ESTADO</th>
+                        </tr>  
+                      
+                      <?php
+                    //$user_id = $usuario;
+                    //$tipouser_id = $tipousuario_id;
+                    $i = 1;
+                    foreach ($pruebas as $p){ ?>
+                        <tr>
+                            <td><?php echo $i++; ?></td>
+                            <td><?php echo $p["paciente_nombre"]; ?></td>
+                            <td><?php echo $p["tipoprueba_descripcion"]; ?></td>
+                            <td><?php echo $p["estado_descripcion"]; ?></td>                            
+                        </tr>
+                  
+                  
+                    <?php } ?>
+                    </table>
               </div>
             </div>
  </section>

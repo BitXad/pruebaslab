@@ -474,4 +474,50 @@ class Prueba extends CI_Controller{
         echo json_encode(true);
         
     }    
+    
+    public function getUltimoDiaMes($elAnio,$elMes) {
+     return date("d",(mktime(0,0,0,$elMes+1,1,$elAnio)-1));
+    }
+
+    function mes($anio,$mes)
+    {
+        $primer_dia=1;
+        $ultimo_dia=$this->getUltimoDiaMes($anio,$mes);
+        $fecha_inicial=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$primer_dia) );
+        $fecha_final=date("Y-m-d H:i:s", strtotime($anio."-".$mes."-".$ultimo_dia) );
+        
+        $fechas_precio = "SELECT date(prueba_fecharegistro) as registro_fecha, round(prueba_precio,2) as prueba_totalfinal FROM prueba where date(prueba_fecharegistro) >= '".$anio."-".$mes."-01' and  date(prueba_fecharegistro) <= '".$anio."-".$mes."-31' ";
+        
+        $result_precios = $this->db->query($fechas_precio)->result_array();
+        
+        $fechas_utilidades = "SELECT date(prueba_fecharegistro) as registro_fecha, round(prueba_saldo,2) as utilidad_total FROM prueba where date(prueba_fecharegistro) >= '".$anio."-".$mes."-01' and  date(prueba_fecharegistro) <= '".$anio."-".$mes."-31' ";
+        
+        $result_utilidades = $this->db->query($fechas_utilidades)->result_array();
+        //$result=$data['result'];
+        $ct=count($result_precios);
+
+        for($d=1;$d<=$ultimo_dia;$d++){
+            $registros[$d]=0;
+            $registrosven[$d]=0;     
+        }
+
+        foreach($result_precios as $res){
+            
+            $diasel=intval(date("d",strtotime($res['registro_fecha']) ) );
+            $suma=$res['prueba_totalfinal'];
+            $registros[$diasel]+=$suma;    
+        }
+
+        foreach($result_utilidades as $resven){
+            $diaselven=intval(date("d",strtotime($resven['registro_fecha']) ) );
+            $sumave=$resven['utilidad_total'];
+            $registrosven[$diaselven]+=$sumave;    
+        }
+
+        $data=array("totaldias"=>$ultimo_dia, "registrosdia" =>$registros, "registrosven" =>$registrosven);
+        echo   json_encode($data);
+        /*$anio = $this->input->post('anio');   1555891200
+        $mes = $this->input->post('fecha2'); 
+        */
+        }
 }

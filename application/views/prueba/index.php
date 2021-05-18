@@ -162,9 +162,11 @@
 
 <!------------------------------------------------------------>
 <!-- Button trigger modal -->
+<div hidden="">
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_rentregar" id="boton_modalprueba">
   Modal
-</button>
+</button>    
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal_rentregar" tabindex="-1" role="dialog" aria-labelledby="modal_rentregar" aria-hidden="true">

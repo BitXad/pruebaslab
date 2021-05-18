@@ -33,6 +33,18 @@ class Dashboard extends CI_Controller{
         $sql = "select count(*) as cantidad from prueba 
                 where estado_id <> 3"; //pruebas sin entregar
         $data['pruebas_pendientes'] = $this->Prueba_model->consultar($sql);
+        
+                
+        $sql = "select r.*, p.*, u.*, t.*, e.*
+                from prueba r
+                left join paciente p on p.paciente_id = r.paciente_id
+                left join usuario u on u.usuario_id = r.usuario_id
+                left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id
+                left join estado e on e.estado_id = r.estado_id
+                where r.estado_id = 1 order by r.prueba_id desc";
+        ///echo $sql;
+        $data['pruebas'] = $this->Prueba_model->consultar($sql);
+        
 
         // Suma de ingresos ver 1.0
         $sql = "select if(sum(acuenta+saldo)>0,sum(acuenta+saldo),0) as ingresos
