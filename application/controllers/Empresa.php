@@ -11,6 +11,7 @@ class Empresa extends CI_Controller{
         parent::__construct();
         $this->load->model('Empresa_model');
         $this->load->model('Usuario_model');
+       // $this->load->model('Proveedor_model');
 //        if ($this->session->userdata('logged_in')) {
 //            $this->session_data = $this->session->userdata('logged_in');
 //        }else {
@@ -34,8 +35,16 @@ class Empresa extends CI_Controller{
      */
     function index()
     {
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/         
+        
+        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         if($this->acceso(121)){
+            
             $data['page_title'] = "Empresa";
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
@@ -50,6 +59,16 @@ class Empresa extends CI_Controller{
         $data['_view'] = 'empresa/index';
         $this->load->view('layouts/main',$data);
         }
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/         
+        
     }
 
     /*
@@ -157,8 +176,10 @@ class Empresa extends CI_Controller{
     {
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(121)){
+            
             $data['page_title'] = "Empresa";
         // check if the empresa exists before trying to edit it
+        
         $data['empresas'] = $this->Empresa_model->get_this_empresa($empresa_id);
         
         if(isset($data['empresas']['empresa_id']))

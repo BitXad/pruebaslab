@@ -15,10 +15,10 @@ class Parametro_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Cliente_model');
-        $this->load->model('Compra_model');
-        $this->load->model('Categoria_clientezona_model');
-        
+//        $this->load->model('Cliente_model');
+//        $this->load->model('Compra_model');
+//        $this->load->model('Categoria_clientezona_model');
+//        
         if ($this->session->userdata('logged_in')) {
             $this->session_data = $this->session->userdata('logged_in');
         }

@@ -17,6 +17,14 @@ class Tipo_prueba extends CI_Controller{
      */
     function index()
     {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/            
+                
+        
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
@@ -30,6 +38,17 @@ class Tipo_prueba extends CI_Controller{
         
         $data['_view'] = 'tipo_prueba/index';
         $this->load->view('layouts/main',$data);
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/            
+               
+        
     }
 
     /*
@@ -37,6 +56,15 @@ class Tipo_prueba extends CI_Controller{
      */
     function add()
     {   
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/            
+                        
+        
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if(isset($_POST) && count($_POST) > 0)     
         {   
@@ -53,6 +81,17 @@ class Tipo_prueba extends CI_Controller{
             $data['_view'] = 'tipo_prueba/add';
             $this->load->view('layouts/main',$data);
         }
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/            
+               
+        
     }  
 
     /*
@@ -60,6 +99,14 @@ class Tipo_prueba extends CI_Controller{
      */
     function edit($tipoprueba_id)
     {   
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/            
+                    
         // check if the tipo_prueba exists before trying to edit it
         $data['tipo_prueba'] = $this->Tipo_prueba_model->get_tipo_prueba($tipoprueba_id);
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
@@ -83,6 +130,18 @@ class Tipo_prueba extends CI_Controller{
         }
         else
             show_error('The tipo_prueba you are trying to edit does not exist.');
+        
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/            
+               
+        
     } 
 
     /*
@@ -90,6 +149,13 @@ class Tipo_prueba extends CI_Controller{
      */
     function remove($tipoprueba_id)
     {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/            
+
         $tipo_prueba = $this->Tipo_prueba_model->get_tipo_prueba($tipoprueba_id);
 
         // check if the tipo_prueba exists before trying to delete it
@@ -100,6 +166,18 @@ class Tipo_prueba extends CI_Controller{
         }
         else
             show_error('The tipo_prueba you are trying to delete does not exist.');
+    
+            /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/            
+           
     }
+    
+    
     
 }

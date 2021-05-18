@@ -658,4 +658,33 @@ class Prueba extends CI_Controller{
         $mes = $this->input->post('fecha2'); 
         */
         }
+        
+    function ultimo_resultado(){
+
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/        
+        
+                $sql = "select max(prueba_id) as pruebaid from prueba";
+                $resultado = $this->Prueba_model->consultar($sql);
+                
+//                $data['_view'] = 'prueba/resultado/'.$resultado["pruebaid"];
+//                $this->load->view('layouts/main',$data);
+                
+                $this->resultado($resultado[0]["pruebaid"]);
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
+        
+    }            
+        
 }
