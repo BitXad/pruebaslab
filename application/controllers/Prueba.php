@@ -13,6 +13,8 @@ class Prueba extends CI_Controller{
         $this->load->model('Paciente_model');
         $this->load->model('Genero_model');
         $this->load->model('Estado_model');
+        
+        $this->session_data = $this->session->userdata('logged_in');
     } 
 
     /*
@@ -20,52 +22,82 @@ class Prueba extends CI_Controller{
      */
     function index()
     {
-        //$params['limit'] = RECORDS_PER_PAGE; 
-        //$params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
         
-        //$config = $this->config->item('pagination');
-        //$config['base_url'] = site_url('prueba/index?');
-//        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
-//        $this->pagination->initialize($config);
+                $data['prueba'] = $this->Prueba_model->get_pruebas();
+                $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+                $data['usuarios'] = $this->Usuario_model->get_all_usuario();
+                $data['estado'] = $this->Estado_model->get_all_estado();
 
-//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
-        $data['prueba'] = $this->Prueba_model->get_pruebas();
-        $data['usuario'] = 1;
-        $data['usuarios'] = $this->Usuario_model->get_all_usuario();
-        $data['estado'] = $this->Estado_model->get_all_estado();
-        
-        $data['_view'] = 'prueba/index';
-        $this->load->view('layouts/main',$data);
+                $data['_view'] = 'prueba/index';
+                $this->load->view('layouts/main',$data);
+                
+            }else{
+                    $url = base_url("login");
+                    header("Location: .$url");
+                    die();
+                }
+        } else {redirect('login', 'refresh'); }
     }
 
     function registrar_prueba()
     {
-        $params['limit'] = RECORDS_PER_PAGE; 
-        $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/            
+                
         
-        $config = $this->config->item('pagination');
-        $config['base_url'] = site_url('prueba/index?');
-        $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
-        $this->pagination->initialize($config);
-        
-        $this->load->model('Tipo_prueba_model');
-        $data['all_tipo_prueba'] = $this->Tipo_prueba_model->get_all_tipo_prueba();
+                    $params['limit'] = RECORDS_PER_PAGE; 
+                    $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
 
-//        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
-        $data['paciente'] = $this->Paciente_model->get_paciente_inicial();
-        $data['genero'] = $this->Genero_model->get_all_genero();
-        $data['prueba'] = $this->Prueba_model->get_pruebas();
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        
-        $data['_view'] = 'prueba/registrar_prueba';
-        $this->load->view('layouts/main',$data);
+                    $config = $this->config->item('pagination');
+                    $config['base_url'] = site_url('prueba/index?');
+                    $config['total_rows'] = $this->Prueba_model->get_all_prueba_count();
+                    $this->pagination->initialize($config);
+
+                    $this->load->model('Tipo_prueba_model');
+                    $data['all_tipo_prueba'] = $this->Tipo_prueba_model->get_all_tipo_prueba();
+
+            //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
+                    $data['paciente'] = $this->Paciente_model->get_paciente_inicial();
+                    $data['genero'] = $this->Genero_model->get_all_genero();
+                    $data['prueba'] = $this->Prueba_model->get_pruebas();
+                    $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
+                    $data['_view'] = 'prueba/registrar_prueba';
+                    $this->load->view('layouts/main',$data);
+                    
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/            
+                    
     }
 
     /*
      * Adding a new prueba
      */
     function add()
-    {   $data['usuario'] = $this->Usuario_model->get_usuario(1);
+    {   
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/
+        
+        
+        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('prueba_precio','Prueba Precio','required');
@@ -111,6 +143,16 @@ class Prueba extends CI_Controller{
             $data['_view'] = 'prueba/add';
             $this->load->view('layouts/main',$data);
         }
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/       
+        
     }  
 
     /*
@@ -118,9 +160,16 @@ class Prueba extends CI_Controller{
      */
     function edit($prueba_id)
     {   
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/    
+    
         // check if the prueba exists before trying to edit it
         $data['prueba'] = $this->Prueba_model->get_prueba($prueba_id);
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         if(isset($data['prueba']['prueba_id']))
         {
             $this->load->library('form_validation');
@@ -171,6 +220,15 @@ class Prueba extends CI_Controller{
         }
         else
             show_error('The prueba you are trying to edit does not exist.');
+    
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
     } 
 
     /*
@@ -178,6 +236,15 @@ class Prueba extends CI_Controller{
      */
     function remove($prueba_id)
     {
+
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/        
+         
+    
         $prueba = $this->Prueba_model->get_prueba($prueba_id);
 
         // check if the prueba exists before trying to delete it
@@ -188,9 +255,26 @@ class Prueba extends CI_Controller{
         }
         else
             show_error('The prueba you are trying to delete does not exist.');
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
+        
     }
     
     function resultado($prueba_id){
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/        
         
 //        $config = $this->config->item('pagination');
 //        $config['base_url'] = site_url('prueba/index?');
@@ -200,9 +284,9 @@ class Prueba extends CI_Controller{
 //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
         $pruebita = $this->Prueba_model->get_prueba($prueba_id);
         $data['prueba'] = $pruebita;
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         
-        $usuario_id = 1;
+        //$usuario_id = 1;
         //$cadenaQR = $pruebita['paciente_nombre']."|".;
         //$enlace = base_url("prueba/resultado_prueba/".md5($prueba_id));
         //$enlace =   "https://www.testcenterbolivia.com/sislab/prueba/resultado_prueba/".md5($prueba_id);
@@ -233,10 +317,26 @@ class Prueba extends CI_Controller{
         
         $data['_view'] = 'prueba/resultado';
         $this->load->view('layouts/main',$data);        
+    
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/       
         
     }
     
     function resultado_prueba($prueba_id){
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/    
         
 //        $config = $this->config->item('pagination');
 //        $config['base_url'] = site_url('prueba/index?');
@@ -246,9 +346,9 @@ class Prueba extends CI_Controller{
 //        $data['prueba'] = $this->Prueba_model->get_all_prueba($params);
         $pruebita = $this->Prueba_model->get_prueba_md5($prueba_id);
         $data['prueba'] = $pruebita;
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         
-        $usuario_id = 1;
+   
         //$cadenaQR = $pruebita['paciente_nombre']."|".;
         $cadenaQR = $pruebita['paciente_nombre']."|".$pruebita['tipoprueba_descripcion'].
                     "|".$pruebita['prueba_resultados']."|".
@@ -275,6 +375,15 @@ class Prueba extends CI_Controller{
         
         $data['_view'] = 'prueba/resultado_online';
         $this->load->view('layouts/main',$data);        
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
         
     }
     
@@ -334,8 +443,13 @@ class Prueba extends CI_Controller{
 
     function registrar(){
 
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/        
         
-    	$usuario_id = 1;
         //registrar paciente
         $paciente_id = $this->input->post("paciente_id");
         $estado_id = 1;
@@ -354,6 +468,7 @@ class Prueba extends CI_Controller{
 
         
         if($paciente_id==0){ // paciente nuevo
+            
             $sql = "insert into paciente(estado_id,genero_id,extencion_id,paciente_nombre,
                     paciente_edad,paciente_direccion,paciente_codigo,paciente_ci,
                     paciente_celular,paciente_telefono,paciente_nit,paciente_razon,paciente_foto) value(".
@@ -385,7 +500,7 @@ class Prueba extends CI_Controller{
             $this->Prueba_model->ejecutar($sql);
         }
         
-        echo $sql;
+        //echo $sql;
         
         
         
@@ -420,17 +535,31 @@ class Prueba extends CI_Controller{
                 $prueba_descricpion.", ".$prueba_resultados.", ".$prueba_observacion.", ".$prueba_precio.
                 ", ".$prueba_acuenta.", ".$prueba_fechacuenta.", ".$prueba_saldo.", ".$prueba_codigo.", ".
                 $estado_id.", ".$usuario_id.")";    
-        echo $sql;        
+        //echo $sql;        
         $this->Prueba_model->ejecutar($sql);
         
         echo json_encode(true);
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
         
     }    
     
     function actualizar_prueba(){
 
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/        
         
-    	$usuario_id = 1;
         //registrar paciente
 
         $prueba_fechasolicitud = "'".$this->input->post("prueba_fechasolicitud")."'";
@@ -468,10 +597,19 @@ class Prueba extends CI_Controller{
                 ",estado_id = ".$estado_id.
                 " where prueba_id = ".$prueba_id;
 
-        echo $sql;        
+        //echo $sql;        
         $this->Prueba_model->ejecutar($sql);
         
         echo json_encode(true);
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/               
         
     }    
     

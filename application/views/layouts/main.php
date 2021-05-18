@@ -56,7 +56,7 @@
 
                                     <p>
                                         <?php echo $usuario['usuario_nombre']; ?>
-                                        <small>Regente de Lab.</small>
+                                        <small><?php echo "Usuario"; //$usuario['tipousuario_descripcion']; ?></small>
                                     </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -65,7 +65,7 @@
                                             <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                         </div>
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Salir</a>
+                                            <a href="<?php echo base_url("verificar/logout"); ?>" class="btn btn-default btn-flat">Salir</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -92,7 +92,7 @@
                     <ul class="sidebar-menu">
                         <li class="header">PRINCIPAL</li>
                         <li>
-                            <a href="<?php echo site_url();?>">
+                            <a href="<?php echo base_url(); ?>">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>

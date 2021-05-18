@@ -304,6 +304,7 @@ function guardar_prueba(){
     var paciente_foto = "foto.jpg";//document.getElementById('paciente_foto').value;
   
     
+    
     $.ajax({url: controlador,
            type:"POST",
            data:{tipoprueba_id:tipoprueba_id, paciente_id:paciente_id, prueba_fechasolicitud:prueba_fechasolicitud,
@@ -339,7 +340,7 @@ function guardar_prueba(){
         
     });    
     
-  //  window.open(base_url+"prueba/", "_self");
+    window.open(base_url+"prueba/", "_self");
 }
 
 function seleccionar_paciente(){

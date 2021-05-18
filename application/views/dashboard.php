@@ -43,19 +43,19 @@
  <!--<link rel="stylesheet" type="text/css" href="estilos.css" />-->
 <!-------------------------------------------------------->
 
-<center style="line-height:10px;">
-    <h3>
+<center style="line-height:7px;" style="font-family: Arial;">
+    <h3 style="font-family: Arial; margin-top: 0px;margin-bottom: 0px;">
         <b>
             <?php echo $empresa['empresa_nombre']; ?>
 
         </b>        
-        <h4>
-
-                <?php echo $empresa['empresa_direccion']; ?><br>
-                <?php echo $empresa['empresa_telefono']; ?>
-
-        </h4>
     </h3>
+    <h5 style="font-family: Arial; margin-top: 0px;">
+
+            <?php echo $empresa['empresa_direccion']; ?><br>
+            <?php echo $empresa['empresa_telefono']; ?>
+
+    </h5>
 </center>
 
 
@@ -90,7 +90,7 @@
             <div class="icon">
               <i class="fa fa-flask"></i>              
             </div>
-                <a href="<?php echo base_url('prueba/registrar_prueba'); ?>" class="small-box-footer">Registrar<i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url('prueba/registrar_prueba'); ?>" class="small-box-footer">Registrar <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
           
