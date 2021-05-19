@@ -17,6 +17,13 @@ class Extencion extends CI_Controller{
      */
     function index()
     {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/         
+        
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         
@@ -30,13 +37,31 @@ class Extencion extends CI_Controller{
         
         $data['_view'] = 'extencion/index';
         $this->load->view('layouts/main',$data);
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
+        
     }
 
     /*
      * Adding a new extencion
      */
     function add()
-    {   $data['usuario'] = $this->Usuario_model->get_usuario(1);
+    {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/         
+        
+        $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if(isset($_POST) && count($_POST) > 0)     
         {   
             $params = array(
@@ -51,13 +76,29 @@ class Extencion extends CI_Controller{
             $data['_view'] = 'extencion/add';
             $this->load->view('layouts/main',$data);
         }
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
     }  
 
     /*
      * Editing a extencion
      */
     function edit($extencion_id)
-    {   
+    {  
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         // check if the extencion exists before trying to edit it
         $data['extencion'] = $this->Extencion_model->get_extencion($extencion_id);
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
@@ -80,6 +121,16 @@ class Extencion extends CI_Controller{
         }
         else
             show_error('The extencion you are trying to edit does not exist.');
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
+        
     } 
 
     /*
@@ -87,6 +138,13 @@ class Extencion extends CI_Controller{
      */
     function remove($extencion_id)
     {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         $extencion = $this->Extencion_model->get_extencion($extencion_id);
 
         // check if the extencion exists before trying to delete it
@@ -97,6 +155,16 @@ class Extencion extends CI_Controller{
         }
         else
             show_error('The extencion you are trying to delete does not exist.');
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
+        
     }
     
 }

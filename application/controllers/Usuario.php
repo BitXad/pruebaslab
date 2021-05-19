@@ -48,6 +48,7 @@ private function acceso($id_rol){
                     'page_title' => 'Admin >> Mi Cuenta',
                     'thumb' => $session_data['thumb']
                 );*/
+
                 
                 $config = $this->config->item('pagination');
                 $config['base_url'] = site_url('usuario/index?');
@@ -89,7 +90,6 @@ private function acceso($id_rol){
                     'thumb' => $session_data['thumb']
                 );*/
 
-            
                 $this->form_validation->set_rules('usuario_nombre', 'Usuario Nombre', 'required');
                 //$this->form_validation->set_rules('usuario_email', 'Email', 'trim|required|valid_email|min_length[5]|max_length[250]|callback_hay_email2');//OJO
                 $this->form_validation->set_message('hay_email2', 'El email ya se registro, escriba uno diferente');
@@ -187,9 +187,7 @@ private function acceso($id_rol){
     function editar($usuario_id){
 
         if($this->acceso(148)){
-                $session_data = $this->session->userdata('logged_in');
-                $usuario_id = $session_data['usuario_id'];            
-                $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
 
                 /*$data = array(
                     'usuario_login' => $session_data['usuario_login'],
@@ -224,7 +222,6 @@ private function acceso($id_rol){
      */
     function edit($usuario_id)
     {
-        
         if($this->acceso(148)){
         $original_value = $this->db->query("SELECT usuario_login FROM usuario WHERE usuario_id = " . $usuario_id)->row()->usuario_login;
 

@@ -5,46 +5,33 @@
  */
  
 class Empresa extends CI_Controller{
-    //private $session_data = "";
+    private $session_data = "";
     function __construct()
     {
         parent::__construct();
         $this->load->model('Empresa_model');
-        $this->load->model('Usuario_model');
-       // $this->load->model('Proveedor_model');
-//        if ($this->session->userdata('logged_in')) {
-//            $this->session_data = $this->session->userdata('logged_in');
-//        }else {
-//            redirect('', 'refresh');
-//        }
+        if ($this->session->userdata('logged_in')) {
+            $this->session_data = $this->session->userdata('logged_in');
+        }else {
+            redirect('', 'refresh');
+        }
     }
     /* *****Funcion que verifica el acceso al sistema**** */
     private function acceso($id_rol){
-//        $rolusuario = $this->session_data['rol'];
-//        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
-//            return true;
-//        }else{
-//            $data['_view'] = 'login/mensajeacceso';
-//            $this->load->view('layouts/main',$data);
-//        }
-        
-        return true;
+        $rolusuario = $this->session_data['rol'];
+        if($rolusuario[$id_rol-1]['rolusuario_asignado'] == 1){
+            return true;
+        }else{
+            $data['_view'] = 'login/mensajeacceso';
+            $this->load->view('layouts/main',$data);
+        }
     }
     /*
      * Listing of empresa
      */
     function index()
     {
-        /************************** CABECERA SESSION ************************************/            
-        if ($this->session->userdata('logged_in')) {
-            $session_data = $this->session->userdata('logged_in');
-            if($session_data['tipousuario_id']==1){        
-                $usuario_id = $session_data['usuario_id'];
-        /************************** CABECERA SESSION ************************************/         
-        
-        $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         if($this->acceso(121)){
-            
             $data['page_title'] = "Empresa";
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
@@ -59,16 +46,6 @@ class Empresa extends CI_Controller{
         $data['_view'] = 'empresa/index';
         $this->load->view('layouts/main',$data);
         }
-
-        /************************** FIN CABECERA SESSION ************************************/            
-                }else{
-                $url = base_url("login");
-                header("Location: .$url");
-                die();
-            }
-        } else {redirect('login', 'refresh'); }            
-        /*************************** FIN CABECERA SESSION ***********************************/         
-        
     }
 
     /*
@@ -76,7 +53,6 @@ class Empresa extends CI_Controller{
      */
     function add()
     {
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(121)){
             $data['page_title'] = "Empresa";
         $this->load->library('form_validation');
@@ -174,12 +150,9 @@ class Empresa extends CI_Controller{
      */
     function edit($empresa_id)
     {
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(121)){
-            
             $data['page_title'] = "Empresa";
         // check if the empresa exists before trying to edit it
-        
         $data['empresas'] = $this->Empresa_model->get_this_empresa($empresa_id);
         
         if(isset($data['empresas']['empresa_id']))

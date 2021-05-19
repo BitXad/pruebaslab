@@ -68,7 +68,7 @@
                       $i=1;
                       $cont = 0;
 
-                      foreach($usuarios as $u) {
+                      foreach($usuario as $u) {
                       $cont = $cont+1;
                      /* $path_parts = pathinfo('./resources/images/usuarios/' .$u['usuario_imagen']);
                       $thumb = $path_parts['filename'] . '_thumb.' . $path_parts['extension'];

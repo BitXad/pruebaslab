@@ -33,6 +33,13 @@ class Estado extends CI_Controller{
      */
     function index()
     {
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(122)){
         $data['page_title'] = "Estado";
@@ -41,13 +48,32 @@ class Estado extends CI_Controller{
         $data['_view'] = 'estado/index';
         $this->load->view('layouts/main',$data);
         }
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
+        
     }
 
     /*
      * Adding a new estado
      */
     function add()
-    {   $data['usuario'] = $this->Usuario_model->get_usuario(1);
+    {   
+   
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/         
+       
+        $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(122)){
             $data['page_title'] = "Estado";
         $this->load->library('form_validation');
@@ -71,6 +97,16 @@ class Estado extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
         }
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/
+        
     }  
 
     /*
@@ -78,6 +114,14 @@ class Estado extends CI_Controller{
      */
     function edit($estado_id)
     {
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(122)){
             $data['page_title'] = "Estado";
@@ -110,6 +154,15 @@ class Estado extends CI_Controller{
         else
             show_error('The estado you are trying to edit does not exist.');
         }
+        
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
     } 
 
     /*
@@ -117,6 +170,14 @@ class Estado extends CI_Controller{
      */
     function remove($estado_id)
     {
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(122)){
         $estado = $this->Estado_model->get_estado($estado_id);
@@ -130,6 +191,15 @@ class Estado extends CI_Controller{
         else
             show_error('The estado you are trying to delete does not exist.');
         }
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/        
+        
     }
 
     /*
@@ -137,6 +207,14 @@ class Estado extends CI_Controller{
      */
     function vaciartabla()
     {
+        
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/ 
+                
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
         if($this->acceso(122)){
         $all_tabla = $this->Estado_model->get_all_tabla();
@@ -147,6 +225,15 @@ class Estado extends CI_Controller{
         redirect('estado');
 
         }
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
+            }
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/
+        
     }
     
 }
