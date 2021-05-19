@@ -45,7 +45,7 @@ class Ingreso extends CI_Controller{
             
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
             
             $usuario_id = $this->session_data['usuario_id'];
             $data['rol'] = $this->session_data['rol'];
@@ -99,13 +99,11 @@ class Ingreso extends CI_Controller{
             
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
             
+            
+            $this->load->library('form_validation');
             $this->form_validation->set_rules('ingreso_nombre', 'ingreso_nombre', 'required');
-            
-            $session_data = $this->session->userdata('logged_in');
-            $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);            
+                    
             
             //$this->load->model('Parametro_model');
             $parametro = $this->Parametro_model->get_all_parametro();
@@ -113,6 +111,7 @@ class Ingreso extends CI_Controller{
             $this->load->model('Moneda_model');
             $all_moneda = $this->Moneda_model->getalls_monedasact_asc();
             $data['all_moneda'] = $all_moneda;
+            
             if($this->form_validation->run())
             {
                 $ingreso_monto  = $this->input->post('ingreso_monto');
@@ -295,7 +294,7 @@ class Ingreso extends CI_Controller{
             
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
             
             $usuario_id = $this->session_data['usuario_id'];
             // check if the ingreso exists before trying to edit it
@@ -357,7 +356,8 @@ class Ingreso extends CI_Controller{
         if($this->acceso(58)){
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
+            
             
             $data['parametro'] =  $parametros = $this->Parametro_model->get_parametros();
             $data['ingresos'] = $this->Ingreso_model->get_ingresos($ingreso_id);
@@ -374,7 +374,7 @@ class Ingreso extends CI_Controller{
         if($this->acceso(58)){
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
             
             $data['parametro'] =  $parametros = $this->Parametro_model->get_parametros();
             $data['ingreso'] = $this->Ingreso_model->get_ingresos($ingreso_id);
@@ -393,7 +393,7 @@ class Ingreso extends CI_Controller{
             //**************** inicio contenido ***************
             $session_data = $this->session->userdata('logged_in');
             $usuario_id = $session_data['usuario_id'];            
-            $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
+
             
             $parametros = $this->Parametro_model->get_parametros();
             if (sizeof($parametros)>0){

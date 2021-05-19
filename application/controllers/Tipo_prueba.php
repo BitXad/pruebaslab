@@ -108,8 +108,9 @@ class Tipo_prueba extends CI_Controller{
         /************************** CABECERA SESSION ************************************/            
                     
         // check if the tipo_prueba exists before trying to edit it
-        $data['tipo_prueba'] = $this->Tipo_prueba_model->get_tipo_prueba($tipoprueba_id);
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+//        $data['tipo_prueba'] = $this->Tipo_prueba_model->get_tipo_prueba($tipoprueba_id);
+//        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+        
         if(isset($data['tipo_prueba']['tipoprueba_id']))
         {
             if(isset($_POST) && count($_POST) > 0)     

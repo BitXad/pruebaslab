@@ -26,9 +26,9 @@ class Prueba extends CI_Controller{
             $session_data = $this->session->userdata('logged_in');
             if($session_data['tipousuario_id']==1){        
                 $usuario_id = $session_data['usuario_id'];
+//                $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         
                 $data['prueba'] = $this->Prueba_model->get_pruebas();
-                $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
                 $data['usuarios'] = $this->Usuario_model->get_all_usuario();
                 $data['estado'] = $this->Estado_model->get_all_estado();
 

@@ -23,7 +23,7 @@ class Dashboard extends CI_Controller{
 
             $session_data = $this->session->userdata('logged_in');
 
-            if($session_data['tipousuario_id']==1){        
+            //if($session_data['tipousuario_id']==1){        
                     
                 $usuario_id = $session_data['usuario_id'];
                 
@@ -80,11 +80,11 @@ class Dashboard extends CI_Controller{
                 $this->load->view('layouts/main',$data);
                 
                 
-            }else{
-                    $url = base_url("login");
-                    header("Location: .$url");
-                    die();
-                }
+            //}else{
+            //        $url = base_url("login");
+            //       header("Location: .$url");
+            //        die();
+            //    }
                 
         } else {redirect('login', 'refresh'); }
     }

@@ -61,7 +61,8 @@ class Verificar extends CI_Controller
                     if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) {
                         redirect('alerta/dosificacion'); 
                     } 
-                    redirect('admin/dashb'); 
+//                    redirect('admin/dashb'); 
+                    redirect('dashboard'); 
                 }elseif($session_data['tipousuario_id'] == 7){ // usuario tipo Cocina
                     redirect('detalle_venta/recepcion');
                 }else{  // En caso de otro usuario no administrador 
@@ -70,7 +71,8 @@ class Verificar extends CI_Controller
                     } 
                    // $this->load->model('Cliente_model'); 
                     //$cliente_id = $this->Cliente_model->get_cliente_from_ci($session_data['usuario_login']); 
-                    redirect('admin/dashb/index_user'); 
+                    //redirect('admin/dashb/index_user'); Si es que va a redireccionar a otro dashboard cuando sea otro usuario
+                    redirect('dashboard'); 
                 } 
                 // if($session_data['tipousuario_id'] == 5) { 
                 //     if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) { 

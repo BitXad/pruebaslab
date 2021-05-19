@@ -20,6 +20,10 @@
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
     </head>
+        <?php
+        $session_data = $this->session->userdata('logged_in');
+        $rolusuario = $session_data['rol'];
+    ?>
     
     <body class="hold-transition skin-red sidebar-mini">
         <div class="wrapper">
@@ -46,17 +50,17 @@
                         <!-- User Account: style can be found in dropdown.less -->
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="user-image" alt="User Image">
-                                    <span class="hidden-xs"><?php echo $usuario['usuario_nombre']; ?></span>
+                                    <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="user-image" alt="Imagen de usuario">
+                                    <span class="hidden-xs"><?php echo $session_data['usuario_nombre']; ?></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
-                                        <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
+                                        <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="Imagen de usuario">
 
                                     <p>
-                                        <?php echo $usuario['usuario_nombre']; ?>
-                                        <small><?php echo "Usuario"; //$usuario['tipousuario_descripcion']; ?></small>
+                                        <?php echo $session_data['usuario_nombre']; ?>
+                                        <small><?php echo "Usuario"; //$session_data['tipousuario_descripcion']; ?></small>
                                     </p>
                                     </li>
                                     <!-- Menu Footer-->
@@ -81,10 +85,10 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="<?php echo site_url('resources/img/user2-160x160.jpg');?>" class="img-circle" alt="User Image">
+                            <img src="<?php echo site_url('resources/images/usuarios/'.$session_data['usuario_imagen']);?>" class="img-circle" alt="Imagen de usuario" width="160px" height="160px">
                         </div>
                         <div class="pull-left info">
-                            <p><?php echo $usuario['usuario_nombre']; ?></p>
+                            <p><?php echo $session_data['usuario_nombre']; ?></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -179,11 +183,11 @@
                                 <ul class="treeview-menu">
                                     
                                     <li class="active">
-                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-plus"></i> Añadir</a>
+                                        <a href="<?php echo site_url('usuario');?>"><i class="fa fa-user"></i> Usuario</a>
                                     </li>
                                     
                                     <li>
-                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                        <a href="<?php echo site_url('tipo_usuario');?>"><i class="fa fa-list-ul"></i> Tipo de usuario</a>
                                     </li>
                                     
                                 </ul>

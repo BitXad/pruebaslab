@@ -61,6 +61,7 @@ class Genero extends CI_Controller{
         // check if the genero exists before trying to edit it
         $data['genero'] = $this->Genero_model->get_genero($genero_id);
         $data['usuario'] = $this->Usuario_model->get_usuario(1);
+
         if(isset($data['genero']['genero_id']))
         {
             if(isset($_POST) && count($_POST) > 0)     
