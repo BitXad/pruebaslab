@@ -165,11 +165,11 @@
                                 <ul class="treeview-menu">
                                     
                                     <li class="active">
-                                        <a href="<?php echo site_url('empresa/add');?>"><i class="fa fa-plus"></i> Añadir</a>
+                                        <a href="<?php echo site_url('reportes/movimientodiario');?>"><i class="fa fa-paste"></i> Reporte Diario</a>
                                     </li>
                                     
                                     <li>
-                                        <a href="<?php echo site_url('empresa/index');?>"><i class="fa fa-list-ul"></i> Mostrar</a>
+                                        <a href="<?php echo site_url('prueba');?>"><i class="fa fa-list-ul"></i> Pruebas del dia</a>
                                     </li>
                                     
                                 </ul>

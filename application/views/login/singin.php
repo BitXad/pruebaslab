@@ -34,10 +34,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     
     <link rel="shortcut icon" href="<?php echo site_url('resources/images/icono.png');?>" />
     
-    <script src="<?php echo base_url();?>js/skdslider.min.js"></script>
-    <link href="<?php echo base_url();?>css/skdslider.css" rel="stylesheet">
-    
-    
+    <script src="<?php echo base_url("resources/js/skdslider.min.js");?>"></script>
+    <link href="<?php echo base_url("resources/css/skdslider.css");?>" rel="stylesheet">
+
 <!--            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>pruebaslab</title>-->
