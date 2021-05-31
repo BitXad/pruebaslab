@@ -122,10 +122,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   </span></center><br></div>
              <?php }else { ?>
               <?php echo form_open('verificar'); ?>
+                <input type="text" name="username" id="username" placeholder="Usuario" autocomplete="off" autofocus  required=""  ?>  
+                <input type="password" name="password" id="password" class="lock" placeholder="Contraseña"  >
+                <input type="submit" name="Sign In" value="Ingresar">
             <?php echo form_close(); ?>
-            <input type="text" name="username" id="username" placeholder="Usuario" autocomplete="off" autofocus  required=""  ?>  
-            <input type="password" name="password" id="password" class="lock" placeholder="Contraseña"  >
-            <input type="submit" name="Sign In" value="Ingresar">
         <?php } ?>
             <!--<div class="forgot-top-grids">
                 <div class="forgot-grid">

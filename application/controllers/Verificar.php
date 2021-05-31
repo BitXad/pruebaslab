@@ -25,17 +25,21 @@ class Verificar extends CI_Controller
         //var_dump($result);
 
         if ($result) {
+            
             if ($result->tipousuario_id == 1 or $result->tipousuario_id == 2 or $result->tipousuario_id == 3 or $result->tipousuario_id == 4 or $result->tipousuario_id == 5 or $result->tipousuario_id == 6 or $result->tipousuario_id == 7 or $result->tipousuario_id == 8) {
                
                 $this->load->model('Rol_usuario_model');
                 $this->load->model('Tipo_usuario_model');
+                
                 $thumb = "default_thumb.jpg";
                 if ($result->usuario_imagen <> null && $result->usuario_imagen <> "") {
                     $thumb = "thumb_".$result->usuario_imagen;
                     //$thumb = $this->foto_thumb($result->usuario_imagen);
                 }
+                
                 $rolusuario = $this->Rol_usuario_model->getall_rolusuario($result->tipousuario_id);
                 $tipousuario_nombre = $this->Tipo_usuario_model->get_tipousuario_nombre($result->tipousuario_id);
+                
                 $sess_array = array(
                     'usuario_login' => $result->usuario_login,
                     'usuario_id' => $result->usuario_id,
@@ -58,6 +62,7 @@ class Verificar extends CI_Controller
                 //print "<pre>"; print_r( $session_data); print "</pre>";
 
                 if ($session_data['tipousuario_id'] == 1) {// admin page
+                    
                     if ($dosificacion['dias']<=10 && $dosificacion['dias']!=null) {
                         redirect('alerta/dosificacion'); 
                     } 
