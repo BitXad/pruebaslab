@@ -32,7 +32,8 @@ class Empresa extends CI_Controller{
     function index()
     {
         if($this->acceso(121)){
-            $data['page_title'] = "Empresa";
+            
+        $data['page_title'] = "Empresa";
         $params['limit'] = RECORDS_PER_PAGE; 
         $params['offset'] = ($this->input->get('per_page')) ? $this->input->get('per_page') : 0;
         

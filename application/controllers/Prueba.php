@@ -13,6 +13,7 @@ class Prueba extends CI_Controller{
         $this->load->model('Paciente_model');
         $this->load->model('Genero_model');
         $this->load->model('Estado_model');
+        $this->load->library('ControlCode');
         
         $this->session_data = $this->session->userdata('logged_in');
     } 
@@ -299,7 +300,7 @@ class Prueba extends CI_Controller{
         $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
         //Generador de Codigo QR
                 //cargamos la librería	
-         $this->load->library('ciqrcode');
+         $this->load->library('Ciqrcode');
                  
          //hacemos configuraciones
          $params['data'] = $cadenaQR;//$this->random(30);
@@ -307,8 +308,10 @@ class Prueba extends CI_Controller{
          $params['size'] = 5;
          //decimos el directorio a guardar el codigo qr, en este 
          //caso una carpeta en la raíz llamada qr_code
+         echo FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; 
          $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
-         //generamos el código qr
+         
+        //generamos el código qr
          $this->ciqrcode->generate($params); 
          //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
         //fin generador de codigo QR        
