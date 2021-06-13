@@ -111,7 +111,7 @@ window.onkeydown = compruebaTecla;
             </div>
 
         <div class="col-md-2" <?php echo $estilo_div; ?>>
-                <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">CÓDIGO</label>
+                <label for="paciente_codigo" class="control-label" style="margin-bottom: 0;">TIPO DOC.</label>
                 <div class="form-group" <?php echo $estilo_div; ?>>
                     <input type="text" name="paciente_codigo" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_codigo" value="<?php echo $paciente['paciente_codigo']; ?>"  onKeyUp="this.value = this.value.toUpperCase();" onkeypress="validar(event,2)" onclick="seleccionar(2)"/>
                 </div>            
@@ -142,12 +142,42 @@ window.onkeydown = compruebaTecla;
             </div>
         </div>-->
           
-        <div class="col-md-2" <?php echo $estilo_div; ?>>
+        <div class="col-md-1" <?php echo $estilo_div; ?>>
             <label for="paciente_edad" class="control-label" style="margin-bottom: 0;">EDAD</label>
             <div class="form-group" <?php echo $estilo_div; ?>>
                 <input type="text" name="paciente_edad" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="paciente_edad" value="<?php echo $paciente['paciente_edad']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>
             </div>
         </div>
+          
+        <div class="col-md-2" <?php echo $estilo_div; ?>>
+                <label for="genero_id" class="control-label" style="margin-bottom: 0;">GENERO</label>
+                <div class="form-group" <?php echo $estilo_div; ?>>
+                    <!--<input type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>-->
+                           
+                    <select type="text" name="genero_id" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_id" value="<?php echo $paciente['paciente_direccion']; ?>"  >
+                        
+                        
+                        
+                        <?php 
+                            $seleccionado = "";
+                            foreach($genero as $g){ 
+                            
+                                if ($g['genero_id']==$paciente['genero_id'] ){
+                                    $seleccionado = "selected";}
+                                else{
+                                    $seleccionado = "";}
+                            ?>
+                                <option value="<?php echo $g['genero_id']; ?>" <?php echo " ".$seleccionado; ?> ><?php echo $g['genero_nombre']; ?></option>
+                        
+                        <?php } ?>
+                        
+                        
+                    </select>
+                        
+                
+                </div>
+            </div>          
+          
           
         <div class="col-md-1" <?php echo $estilo_div; ?>>
             <label for="paciente_celular" class="control-label" style="margin-bottom: 0;"></label>
@@ -187,7 +217,7 @@ window.onkeydown = compruebaTecla;
 
          
           
-        <div class="col-md-12" <?php echo $estilo_div; ?>>
+<div class="col-md-12" <?php echo $estilo_div; ?>>
             <label for="paciente_celular" class="control-label" style="margin-bottom: 0;"></label>
             <div class="form-group" <?php echo $estilo_div; ?>>
 
@@ -235,34 +265,7 @@ window.onkeydown = compruebaTecla;
 
 
 
-            <div class="col-md-4" <?php echo $estilo_div; ?>>
-                <label for="genero_id" class="control-label" style="margin-bottom: 0;">GENERO</label>
-                <div class="form-group" <?php echo $estilo_div; ?>>
-                    <!--<input type="text" name="genero_nombre" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_nombre" value="<?php echo $paciente['paciente_direccion']; ?>"  onKeyUp="this.value = this.value.toUpperCase();"/>-->
-                           
-                    <select type="text" name="genero_id" class="form-control <?php echo $atributos; ?>" <?php echo $estilos; ?> id="genero_id" value="<?php echo $paciente['paciente_direccion']; ?>"  >
-                        
-                        
-                        
-                        <?php 
-                            $seleccionado = "";
-                            foreach($genero as $g){ 
-                            
-                                if ($g['genero_id']==$paciente['genero_id'] ){
-                                    $seleccionado = "selected";}
-                                else{
-                                    $seleccionado = "";}
-                            ?>
-                                <option value="<?php echo $g['genero_id']; ?>" <?php echo " ".$seleccionado; ?> ><?php echo $g['genero_nombre']; ?></option>
-                        
-                        <?php } ?>
-                        
-                        
-                    </select>
-                        
-                
-                </div>
-            </div>
+            
 
             <div class="col-md-4" <?php echo $estilo_div; ?>>
                 <label for="paciente_direccion" class="control-label" style="margin-bottom: 0;">DIRECCIÓN</label>
@@ -376,28 +379,7 @@ PRUEBA COVID-19
 							<span class="text-danger"><?php echo form_error('prueba_nombreanalisis');?></span>
 						</div>
 					</div>
-<!--					<div class="col-md-6">
-						<label for="paciente_id" class="control-label">Paciente</label>
-						<div class="form-group">
-							<select name="paciente_id" class="form-control">
-								<option value="">- PACIENTE -</option>
-								<?php 
-								foreach($all_paciente as $paciente)
-								{
-									$selected = ($paciente['paciente_id'] == $this->input->post('paciente_id')) ? ' selected="selected"' : "";
 
-									echo '<option value="'.$paciente['paciente_id'].'" '.$selected.'>'.$paciente['paciente_nombre'].'</option>';
-								} 
-								?>
-							</select>
-						</div>
-					</div>-->
-<!--					<div class="col-md-6">
-						<label for="prueba_codigo" class="control-label">Codigo</label>
-						<div class="form-group">
-							<input type="text" name="prueba_codigo" value="<?php echo $this->input->post('prueba_codigo'); ?>" class="form-control" id="prueba_codigo" />
-						</div>
-					</div>-->
 
 					<div class="col-md-6">
 						<label for="prueba_fechasolicitud" class="control-label">Fecha Solicitud / Toma  de muestra</label>
@@ -406,30 +388,25 @@ PRUEBA COVID-19
 							<!--<input type="text" name="prueba_fechasolicitud" value="<?php echo $this->input->post('prueba_fechasolicitud'); ?>" class="has-datetimepicker form-control" id="prueba_fechasolicitud" />-->
 						</div>
 					</div>
-					<div class="col-md-6">
-						<label for="prueba_medicolab" class="control-label">Medico/Laboratorio</label>
-						<div class="form-group">
-							<input type="text" name="prueba_medicolab" value="N/A" class="form-control" id="prueba_medicolab" onKeyUp="this.value = this.value.toUpperCase();"  />
-						</div>
-					</div>
-<?php// echo date("Y-m-d")."T".date("H:i:s"); ?>
-<!--					<div class="col-md-6">
-						<label for="prueba_fecharecepcion" class="control-label">Fecha Recepción</label>
-						<div class="form-group">
-							<input type="text" name="prueba_fecharecepcion" value="<?php echo $this->input->post('prueba_fecharecepcion'); ?>" class="has-datetimepicker form-control" id="prueba_fecharecepcion" />
-                                                    <input type="datetime-local" name="prueba_fecharecepcion" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class="form-control" id="prueba_fecharecepcion" />
-						</div>
-					</div>-->
-					<div class="col-md-6">
-						<label for="prueba_procedencia" class="control-label">Procedencia</label>
-						<div class="form-group">
-							<input type="text" name="prueba_procedencia" value="N/A" class="form-control" id="prueba_procedencia" onKeyUp="this.value = this.value.toUpperCase();"  />
-						</div>
-					</div>
+
 					<div class="col-md-6">
 						<label for="prueba_fechainforme" class="control-label">Fecha Informe</label>
 						<div class="form-group">
                                                     <input type="datetime-local" name="prueba_fechainforme" value="<?php echo date("Y-m-d")."T".date("H:i:s"); ?>" class=" form-control" id="prueba_fechainforme" />
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<label for="prueba_medicolab" class="control-label">Medico/Laboratorio</label>
+						<div class="form-group">
+							<input type="text" name="prueba_medicolab" value="A.Q.C." class="form-control" id="prueba_medicolab" onKeyUp="this.value = this.value.toUpperCase();"  />
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<label for="prueba_procedencia" class="control-label">Procedencia</label>
+						<div class="form-group">
+							<input type="text" name="prueba_procedencia" value="N/A" class="form-control" id="prueba_procedencia" onKeyUp="this.value = this.value.toUpperCase();"  />
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -481,7 +458,7 @@ TEMPERATURA CORPORAL / BODY TEMPERATURE: 36.5 ºC
 PCR-TR COVID-19  NO DETECTADO / NOT DETECTED</textarea>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-12">
 						<label for="prueba_observacion" class="control-label">Observacion</label>
 						<div class="form-group">
 							<textarea name="prueba_observacion" class="form-control" id="prueba_observacion">

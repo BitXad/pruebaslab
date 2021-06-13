@@ -72,46 +72,118 @@ class Paciente extends CI_Controller{
     /*
      * Editing a paciente
      */
-    function edit($paciente_id)
+//    function edit($paciente_id)
+//    {   
+//        // check if the paciente exists before trying to edit it
+//        $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
+//        $data['usuario'] = $this->Usuario_model->get_usuario(1);
+//        if(isset($data['paciente']['paciente_id']))
+//        {
+//            if(isset($_POST) && count($_POST) > 0)     
+//            {   
+//                $params = array(
+//					'estado_id' => $this->input->post('estado_id'),
+//					'genero_id' => $this->input->post('genero_id'),
+//					'extencion_id' => $this->input->post('extencion_id'),
+//					'paciente_edad' => $this->input->post('paciente_edad'),
+//					'paciente_nombre' => $this->input->post('paciente_nombre'),
+//					'paciente_direccion' => $this->input->post('paciente_direccion'),
+//					'paciente_ci' => $this->input->post('paciente_ci'),
+//                );
+//
+//                $this->Paciente_model->update_paciente($paciente_id,$params);            
+//                redirect('paciente/index');
+//            }
+//            else
+//            {
+//				$this->load->model('Estado_model');
+//				$data['all_estado'] = $this->Estado_model->get_all_estado();
+//
+//				$this->load->model('Genero_model');
+//				$data['all_genero'] = $this->Genero_model->get_all_genero();
+//
+//				$this->load->model('Extencion_model');
+//				$data['all_extencion'] = $this->Extencion_model->get_all_extencion();
+//				$data['all_paciente'] = $this->Paciente_model->get_all_paciente();
+//
+//                $data['_view'] = 'paciente/edit';
+//                $this->load->view('layouts/main',$data);
+//            }
+//        }
+//        else
+//            show_error('The paciente you are trying to edit does not exist.');
+//    } 
+
+    function edit($origen,$paciente_id)
     {   
         // check if the paciente exists before trying to edit it
-        $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
-        $data['usuario'] = $this->Usuario_model->get_usuario(1);
-        if(isset($data['paciente']['paciente_id']))
-        {
-            if(isset($_POST) && count($_POST) > 0)     
-            {   
-                $params = array(
-					'estado_id' => $this->input->post('estado_id'),
-					'genero_id' => $this->input->post('genero_id'),
-					'extencion_id' => $this->input->post('extencion_id'),
-					'paciente_edad' => $this->input->post('paciente_edad'),
-					'paciente_nombre' => $this->input->post('paciente_nombre'),
-					'paciente_direccion' => $this->input->post('paciente_direccion'),
-					'paciente_ci' => $this->input->post('paciente_ci'),
-                );
 
-                $this->Paciente_model->update_paciente($paciente_id,$params);            
-                redirect('paciente/index');
+        /************************** CABECERA SESSION ************************************/            
+        if ($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            if($session_data['tipousuario_id']==1){        
+                $usuario_id = $session_data['usuario_id'];
+        /************************** CABECERA SESSION ************************************/           
+        
+                $data['paciente'] = $this->Paciente_model->get_paciente($paciente_id);
+                $data['origen'] = $origen;
+                
+                if(isset($data['paciente']['paciente_id']))
+                {
+                    if(isset($_POST) && count($_POST) > 0)     
+                    {   
+                        $params = array(
+                                'estado_id' => $this->input->post('estado_id'),
+                                'genero_id' => $this->input->post('genero_id'),
+                                'extencion_id' => $this->input->post('extencion_id'),
+                                'paciente_nombre' => $this->input->post('paciente_nombre'),
+                                'paciente_edad' => $this->input->post('paciente_edad'),
+                                'paciente_direccion' => $this->input->post('paciente_direccion'),
+                                'paciente_codigo' => $this->input->post('paciente_codigo'),
+                                'paciente_ci' => $this->input->post('paciente_ci'),
+                                'paciente_celular' => $this->input->post('paciente_celular'),
+                                'paciente_telefono' => $this->input->post('paciente_telefono'),
+                                'paciente_nit' => $this->input->post('paciente_nit'),
+                                'paciente_razon' => $this->input->post('paciente_razon'),
+                                'paciente_foto' => $this->input->post('paciente_foto'),
+                        );
+
+                        $this->Paciente_model->update_paciente($paciente_id,$params);
+                        //origen = 1 significa que viene de pruebas index
+                        //origen = 2 significa que viene de edit de paciente
+                        
+                        if ($origen==1) redirect('prueba/index');
+                        if ($origen==2) redirect('paciente/index');
+                        
+                    }
+                    else
+                    {
+                                        $this->load->model('Estado_model');
+                                        $data['all_estado'] = $this->Estado_model->get_all_estado();
+
+                                        $this->load->model('Genero_model');
+                                        $data['all_genero'] = $this->Genero_model->get_all_genero();
+
+                                        $this->load->model('Extencion_model');
+                                        $data['all_extencion'] = $this->Extencion_model->get_all_extencion();
+                                        
+                        $data['_view'] = 'paciente/edit';
+                        $this->load->view('layouts/main',$data);
+                    }
+                }
+                else
+                    show_error('The paciente you are trying to edit does not exist.');
+
+        /************************** FIN CABECERA SESSION ************************************/            
+                }else{
+                $url = base_url("login");
+                header("Location: .$url");
+                die();
             }
-            else
-            {
-				$this->load->model('Estado_model');
-				$data['all_estado'] = $this->Estado_model->get_all_estado();
-
-				$this->load->model('Genero_model');
-				$data['all_genero'] = $this->Genero_model->get_all_genero();
-
-				$this->load->model('Extencion_model');
-				$data['all_extencion'] = $this->Extencion_model->get_all_extencion();
-				$data['all_paciente'] = $this->Paciente_model->get_all_paciente();
-
-                $data['_view'] = 'paciente/edit';
-                $this->load->view('layouts/main',$data);
-            }
-        }
-        else
-            show_error('The paciente you are trying to edit does not exist.');
+        } else {redirect('login', 'refresh'); }            
+        /*************************** FIN CABECERA SESSION ***********************************/     
+                
+                
     } 
 
     /*

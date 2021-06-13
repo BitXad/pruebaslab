@@ -1,9 +1,16 @@
     
 <script type="text/javascript">
-    $(document).ready(function()
-    {
-        window.onload = window.print();
-    });
+//    $(document).ready(function()
+//    {
+//        window.onload = window.print();
+//    });
+
+function cerrar(){
+
+ventana=window.self;
+ventana.opener=window.self;
+ventana.close(); 
+}
 </script>
 <!----------------------------- script buscador --------------------------------------->
 <script src="<?php echo base_url('resources/js/jquery-2.2.3.min.js'); ?>" type="text/javascript"></script>
@@ -94,12 +101,12 @@ border-bottom : 1px solid #aaa;
             <tr>            
                 <td>
 
-                <h3><b><?php echo $prueba['paciente_nombre']; ?></b></h3><br>
-                <b>EDAD:</b> <?php echo $prueba['paciente_edad']; ?><br>
+                <h3><b><?php echo $prueba['paciente_nombre'].", ".$prueba['paciente_codigo'].": ".$prueba['paciente_ci']; ?><br></b></h3><br>
+                <b>EDAD:</b> <?php echo $prueba['paciente_edad']." AÑOS"; ?><br>
                 <b>GENERO:</b> <?php echo $prueba['genero_nombre']; ?><br>
-                <b>CÓDIGO:</b> <?php echo $prueba['prueba_codigo']; ?><br>
-                <b>REFERIDO:</b> <?php echo $prueba['prueba_fechainforme']; ?><br>        
-                <b>EXTRACCIÓN:</b> <?php echo $prueba['prueba_fechasolicitud']; ?><br>        
+                <b>CÓDIGO:</b> <?php echo $prueba['prueba_medicolab']; ?><br>
+                <b>REFERIDO:</b> <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i"); ?><br>        
+                <b>EXTRACCIÓN:</b> <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i"); ?><br>
                 </td>
             
             </tr>
@@ -140,18 +147,28 @@ border-bottom : 1px solid #aaa;
     </td>
 </tr>
 
-<tr style="height: <?php echo $alto; ?>">
+<tr>
     
     
-<td style="padding: 0; width: <?php echo $margen_izquierdo; ?>" > </td>
-<td style="padding: 0; text-align: left;">
-    
-                    <br>
-                        <img src="<?php echo $codigoqr; ?>" width="100" height="100">
-    
+    <td style="padding: 0; width: <?php echo $margen_izquierdo; ?>" > </td>
+    <td style="padding: 0; text-align: left;">
 
-</td>
+                        <br>
+                            <img src="<?php echo $codigoqr; ?>" width="100" height="100">
+
+    </td>
 
 </tr>    
 </table>
+</div>
+
+<div class="col-md-12">
+    <center>
+        <button class="btn btn-danger" onclick="window.close();"><fa class="fa fa-times"> </fa> Cerrar </button>
+        
+        <!--<br>-->
+        
+        <!--<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal" onclick="window.close();"><i class="fa fa-times"></i> Ceeeerrar</button>-->
+    </center>
+    
 </div>

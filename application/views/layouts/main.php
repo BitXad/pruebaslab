@@ -93,10 +93,12 @@
                         </div>
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
+                  <?php if ($session_data['usuario_id']>0) { ?>
+                    
                     <ul class="sidebar-menu">
                         <li class="header">PRINCIPAL</li>
                         <li>
-                            <a href="<?php echo base_url(); ?>">
+                            <a href="<?php echo base_url("dashboard"); ?>">
                                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                             </a>
                         </li>
@@ -322,8 +324,10 @@
                                 </li>
 							</ul>
                         </li>
-                    </ul>
 ------------------->
+                    </ul>
+                    
+                  <?php } ?>
                 </section>
                 <!-- /.sidebar -->
             </aside>

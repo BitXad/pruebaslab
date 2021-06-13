@@ -169,12 +169,21 @@ function cargar_datos(respuesta){
             html +="            <td> <img  src='"+base_url+"resources/img/"+p[i]['paciente_foto']+"' width='60' height='60' class='img img-circle'/></td>";
             html +="            <td style='white-space: nowrap'>";
             html +="            <font style='"+fuente+"'><b>"+p[i]['paciente_nombre']+"</b></font>";
+            html +="            <a href='"+base_url+"paciente/edit/1/"+p[i]['paciente_id']+"' class='btn btn-info btn-xs'><span class='fa fa-user' title='Modificar Paciente'></span> <span class='fa fa-pencil'></span> </a>" 
             html +="            <br>";
-            html +="            <b>C.I.: </b>"+p[i]['paciente_ci'];
+            html +="            <b>"+p[i]['paciente_codigo']+": </b>"+p[i]['paciente_ci'];
             html +="            <b>CODIGO: </b>"+p[i]['prueba_codigo'];
+            html +="            <br>";
+            html +="            <b>EDAD: </b>"+p[i]['paciente_edad'];
+            html +="            <b>GENERO: </b>"+p[i]['genero_nombre'];
             html +="            </td>";
                         
-            html +="            <td>"+p[i]['tipoprueba_descripcion']+"</td>";
+            html +="            <td>";
+            html +="            <center>";
+            html +="            <b>"+p[i]['tipoprueba_descripcion']+"</b><br>";
+            html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-block btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> Imprimir </a>";
+            html +="            <center>";
+            html +=        "</td>";
             html +="            <td style='white-space: nowrap'>";
             html +="            <b>SOLIC.:</b>";
                             
@@ -182,8 +191,8 @@ function cargar_datos(respuesta){
                                     html += formato_fecha(p[i]['prueba_fechasolicitud']);
                                 }
                                 
-//            html +="            <br>";
-//            html +="            <b>RECEPC.:</b>";
+            html +="            <br>";
+            html +="            <b>RECEPC.:</b>";
                             
                             if(p[i]['prueba_fecharecepcion']!=null){
                                 html += formato_fecha(p[i]['prueba_fecharecepcion']); 
@@ -198,6 +207,7 @@ function cargar_datos(respuesta){
                         
             html +="            <td>"+p[i]['prueba_procedencia']+"<br>"+p[i]['prueba_medicolab']+"</td>";
                         
+
             html +="            <td>";
             html +="            <b style='"+fuente+"'>"+formato_numerico(p[i]['prueba_precio'])+"</b>";
                         
@@ -222,8 +232,8 @@ function cargar_datos(respuesta){
             html +="            </td>";
                         
             html +="            <td style='white-space: nowrap; text-align: center;'>";
-            html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> </a>";
-            html +="            <a href='"+base_url+"prueba/edit/"+p[i]['prueba_id']+"' class='btn btn-info btn-xs' target='_blank' ><span class='fa fa-pencil' title='Modificar'></span> </a>" 
+//            html +="            <a href='"+base_url+"prueba/resultado/"+p[i]['prueba_id']+"' class='btn btn-facebook btn-xs' target='_blank' title='Imprimir Resultado'><span class='fa fa-vcard-o'></span> </a>";
+            html +="            <a href='"+base_url+"prueba/edit/"+p[i]['prueba_id']+"' class='btn btn-info btn-xs' title='Modificar prueba'><span class='fa fa-vcard-o'></span> <span class='fa fa-pencil'></span> </a>";
 //            html +="            <a href='"+base_url+"prueba/remove/'+p[i]['prueba_id']"+"' class='btn btn-danger btn-xs' target='_blank' ><span class='fa fa-trash' title='Eliminar'></span> </a>";
             if (p[i]['estado_id'] == 1)
                 html +="             <button class='btn btn-danger btn-xs' onclick='cargar_modal("+p[i]['prueba_id']+")'><fa class='fa fa-heartbeat'></fa> </button>";

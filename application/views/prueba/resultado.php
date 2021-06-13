@@ -83,12 +83,12 @@ border-bottom : 1px solid #aaa;
     </td>
     
     <td style="line-height: 15px;">
-        <?php echo $prueba['paciente_nombre']; ?><br>
+        <?php echo $prueba['paciente_nombre'].", ".$prueba['paciente_codigo'].": ".$prueba['paciente_ci']; ?><br>
         <?php echo $prueba['paciente_edad']." AÑOS"; ?><br>
         <?php echo $prueba['genero_nombre']; ?><br>
-        <?php echo $prueba['prueba_codigo']; ?><br>
-        <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i:s"); ?><br>        
-        <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i:s"); ?><br>        
+        <?php echo $prueba['prueba_medicolab']; ?><br>
+        <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i"); ?><br>        
+        <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i"); ?><br>        
 
     </td>
     
@@ -110,11 +110,11 @@ border-bottom : 1px solid #aaa;
         </h5>
         
         <h5  style="font-family: Arial;">
-                <b>MUESTRA: </b><?php echo $prueba['tipoprueba_descripcion']; ?><br>         
+                <b>MUESTRA: </b><?php echo  nl2br($prueba['tipoprueba_descripcion']); ?><br>         
         </h5>
 
         <h5  style="font-family: Arial;">
-                <b>RESULTADO: </b><?php echo $prueba['prueba_resultados']; ?><br>         
+                <b>RESULTADO: </b><?php echo  nl2br($prueba['prueba_resultados']); ?><br>         
         </h5>        
         <br>
         

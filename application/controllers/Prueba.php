@@ -13,7 +13,6 @@ class Prueba extends CI_Controller{
         $this->load->model('Paciente_model');
         $this->load->model('Genero_model');
         $this->load->model('Estado_model');
-        $this->load->library('ControlCode');
         
         $this->session_data = $this->session->userdata('logged_in');
     } 
@@ -308,10 +307,13 @@ class Prueba extends CI_Controller{
          $params['size'] = 5;
          //decimos el directorio a guardar el codigo qr, en este 
          //caso una carpeta en la raíz llamada qr_code
-         echo FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; 
-         $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         //$params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png';
          
-        //generamos el código qr
+         //echo FCPATH.'resources\images\qrcode'.$usuario_id.'.png';
+         //echo base_url().'resources\images\qrcode'.$usuario_id.'.png';
+         $params['savename'] = FCPATH.'resources/images/qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png';
+         
+         //generamos el código qr
          $this->ciqrcode->generate($params); 
          //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
         //fin generador de codigo QR        
@@ -335,10 +337,10 @@ class Prueba extends CI_Controller{
     function resultado_prueba($prueba_id){
         
         /************************** CABECERA SESSION ************************************/            
-        if ($this->session->userdata('logged_in')) {
-            $session_data = $this->session->userdata('logged_in');
-            if($session_data['tipousuario_id']==1){        
-                $usuario_id = $session_data['usuario_id'];
+        //if ($this->session->userdata('logged_in')) {
+          //  $session_data = $this->session->userdata('logged_in');
+            //if($session_data['tipousuario_id']==1){        
+               $usuario_id = 0;//$session_data['usuario_id'];
         /************************** CABECERA SESSION ************************************/    
         
 //        $config = $this->config->item('pagination');
@@ -351,7 +353,7 @@ class Prueba extends CI_Controller{
         $data['prueba'] = $pruebita;
         $data['usuario'] = $this->Usuario_model->get_usuario($usuario_id);
         
-   
+        //echo $usuario_id;
         //$cadenaQR = $pruebita['paciente_nombre']."|".;
         $cadenaQR = $pruebita['paciente_nombre']."|".$pruebita['tipoprueba_descripcion'].
                     "|".$pruebita['prueba_resultados']."|".
@@ -360,7 +362,7 @@ class Prueba extends CI_Controller{
         $this->load->helper('numeros_helper'); // Helper para convertir numeros a letras
         //Generador de Codigo QR
                 //cargamos la librería	
-         $this->load->library('ciqrcode');
+         $this->load->library('Ciqrcode');
                  
          //hacemos configuraciones
          $params['data'] = $cadenaQR;//$this->random(30);
@@ -368,7 +370,7 @@ class Prueba extends CI_Controller{
          $params['size'] = 5;
          //decimos el directorio a guardar el codigo qr, en este 
          //caso una carpeta en la raíz llamada qr_code
-         $params['savename'] = FCPATH.'resources\images\qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
+         $params['savename'] = FCPATH.'resources/images/qrcode'.$usuario_id.'.png'; //base_url('resources/images/qrcode.png'); //FCPATH.'resourcces\images\qrcode.png'; 
          //generamos el código qr
          $this->ciqrcode->generate($params); 
          //echo '<img src="'.base_url().'resources/images/qrcode.png" />';
@@ -380,12 +382,12 @@ class Prueba extends CI_Controller{
         $this->load->view('layouts/main',$data);        
         
         /************************** FIN CABECERA SESSION ************************************/            
-                }else{
-                $url = base_url("login");
-                header("Location: .$url");
-                die();
-            }
-        } else {redirect('login', 'refresh'); }            
+          //      }else{
+            //    $url = base_url("login");
+              //  header("Location: .$url");
+                //die();
+            //}
+        //} else {redirect('login', 'refresh'); }            
         /*************************** FIN CABECERA SESSION ***********************************/               
         
     }
@@ -417,12 +419,13 @@ class Prueba extends CI_Controller{
         
         $parametros = $this->input->post("parametros");
         
-        $sql = "select r.*, p.*, u.*, t.*, e.*
+        $sql = "select r.*, p.*, u.*, t.*, e.*, g.*
                 from prueba r
                 left join paciente p on p.paciente_id = r.paciente_id
                 left join usuario u on u.usuario_id = r.usuario_id
                 left join tipo_prueba t on t.tipoprueba_id = r.tipoprueba_id
                 left join estado e on e.estado_id = r.estado_id
+                left join genero g on g.genero_id  = p.genero_id
                 where ".$parametros.
                 " order by r.prueba_id desc";
         ///echo $sql;
