@@ -68,7 +68,7 @@ border-bottom : 1px solid #aaa;
 <!-------------------------------------------------------->
 <?php $tipo_factura = 15; //15 tamaño carta 
       $ancho = 10;
-      $alto = "15cm";
+      $alto = "0cm";
       $margen_izquierdo = "4.5cm";
 ?>
 
@@ -134,9 +134,9 @@ border-bottom : 1px solid #aaa;
                     <br>
                         <img src="<?php echo $codigoqr; ?>" width="100" height="100">
     
-
 </td>
 
 </tr>    
 </table>
+<?php //echo $cadenaqr; ?>
 </div>

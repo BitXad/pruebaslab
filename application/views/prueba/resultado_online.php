@@ -1,9 +1,9 @@
     
 <script type="text/javascript">
-//    $(document).ready(function()
-//    {
-//        window.onload = window.print();
-//    });
+    $(document).ready(function()
+    {
+        window.onload = window.print();
+    });
 
 function cerrar(){
 
@@ -74,9 +74,9 @@ border-bottom : 1px solid #aaa;
 
 <!-------------------------------------------------------->
 <?php $tipo_factura = 15; //15 tamaño carta 
-      $ancho = 10;
-      $alto = "15cm";
-      $margen_izquierdo = "4.5cm";
+      $ancho = "17cm";
+      $alto = "0cm";
+      $margen_izquierdo = "2cm";
 ?>
 
 <div class=" table-responsive" style="padding: 0; margin-top: 0;">
@@ -90,23 +90,54 @@ border-bottom : 1px solid #aaa;
     </td>
     
     
-    <td style="line-height: 15px;">
-        <table>
+    <td style="line-height: 15px; width: <?php echo $ancho; ?>">
+        <table style="width: <?php echo $ancho; ?>">
             <tr>
+                
                 <td>
                     <img src="<?php echo base_url("resources/img/logo.jpg"); ?>" width="200" height="70" >
                 </td>
+                <td>
+                    <center>
+                            <?php echo $empresa["empresa_nombre"]; ?>
+                            <br>Dirección: <?php echo $empresa["empresa_direccion"]; ?>
+                            <br>Teléfono: <?php echo $empresa["empresa_telefono"]; ?>
+                            <br>E-mail: <?php echo $empresa["empresa_email"]; ?>
+                            <br><?php echo $empresa["empresa_ubicacion"]; ?>
+                    </center>
+                </td>
+                
             </tr>
             
+            <tr>
+                <td colspan="2">
+                    <br>
+                        <center>
+                            <b style="font-family: Arial; font-size: 18pt;">RESULTADO PRUEBA COD. TC00<?php echo $prueba['prueba_id']; ?></b>
+                        </center>            
+                    
+                </td>
+            </tr>       
+            
             <tr>            
-                <td>
-
-                <h3><b><?php echo $prueba['paciente_nombre'].", ".$prueba['paciente_codigo'].": ".$prueba['paciente_ci']; ?><br></b></h3><br>
+                <td>                
+                    <br>
+                <b style="font-family: Arial; font-size: 12pt;">PACIENTE: <?php echo $prueba['paciente_nombre']; ?></b><br><br>
+                <b><?php echo $prueba['paciente_codigo'].": " ?> </b><?php echo $prueba['paciente_ci']; ?>
                 <b>EDAD:</b> <?php echo $prueba['paciente_edad']." AÑOS"; ?><br>
                 <b>GENERO:</b> <?php echo $prueba['genero_nombre']; ?><br>
                 <b>CÓDIGO:</b> <?php echo $prueba['prueba_medicolab']; ?><br>
                 <b>REFERIDO:</b> <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i"); ?><br>        
                 <b>EXTRACCIÓN:</b> <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i"); ?><br>
+                </td>
+                <td>
+                <center>
+                    <br>
+                    
+                         <img src="<?php echo $codigoqr; ?>" width="130" height="130">
+                    
+                </center>
+                    
                 </td>
             
             </tr>
@@ -119,10 +150,13 @@ border-bottom : 1px solid #aaa;
     
 <tr>
     
-    <td style="padding: 0; width: <?php echo "1.5cm"; ?>">
+<!--    <td style="padding: 0; width: <?php echo "1.5cm"; ?>">
        
+    </td>-->
+    <td style="padding: 0; width: <?php echo $margen_izquierdo; ?>">
+        
     </td>
-    <td>
+    <td style="width: <?php echo $ancho; ?>">
         <h3  style="font-family: Arial;">
             <?php echo $prueba['prueba_nombreanalisis']; ?><br> 
         </h3>
@@ -132,11 +166,11 @@ border-bottom : 1px solid #aaa;
         </h5>
         
         <h5  style="font-family: Arial;">
-                <b>MUESTRA: </b><?php echo $prueba['tipoprueba_descripcion']; ?><br>         
+                <b>MUESTRA: </b><?php echo  nl2br($prueba['tipoprueba_descripcion']); ?><br>         
         </h5>
 
         <h5  style="font-family: Arial;">
-                <b>RESULTADO: </b><?php echo $prueba['prueba_resultados']; ?><br>         
+                <b>RESULTADO: </b><?php echo  nl2br($prueba['prueba_resultados']); ?><br>         
         </h5>        
         <br>
         
@@ -147,7 +181,7 @@ border-bottom : 1px solid #aaa;
     </td>
 </tr>
 
-<tr>
+<!--<tr>
     
     
     <td style="padding: 0; width: <?php echo $margen_izquierdo; ?>" > </td>
@@ -158,11 +192,12 @@ border-bottom : 1px solid #aaa;
 
     </td>
 
-</tr>    
+</tr>    -->
 </table>
+    
 </div>
 
-<div class="col-md-12">
+<div class="col-md-12 no-print">
     <center>
         <button class="btn btn-danger" onclick="window.close();"><fa class="fa fa-times"> </fa> Cerrar </button>
         
