@@ -1,27 +1,10 @@
-﻿# SQL Manager 2010 for MySQL 4.5.0.9
-# ---------------------------------------
-# Host     : localhost
-# Port     : 3306
-# Database : baselab
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES latin1 */;
-
-SET FOREIGN_KEY_CHECKS=0;
-
-#
-# Structure for the `categoria_egreso` table : 
-#
-
+﻿
 CREATE TABLE `categoria_egreso` (
   `id_categr` int(11) NOT NULL AUTO_INCREMENT,
   `categoria_categr` varchar(50) NOT NULL,
   `descrip_categr` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_categr`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `categoria_ingreso` table : 
@@ -32,7 +15,7 @@ CREATE TABLE `categoria_ingreso` (
   `categoria_cating` varchar(50) NOT NULL,
   `descrip_cating` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_cating`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `ci_session` table : 
@@ -70,7 +53,7 @@ CREATE TABLE `dosificacion` (
   `dosificacion_actividad` varchar(250) DEFAULT NULL,
   `dosificasion_actividadsec` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`dosificacion_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `egresos` table : 
@@ -88,7 +71,7 @@ CREATE TABLE `egresos` (
   `egreso_fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `egreso_tc` double DEFAULT NULL,
   PRIMARY KEY (`egreso_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `empresa` table : 
@@ -114,7 +97,7 @@ CREATE TABLE `empresa` (
   `empresa_longitud` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`empresa_id`),
   UNIQUE KEY `empresa_id` (`empresa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `estado` table : 
@@ -127,7 +110,7 @@ CREATE TABLE `estado` (
   `estado_color` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`estado_id`),
   UNIQUE KEY `estado_id` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `extencion` table : 
@@ -138,7 +121,7 @@ CREATE TABLE `extencion` (
   `extencion_descripcion` longtext DEFAULT NULL,
   PRIMARY KEY (`extencion_id`),
   UNIQUE KEY `extencion_id` (`extencion_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `factura` table : 
@@ -180,7 +163,7 @@ CREATE TABLE `factura` (
   PRIMARY KEY (`factura_id`),
   KEY `venta_id` (`venta_id`,`estado_id`),
   KEY `factura_fk` (`estado_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=623 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `genero` table : 
@@ -191,7 +174,7 @@ CREATE TABLE `genero` (
   `genero_nombre` longtext DEFAULT NULL,
   PRIMARY KEY (`genero_id`),
   UNIQUE KEY `genero_id` (`genero_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `ingresos` table : 
@@ -209,7 +192,7 @@ CREATE TABLE `ingresos` (
   `ingreso_fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `ingreso_tc` float DEFAULT NULL,
   PRIMARY KEY (`ingreso_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `licencia` table : 
@@ -222,7 +205,7 @@ CREATE TABLE `licencia` (
   `licencia_llave` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`licencia_id`),
   UNIQUE KEY `licencia_id` (`licencia_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `moneda` table : 
@@ -234,7 +217,7 @@ CREATE TABLE `moneda` (
   `moneda_descripcion` varchar(50) DEFAULT NULL,
   `moneda_tc` float DEFAULT NULL,
   PRIMARY KEY (`moneda_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `paciente` table : 
@@ -260,7 +243,7 @@ CREATE TABLE `paciente` (
   KEY `fk_estado_paciente` (`estado_id`),
   KEY `fk_extencion_ci` (`extencion_id`),
   KEY `fk_genero_paciente` (`genero_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `parametros` table : 
@@ -311,7 +294,7 @@ CREATE TABLE `parametros` (
   `moneda_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`parametro_id`),
   UNIQUE KEY `parametro_id` (`parametro_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `prueba` table : 
@@ -344,7 +327,7 @@ CREATE TABLE `prueba` (
   KEY `fk_prueba_paciente` (`paciente_id`),
   KEY `fk_prueba_usuario` (`usuario_id`),
   KEY `fk_tipo_prueba` (`tipoprueba_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `rol_usuario` table : 
@@ -356,7 +339,7 @@ CREATE TABLE `rol_usuario` (
   `rol_id` int(11) NOT NULL,
   `rolusuario_asignado` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_rol_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=1345 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `tipo_prueba` table : 
@@ -368,7 +351,7 @@ CREATE TABLE `tipo_prueba` (
   `tipoprueba_precio` float DEFAULT NULL,
   PRIMARY KEY (`tipoprueba_id`),
   UNIQUE KEY `tipoprueba_id` (`tipoprueba_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Structure for the `tipo_usuario` table : 
@@ -378,7 +361,7 @@ CREATE TABLE `tipo_usuario` (
   `tipousuario_id` int(11) NOT NULL AUTO_INCREMENT,
   `tipousuario_descripcion` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`tipousuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Structure for the `usuario` table : 
@@ -395,7 +378,7 @@ CREATE TABLE `usuario` (
   `usuario_imagen` varchar(250) DEFAULT NULL,
   `parametro_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`usuario_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 #
 # Data for the `categoria_egreso` table  (LIMIT 0,500)
@@ -3454,9 +3437,3 @@ INSERT INTO `usuario` (`usuario_id`, `estado_id`, `tipousuario_id`, `usuario_nom
   (4,1,4,'IVAN GONZALES','ivan@micorreo.com','ramon','1b3231655cebb7a1f783eddf27d254ca','1621466112.jpg',1),
   (5,1,4,'ALEJANDRO LOPEZ','alejandro@micorreo.com','ñoño','1b3231655cebb7a1f783eddf27d254ca','1621466103.jpg',1);
 COMMIT;
-
-
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

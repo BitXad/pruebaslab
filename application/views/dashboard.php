@@ -455,9 +455,16 @@
                             <td><?php echo $p["estado_descripcion"]; ?></td>                            
                         </tr>
                   
+                        
                   
-                    <?php } ?>
+                    <?php 
+                        if ($i == 16){
+                            $mensaje = "Total pruebas registradas: ".($i+1);
+                            break;
+                        }
+                    } ?>
                     </table>
+                  <font face="Arial"><b><?php echo $mensaje; ?></b></font>
               </div>
             </div>
  </section>

@@ -228,7 +228,7 @@ class Verificar extends CI_Controller
     {
         $this->load->model('empresa_model');
         $result = $this->empresa_model->get_empresa(1);
-        return  $result[0]['empresa_codigo'];
+        return $result['empresa_codigo'];
     }
 
 

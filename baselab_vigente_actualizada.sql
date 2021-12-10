@@ -1835,9 +1835,3 @@ INSERT INTO `usuario` (`usuario_id`, `estado_id`, `tipousuario_id`, `usuario_nom
   (4,1,4,'IVAN GONZALES','ivan@micorreo.com','ramon','1b3231655cebb7a1f783eddf27d254ca','default.jpg',1),
   (5,1,4,'ALEJANDRO LOPEZ','alejandro@micorreo.com','ñoño','1b3231655cebb7a1f783eddf27d254ca','default.jpg',1);
 COMMIT;
-
-
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

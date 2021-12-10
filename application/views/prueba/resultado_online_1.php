@@ -74,14 +74,14 @@ border-bottom : 1px solid #aaa;
 
 <!-------------------------------------------------------->
 <?php $tipo_factura = 15; //15 tamaño carta 
-      $ancho = "8cm";
+      $ancho = "17cm";
       $alto = "0cm";
       $margen_izquierdo = "2cm";
 ?>
 
-<div class=" table-responsive" style="padding: 0; margin-top: 0; background-color: white;" >
+<div class=" table-responsive" style="padding: 0; margin-top: 0;">
     
-<table class="table" style="padding:0; max-width: <?php echo $ancho; ?>" >
+<table class="table" style="padding:0;">
     
     
 <tr>
@@ -93,21 +93,11 @@ border-bottom : 1px solid #aaa;
     <td style="line-height: 15px; width: <?php echo $ancho; ?>">
         <table style="width: <?php echo $ancho; ?>">
             <tr>
-                <td colspan="2">
-                 <center>
-                    <img src="<?php echo base_url("resources/img/logo.jpg"); ?>" width="200" height="70" >                
-                </center>
                 
-                </td>
-            </tr>
-                
-            <tr>
-                
-<!--                
                 <td>
                     <img src="<?php echo base_url("resources/img/logo.jpg"); ?>" width="200" height="70" >
-                </td>-->
-            <td colspan="2">
+                </td>
+                <td>
                     <center>
                             <?php echo $empresa["empresa_nombre"]; ?>
                             <br>Dirección: <?php echo $empresa["empresa_direccion"]; ?>
@@ -133,15 +123,14 @@ border-bottom : 1px solid #aaa;
                 <td>                
                     <br>
                 <b style="font-family: Arial; font-size: 12pt;">PACIENTE: <?php echo $prueba['paciente_nombre']; ?></b><br><br>
-                <b><?php echo $prueba['paciente_codigo'].": " ?> </b><?php echo $prueba['paciente_ci']; ?><br>
+                <b><?php echo $prueba['paciente_codigo'].": " ?> </b><?php echo $prueba['paciente_ci']; ?>
                 <b>EDAD:</b> <?php echo $prueba['paciente_edad']." AÑOS"; ?><br>
                 <b>GENERO:</b> <?php echo $prueba['genero_nombre']; ?><br>
                 <b>CÓDIGO:</b> <?php echo $prueba['prueba_medicolab']; ?><br>
                 <b>REFERIDO:</b> <?php echo date_format(date_create($prueba['prueba_fechainforme']),"d/m/Y H:i"); ?><br>        
                 <b>EXTRACCIÓN:</b> <?php echo date_format(date_create($prueba['prueba_fechasolicitud']),"d/m/Y H:i"); ?><br>
                 </td>
-                
-<!--                <td>
+                <td>
                 <center>
                     <br>
                     
@@ -150,12 +139,11 @@ border-bottom : 1px solid #aaa;
                 </center>
                     
                 </td>
-            -->
+            
             </tr>
         </table>
 
     </td>
-    
     
 </tr>
 
@@ -191,41 +179,19 @@ border-bottom : 1px solid #aaa;
         </h6>
         
     </td>
-    
 </tr>
 
 <tr>
-        <td>
-            
-        </td>   
-        <td>
-            <center>
-                    <br>
-
-                    <img src="<?php echo $codigoqr; ?>" width="130" height="130"><img src="<?php echo base_url("resources/img/firma.jpg"); ?>" width="180" height="150" >
-
-            </center>
-        </td>
-<!--        <td>
-                <div style="text-align: right;">
-                    <img src="<?php echo base_url("resources/img/firma.jpg"); ?>" width="200" height="150" >            
-
-                </div>
-            
-        </td>
-        -->
-</tr>
-<!--<tr>
     
     
     <td style="padding: 0; width: <?php echo $margen_izquierdo; ?>" > </td>
-    <td style="padding: 0; text-align: left;">
+    <td style="padding: 0; text-align: center;">
 
-            <img src="<?php echo base_url("resources/img/firma.jpg"); ?>" width="30%" height="30%" >
+            <img src="<?php echo $codigoqr; ?>" width="100" height="100">
 
     </td>
 
-</tr>-->
+</tr>
 
 <!--<tr>
     
